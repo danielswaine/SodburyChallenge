@@ -2,23 +2,24 @@ require 'test_helper'
 
 class StaticPagesControllerTest < ActionController::TestCase
 
+
   getCurrentYear = Date.current.year
 
   test "should get home" do
     get :home
     assert_response :success
-    assert_select "title", "Home | Sodbury Challenge #{getCurrentYear}"
+    assert_select "title", "Sodbury Challenge #{getCurrentYear}"
   end
 
   test "should get about" do
     get :about
     assert_response :success
-    assert_select "title", "About | Sodbury Challenge #{getCurrentYear}"
+    assert_select "title", "About - Sodbury Challenge #{getCurrentYear}"
   end
 
   test "should get help" do
     get :help
     assert_response :success
-    assert_select "title", "Help | Sodbury Challenge #{getCurrentYear}"
+    assert_select "title", "Help - Sodbury Challenge #{getCurrentYear}"
   end
 end
