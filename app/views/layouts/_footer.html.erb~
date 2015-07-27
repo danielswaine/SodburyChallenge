@@ -1,8 +1,8 @@
 <footer>
-  <p class="left">
+  <p>
     Sodbury Challenge <%= Date.current.year %>
   </p>
-  <nav class="right">
+  <nav>
     <ul>
       <li><%= link_to "Home",    root_path   %></li>
       <li><%= link_to "About",   about_path  %></li>
