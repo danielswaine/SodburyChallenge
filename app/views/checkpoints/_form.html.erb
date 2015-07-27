@@ -1,0 +1,35 @@
+<%= form_for(@checkpoint) do |f| %>
+  <% if @checkpoint.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@checkpoint.errors.count, "error") %> prohibited this checkpoint from being saved:</h2>
+
+      <ul>
+      <% @checkpoint.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :CheckpointID, "ID" %><br>
+    <%= f.number_field :CheckpointID %>
+  </div>
+  <div class="field">
+    <%= f.label :GridReference, "Grid Reference" %><br>
+    <%= f.text_field :GridReference %>
+  </div>
+  <div class="field">
+    <%= f.label :CheckpointDescription, "Description" %><br>
+    <%= f.text_field :CheckpointDescription %>
+  </div>
+  <div class="actions">
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.submit :class=>'btn btn-primary' %>
+        <br>
+      </div>
+    </div>
+
+  </div>
+<% end %>

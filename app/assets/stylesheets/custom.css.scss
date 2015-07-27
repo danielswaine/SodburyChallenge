@@ -20,6 +20,10 @@ $gray-medium-light: #eaeaea;
 }
 
 /* universal */
+a {
+
+  &:hover{text-decoration: none;}
+}
 .left{float:left}
 .right{float:right}
 body {
@@ -72,7 +76,7 @@ p {
 
 #logo {
   float: left;
-  margin-right: 10px;
+  margin:0 10px 0 0;
   font-size: 1.7em;
   color: #fff;
   text-transform: uppercase;

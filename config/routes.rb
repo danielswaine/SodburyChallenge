@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :checkpoints
   get 'sessions/new'
 
   get 'users/new'
