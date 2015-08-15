@@ -23,32 +23,34 @@ class CheckpointsController < ApplicationController
   def create
     @checkpoint = Checkpoint.new(checkpoint_params)
 
-    respond_to do |format|
-      if @checkpoint.save
-        format.html { redirect_to @checkpoint, notice: 'Checkpoint was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @checkpoint.save
+      flash[:success] = "Checkpoint sucessfully created"
+      redirect_to @checkpoint
+    else
+      render 'new'
     end
+
   end
 
   # PATCH/PUT /checkpoints/1
   def update
-    respond_to do |format|
-      if @checkpoint.update(checkpoint_params)
-        format.html { redirect_to @checkpoint, notice: 'Checkpoint was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+
+    if @checkpoint.update(checkpoint_params)
+      flash[:success] = "Checkpoint successfully updated"
+      redirect_to @checkpoint
+    else
+      render 'edit'
     end
+
   end
 
   # DELETE /checkpoints/1
   def destroy
+
     @checkpoint.destroy
-    respond_to do |format|
-      format.html { redirect_to checkpoints_url, notice: 'Checkpoint was successfully destroyed.' }
-    end
+    flash[:success] = "Checkpoint successfully deleted"
+    redirect_to checkpoints_url
+
   end
 
   private

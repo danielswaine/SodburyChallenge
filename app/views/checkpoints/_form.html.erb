@@ -1,15 +1,7 @@
 <%= form_for(@checkpoint) do |f| %>
-  <% if @checkpoint.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@checkpoint.errors.count, "error") %> prohibited this checkpoint from being saved:</h2>
 
-      <ul>
-      <% @checkpoint.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/checkpoint_error_messages' %>
+
 
   <div class="field">
     <%= f.label :CheckpointID, "ID" %><br>
