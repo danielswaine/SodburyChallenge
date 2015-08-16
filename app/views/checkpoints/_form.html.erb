@@ -1,6 +1,6 @@
 <%= form_for(@checkpoint) do |f| %>
 
-  <%= render 'shared/checkpoint_error_messages' %>
+  <%= render 'shared/error_messages', object: f.object %>
 
 
   <div class="field">
