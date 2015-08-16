@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727201832) do
+ActiveRecord::Schema.define(version: 20150816182801) do
 
   create_table "checkpoints", force: :cascade do |t|
     t.integer  "CheckpointID"
@@ -19,6 +19,21 @@ ActiveRecord::Schema.define(version: 20150727201832) do
     t.string   "CheckpointDescription"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.integer  "team_number"
+    t.string   "name"
+    t.integer  "route_id"
+    t.integer  "score"
+    t.datetime "start_time"
+    t.datetime "due_end_time"
+    t.datetime "end_time"
+    t.datetime "due_phone_in_time"
+    t.datetime "phone_in_time"
+    t.datetime "team_year"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "users", force: :cascade do |t|

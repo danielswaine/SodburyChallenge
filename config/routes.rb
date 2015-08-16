@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :teams
+  get 'teams/new'
+
+  get 'teams/create'
+
   resources :checkpoints
   get 'sessions/new'
 

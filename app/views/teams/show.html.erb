@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Team number:</strong>
+  <%= @team.team_number %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @team.name %>
+</p>
+
+<p>
+  <strong>Route:</strong>
+  <%= @team.route_id %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @team.score %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @team.start_time %>
+</p>
+
+<p>
+  <strong>Due end time:</strong>
+  <%= @team.due_end_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @team.end_time %>
+</p>
+
+<p>
+  <strong>Due phone in time:</strong>
+  <%= @team.due_phone_in_time %>
+</p>
+
+<p>
+  <strong>Phone in time:</strong>
+  <%= @team.phone_in_time %>
+</p>
+
+<p>
+  <strong>Team year:</strong>
+  <%= @team.team_year %>
+</p>
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>
