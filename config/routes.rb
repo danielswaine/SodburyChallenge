@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'teams/create'
 
   resources :checkpoints
+
   get 'sessions/new'
 
   get 'users/new'

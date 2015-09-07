@@ -4,6 +4,16 @@ class CheckpointsController < ApplicationController
   # GET /checkpoints
   def index
     @checkpoints = Checkpoint.all
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "This is generated PDF."
+        send_data pdf.render, filename: 'MasterList.pdf', type: "application/pdf"
+      end
+    end
+
   end
 
   # GET /checkpoints/1
