@@ -8,9 +8,8 @@ class CheckpointsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = Prawn::Document.new
-        pdf.text "This is generated PDF."
-        send_data pdf.render, filename: 'MasterList.pdf', type: "application/pdf"
+        pdf = CheckpointPdf.new
+        send_data pdf.render, filename: 'MasterList.pdf', type: "application/pdf", :disposition => 'inline'
       end
     end
 

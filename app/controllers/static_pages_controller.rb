@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
 
   def home
+    @teams = Team.all
   end
 
   def help

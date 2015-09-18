@@ -1,9 +1,30 @@
 <div class="center jumbotron">
-  <h1>Sodbury Challenge <%= Date.current.year %></h1>
 
-  <h2>
-    This is the home page for the app
-  </h2>
+  <h1>Official Start Times</h1>
+  <p>PLEASE ARRIVE 45 MINUTES BEFORE YOUR START TIME FOR CHECK-IN, INSPECTION AND ROUTE PLANNING.</p>
+  <h2class="text-center">PLEASE NOTE: THE ACTUAL FINISH TIME COULD BE UP TO 30 MINUTES AFTER THE EXPECTED FINISH TIME. ALL TIMES SUBJECT TO CHANGE.</h2>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
 </div>
+<%= link_to "Print", '#', class: "btn btn-primary", onclick: 'window.print();return false;' %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Team Number</th>
+      <th>Name</th>
+      <th>Start Time</th>
+      <th>Due Finish Time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.team_number %></td>
+        <td><%= team.name %></td>
+        <td><%= team.start_time %></td>
+        <td><%= team.due_end_time %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
