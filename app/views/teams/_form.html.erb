@@ -12,46 +12,46 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :team_number %><br>
-    <%= f.number_field :team_number %>
+    <%= f.label :team_number, "Team Number" %><br>
+    <%= f.number_field :team_number, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label :name, "Team Name" %><br>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :route_id %><br>
-    <%= f.number_field :route_id %>
+    <%= f.number_field :route_id, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :score %><br>
-    <%= f.number_field :score %>
+    <%= f.number_field :score, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :start_time %><br>
-    <%= f.datetime_select :start_time %>
+    <%= f.label :start_time, "Start Time" %><br>
+    <%= f.datetime_select :start_time, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :due_end_time %><br>
-    <%= f.datetime_select :due_end_time %>
+    <%= f.label :due_end_time, "Expected Finish Time" %><br>
+    <%= f.datetime_select :due_end_time, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :end_time %><br>
-    <%= f.datetime_select :end_time %>
+    <%= f.label :end_time, "Actual Finish Time" %><br>
+    <%= f.datetime_select :end_time, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :due_phone_in_time %><br>
-    <%= f.datetime_select :due_phone_in_time %>
+    <%= f.label :due_phone_in_time, "Due Phone in Time" %><br>
+    <%= f.datetime_select :due_phone_in_time, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :phone_in_time %><br>
-    <%= f.datetime_select :phone_in_time %>
+    <%= f.label :phone_in_time, "Actual Phone in Time" %><br>
+    <%= f.datetime_select :phone_in_time, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :team_year %><br>
-    <%= f.datetime_select :team_year %>
+    <%= f.label :team_year, "Team Year" %><br>
+    <%= f.datetime_select :team_year, { ampm: true, order: [:year] }, class: 'form-control' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn btn-primary' %>
   </div>
 <% end %>
