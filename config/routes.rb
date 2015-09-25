@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'teams/create'
 
   resources :checkpoints
-
+  get 'generate' => 'checkpoints#download_pdf_master'
   get 'sessions/new'
 
   get 'users/new'

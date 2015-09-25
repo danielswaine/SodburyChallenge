@@ -1,18 +1,18 @@
+require "prawn"
+
 class CheckpointsController < ApplicationController
   before_action :set_checkpoint, only: [:show, :edit, :update, :destroy]
+  #before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+
+  # download PDF
+  def download_pdf_master
+    @checkpoints = Checkpoint.all
+    send_data generate_pdf(@checkpoints), filename: "MasterList_#{Date.current}.pdf", type: "application/pdf", :disposition => "inline"
+  end
 
   # GET /checkpoints
   def index
     @checkpoints = Checkpoint.all
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = CheckpointPdf.new
-        send_data pdf.render, filename: 'MasterList.pdf', type: "application/pdf", :disposition => 'inline'
-      end
-    end
-
   end
 
   # GET /checkpoints/1
@@ -72,4 +72,26 @@ class CheckpointsController < ApplicationController
     def checkpoint_params
       params.require(:checkpoint).permit(:CheckpointID, :GridReference, :CheckpointDescription)
     end
+
+    # Confirms a logged-in user.
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    def generate_pdf(checkpoints)
+        Prawn::Document.new do
+          @checkpoints = checkpoints
+          text "Master Checkpoint List", :align =>:center, :size => 25
+          text "Exported on #{Time.now}", :align =>:center, :size => 10
+
+          @checkpoints.map do |checkpoint|
+                [checkpoint.CheckpointID]
+          end
+        end.render
+    end
+
 end
