@@ -1,3 +1,7 @@
+### Sodbury Challenge App
+
+All in one for managing teams, start times and scoring.
+
 ## Sections
 
 1. Junior (5 hours)
