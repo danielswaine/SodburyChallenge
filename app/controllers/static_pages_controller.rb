@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
     @teams = Team.all
   end
 
-  def help
+  def rules
   end
 
   def about
