@@ -93,6 +93,16 @@ ol li {
     text-decoration: none;
   }
 }
+#clock {
+  display: inline-block;
+  min-width: 40px;
+  text-align: right;
+}
+#official-time {
+  &:hover {
+    color: $gray-light;
+  }
+}
 
 // Footer
 footer {
