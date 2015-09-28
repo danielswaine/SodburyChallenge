@@ -1,16 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* Variables */
+// Variables
 $gray-medium-light: #eaeaea;
-
 @mixin box_sizing {
-  -moz-box-sizing:    border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+  box-sizing: border-box;
 }
 
-/* miscellaneous */
+// Miscellaneous
 .debug_dump {
   clear: both;
   float: left;
@@ -19,45 +18,49 @@ $gray-medium-light: #eaeaea;
   @include box_sizing;
 }
 
-/* universal */
+// Universal
 a {
-
-  &:hover{text-decoration: none;}
+  &:hover {
+    text-decoration: none;
+  }
 }
-.left{float:left}
-.right{float:right}
 body {
   padding-top: 60px;
 }
-
 section {
   overflow: auto;
 }
-
 textarea {
   resize: vertical;
 }
-
 .center {
   text-align: center;
   h1 {
     margin-bottom: 10px;
   }
 }
-
-/* typography */
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
+.left {
+  float: left;
+}
+.right {
+  float: right;
 }
 
+// Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+}
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
 }
-
 h2 {
   font-size: 1.2em;
   letter-spacing: -1px;
@@ -66,14 +69,16 @@ h2 {
   font-weight: normal;
   color: $gray-light;
 }
-
 p {
   font-size: 1.2em;
   line-height: 1.7em;
 }
-ol li{padding-bottom:10px;font-size:1.2em}
-/* header */
+ol li {
+  padding-bottom: 10px;
+  font-size: 1.2em;
+}
 
+// Header
 #logo {
   float: left;
   margin:0 10px 0 0;
@@ -89,8 +94,7 @@ ol li{padding-bottom:10px;font-size:1.2em}
   }
 }
 
-/* footer */
-
+// Footer
 footer {
   margin-top: 45px;
   padding-top: 5px;
@@ -115,8 +119,7 @@ footer {
   }
 }
 
-/* sidebar */
-
+// Sidebar
 aside {
   section.user_info {
     margin-top: 20px;
@@ -143,6 +146,7 @@ aside {
   }
 }
 
+// Gravatar
 .gravatar {
   float: left;
   margin-right: 10px;
@@ -152,19 +156,19 @@ aside {
   margin-top: 15px;
 }
 
-/* forms */
-
-input, textarea, select, .uneditable-input {
+// Forms
+input,
+textarea,
+select,
+.uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
 }
-
 input {
   height: auto !important;
 }
-
 #error_explanation {
   color: red;
   ul {
@@ -172,14 +176,12 @@ input {
     margin: 0 0 30px 0;
   }
 }
-
 .field_with_errors {
   @extend .has-error;
   .form-control {
     color: $state-danger-text;
   }
 }
-
 .checkbox {
   margin-top: -10px;
   margin-bottom: 10px;
@@ -188,20 +190,7 @@ input {
     font-weight: normal;
   }
 }
-
 #session_remember_me {
   width: auto;
   margin-left: 0;
-}
-
-/* Users index */
-
-.users {
-  list-style: none;
-  margin: 0;
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-bottom: 1px solid $gray-lighter;
-  }
 }
