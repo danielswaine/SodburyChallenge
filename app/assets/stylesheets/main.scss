@@ -17,6 +17,10 @@ $gray-medium-light: #eaeaea;
   margin-top: 45px;
   @include box_sizing;
 }
+.panel-body {
+  font-size: 1.2em;
+  line-height: 1.7em;
+}
 
 // Universal
 a {
@@ -31,6 +35,8 @@ section {
   overflow: auto;
 }
 textarea {
+  height: 140px;
+  min-height: 140px;
   resize: vertical;
 }
 .center {
@@ -47,27 +53,10 @@ textarea {
 }
 
 // Typography
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  line-height: 1;
-}
 h1 {
   font-size: 3em;
-  letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-}
-h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: $gray-light;
 }
 p {
   font-size: 1.2em;
@@ -76,6 +65,7 @@ p {
 ol li {
   padding-bottom: 10px;
   font-size: 1.2em;
+  line-height: 1.7em;
 }
 
 // Header
@@ -85,7 +75,6 @@ ol li {
   font-size: 1.7em;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
   &:hover {
@@ -170,9 +159,9 @@ input {
   height: auto !important;
 }
 #error_explanation {
-  color: red;
+  color: $state-danger-text;
   ul {
-    color: red;
+    color: $state-danger-text;
     margin: 0 0 30px 0;
   }
 }
@@ -192,8 +181,4 @@ input {
 }
 .vspace {
   margin-top: 18px;
-}
-#session_remember_me {
-  width: auto;
-  margin-left: 0;
 }
