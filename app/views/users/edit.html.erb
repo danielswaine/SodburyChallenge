@@ -1,10 +1,14 @@
 <% provide(:title, "Manage Your Account") %>
 
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <p>Update your name, email address and password.</p>
-    <%= form_for(@user) do |f| %>
+  </div>
+</div>
+
+<%= form_for(@user) do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
@@ -18,8 +22,14 @@
 
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
-
-      <%= f.submit "Save Changes", class: "btn btn-primary" %>
-    <% end %>
+    </div>
   </div>
-</div>
+  <div class="row vspace">
+    <div class="col-md-3 col-md-offset-3">
+      <%= link_to "Back", users_path, class: "btn btn-group-justified btn-default" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "Save Changes", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
