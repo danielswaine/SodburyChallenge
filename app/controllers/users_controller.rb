@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :user_logged_in?
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :correct_user?, only: [:edit, :update]
+  before_action :check_not_self, only: [:destroy]
 
   def index
     @users = User.all
@@ -44,12 +45,18 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def find_user
       @user = User.find(params[:id])
+    end
+
+    def check_not_self
+      if current_user? @user
+        flash[:danger] = "You cannot remove yourself."
+        redirect_to users_path
+      end
     end
 
     def user_logged_in?
@@ -61,8 +68,10 @@ class UsersController < ApplicationController
     end
 
     def correct_user?
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      unless current_user? @user
+        flash[:danger] = "You can only edit your own account."
+        redirect_to users_url
+      end
     end
 
 end
