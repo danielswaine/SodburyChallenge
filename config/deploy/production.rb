@@ -61,7 +61,7 @@ server '178.62.20.90', user: 'dan', roles: %w{app db web}, primary: true
 #     # password: 'please use keys'
 #   }
 
-set :ssh_options {
+set :ssh_options, {
   forward_agent: true,
   paranoid: true,
   keys: %w{~/.ssh/id_rsa}
