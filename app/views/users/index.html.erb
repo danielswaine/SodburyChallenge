@@ -1,9 +1,32 @@
-<% provide(:title, 'All users') %>
+<% provide(:title, 'Manage App Users') %>
 
-<%= will_paginate %>
+<div class="row">
+  <div class="col-md-12">
+    <p>App users can manage the list of checkpoints, routes and teams. They can
+    also submit scores and add and remove other users.</p>
+  </div>
+</div>
 
-<ul class="users">
-  <%= render @users %>
-</ul>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email Address</th>
+          <th>Account Created</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @users %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<%= will_paginate %>
+<div class="row">
+  <div class="col-md-2">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New User"), new_user_path, :class=>'btn btn-block btn-success' %>
+  </div>
+</div>

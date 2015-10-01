@@ -1,30 +1,55 @@
-<div class="center jumbotron">
-
+<div class="jumbotron center">
   <h1>Official Start Times</h1>
-  <p>PLEASE ARRIVE 45 MINUTES BEFORE YOUR START TIME FOR CHECK-IN, INSPECTION AND ROUTE PLANNING.</p>
-  <h2class="text-center">PLEASE NOTE: THE ACTUAL FINISH TIME COULD BE UP TO 30 MINUTES AFTER THE EXPECTED FINISH TIME. ALL TIMES SUBJECT TO CHANGE.</h2>
-
+  <br />
+  <p>Please arrive 45 minutes before your start time for check-in, inspection
+     and route planning.</p>
 </div>
-<%= link_to "Print", '#', class: "btn btn-primary", onclick: 'window.print();return false;' %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Team Number</th>
-      <th>Name</th>
-      <th>Start Time</th>
-      <th>Expected Finish Time</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">Please Note</h4>
+      </div>
+      <div class="panel-body">
+        <h4>
+        The actual finish time could be up to 30 minutes after the expected finish
+        time. All times are subject to change.
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <td><%= team.team_number %></td>
-        <td><%= team.name %></td>
-        <td><%= team.start_time %></td>
-        <td><%= team.due_end_time %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row vspace">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Team Number</th>
+          <th>Name</th>
+          <th>Start Time</th>
+          <th>Finish Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @teams.each do |team| %>
+          <tr>
+            <td><%= team.team_number %></td>
+            <td><%= team.name %></td>
+            <td><%= team.start_time %></td>
+            <td><%= team.due_end_time %></td>
+            <td><!-- team.status --></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), '#', :class=>'btn btn-lg btn-primary' %>
+  </div>
+</div>
+
