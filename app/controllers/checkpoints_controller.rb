@@ -55,7 +55,7 @@ class CheckpointsController < ApplicationController
   private
 
     def find_checkpoint
-      @checkpoint = Checkpoint.find(params[:id])
+      @checkpoint = Checkpoint.find_by(number: params[:number])
     end
 
     def checkpoint_params
