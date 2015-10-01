@@ -7,6 +7,11 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12 center">
+    <%= will_paginate %>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
@@ -20,16 +25,22 @@
         </tr>
       </thead>
       <tbody>
-        <% @checkpoints.each do |checkpoint| %>
-          <tr>
-            <td><%= checkpoint.number %></td>
-            <td><%= checkpoint.grid_reference %></td>
-            <td><%= checkpoint.description %></td>
-            <td><%= link_to "Edit", edit_checkpoint_path(checkpoint) %></td>
-          </tr>
-        <% end %>
+          <% @checkpoints.each do |checkpoint| %>
+            <tr>
+              <td><%= checkpoint.number %></td>
+              <td><%= checkpoint.grid_reference %></td>
+              <td><%= checkpoint.description %></td>
+              <td><%= link_to "Edit", edit_checkpoint_path(checkpoint) %></td>
+            </tr>
+          <% end %>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 center">
+    <%= will_paginate %>
   </div>
 </div>
 
