@@ -8,8 +8,9 @@ class User < ActiveRecord::Base
                    length: { maximum: 70 }
 
   validates_each :name do |record, attr, value|
-    record.errors.add(attr, 'contains invalid characters') if value =~ /[^[[:alpha:]]., -]/
-    if value =~ /(^[., -]|\.[[[:alpha:]].-]|,[[[:alpha:]].,-]| [., -]|-[., -]|[, -]$)/
+    if value =~ /[^[[:alpha:]]., -]/
+      record.errors.add(attr, 'contains invalid characters')
+    elsif value =~ /(\A[., -]|\.[[[:alpha:]].-]|,[[[:alpha:]].,-]| [., -]|-[., -]|[, -]\z)/
       record.errors.add(attr, 'contains invalid punctuation')
     end
   end
@@ -20,7 +21,7 @@ class User < ActiveRecord::Base
 
   validates_each :email do |record, attr, value|
     # Form helper takes care of most of the RFC3696 complaince.
-    record.errors.add(attr, 'address cannot start with a period') if value =~ /^\./
+    record.errors.add(attr, 'address cannot start with a period') if value =~ /\A\./
     record.errors.add(attr, 'address cannot contain \'.@\'') if value =~ /\.@/
     record.errors.add(attr, 'address cannot contain consecutive periods') if value =~ /\.{2,}/
     record.errors.add(attr, 'address must be fully qualified') unless value =~ /@.+\..+/
