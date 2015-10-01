@@ -1,28 +1,35 @@
-<% provide(:title, "Update your Profile") %>
+<% provide(:title, "Manage Your Account") %>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user) do |f| %>
+    <p>Update your name, email address and password.</p>
+  </div>
+</div>
+
+<%= form_for(@user) do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>
 
-      <%= f.label :email %>
+      <%= f.label :email, "Email Address" %>
       <%= f.email_field :email, class: 'form-control' %>
 
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
-
-      <%= f.submit "Save changes", class: "btn btn-primary" %>
-    <% end %>
-
-    <div class="gravatar_edit">
-      <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails" target="_blank">change</a>
     </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit "Save Changes", class: "btn btn-primary" %>
+    </div>
+    <div class="col-md-3 vspace">
+      <%= link_to "Cancel", users_path, class: "btn btn-block btn-default" %>
+    </div>
+  </div>
+<% end %>

@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150816182801) do
+ActiveRecord::Schema.define(version: 20151001170928) do
 
   create_table "checkpoints", force: :cascade do |t|
-    t.integer  "CheckpointID"
-    t.string   "GridReference"
-    t.string   "CheckpointDescription"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.integer  "number"
+    t.string   "grid_reference"
+    t.string   "description"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
+
+  add_index "checkpoints", ["number"], name: "index_checkpoints_on_number", unique: true
 
   create_table "teams", force: :cascade do |t|
     t.integer  "team_number"
@@ -39,13 +41,10 @@ ActiveRecord::Schema.define(version: 20150816182801) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.boolean  "admin",           default: false
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end
