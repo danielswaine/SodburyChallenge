@@ -26,4 +26,4 @@ production:
   pool: 5
   database: sodbury_challenge_production
   username: sodbury_challenge
-  password: <%= ENV["DATABASE_SECRET"] %>
+  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
