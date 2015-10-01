@@ -59,7 +59,7 @@ class CheckpointsController < ApplicationController
     end
 
     def checkpoint_params
-      params.require(:checkpoint).permit(:number, :grid_ref, :description)
+      params.require(:checkpoint).permit(:number, :grid_reference, :description)
     end
 
     def user_logged_in?
