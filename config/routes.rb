@@ -1,24 +1,15 @@
 Rails.application.routes.draw do
 
-  resources :teams
-  get 'teams/new'
+  root 'static_pages#home'
+  get 'about' => 'static_pages#about'
+  get 'rules' => 'static_pages#rules'
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
 
-  get 'teams/create'
-
-  resources :checkpoints
-  get 'generate' => 'checkpoints#download_pdf_master'
-  get 'sessions/new'
-
-  get 'users/new'
-
-  root                     'static_pages#home'
-  get    'about'     =>    'static_pages#about'
-  get    'rules'      =>    'static_pages#rules'
-  get    'signup'    =>    'users#new'
-  get    'login'     =>    'sessions#new'
-  post   'login'     =>    'sessions#create'
-  delete 'logout'    =>    'sessions#destroy'
-  resources :users
+  resources :checkpoints, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :teams, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
