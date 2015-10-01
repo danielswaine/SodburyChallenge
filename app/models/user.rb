@@ -49,12 +49,14 @@ class User < ActiveRecord::Base
 
   validates_each :password do |record, attr, value|
 
-    if value =~ /[^[[:alpha:]]]/
-      if value =~ /[^ -~]/
-        record.errors.add(attr, 'contains invalid characters')
+    unless value.nil?
+      if value =~ /[^[[:alpha:]]]/
+        if value =~ /[^ -~]/
+          record.errors.add(attr, 'contains invalid characters')
+        end
+      else
+        record.errors.add(attr, 'must contain a number or symbol')
       end
-    else
-      record.errors.add(attr, 'must contain a number or symbol')
     end
 
   end
