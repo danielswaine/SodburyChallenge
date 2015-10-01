@@ -1,6 +1,44 @@
-<% provide(:title, "Edit Checkpoint ##{@checkpoint.CheckpointID}") %>
+<% provide(:title, "Checkpoint \##{@checkpoint.number}") %>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <p>You can update the checkpoint's grid reference and description below.</p>
+  </div>
+</div>
 
-<%= link_to 'Show', @checkpoint %> |
-<%= link_to 'Back', checkpoints_path %>
+<%= form_for(@checkpoint) do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <label for="checkpoint_number">Checkpoint Number</label>
+      <input class="form-control" type="text" placeholder="<%= @checkpoint.number %>" name="checkpoint[number]" id="checkpoint_number" disabled />
+
+      <%= f.label :grid_reference, "Grid Reference" %>
+      <%= f.text_field :grid_reference, class: 'form-control' %>
+
+      <%= f.label :description, "Description" %>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit :class=>'btn btn-primary' %>
+    </div>
+    <div class="col-md-3 vspace">
+      <%= link_to "Cancel", checkpoints_path, :class=>'btn btn-block btn-default' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 vspace">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 vspace">
+      <%= link_to "Delete Checkpoint", @checkpoint, method: :delete,
+        data: { confirm: "Delete checkpoint \##{@checkpoint.number}? This cannot be undone." },
+        :class=>'btn btn-group-justified btn-danger' %>
+    </div>
+  </div>
+<% end %>
