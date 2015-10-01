@@ -1,34 +1,43 @@
-<% provide(:title, "Master Checkpoint List") %>
+<% provide(:title, "Manage Checkpoints") %>
 
 <div class="row">
-  <div class="col-md-2">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Checkpoint"), new_checkpoint_path, :class=>'btn btn-success' %>
-  </div>
-  <div class="col-md-2">
-        <%= link_to "Download PDF", :controller => "checkpoints", :action => "download_pdf_master" %>
+  <div class="col-md-12">
+    <p>This page contains the list of all checkpoints that have been
+       used for Sodbury Challenge.</p>
   </div>
 </div>
-<br>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Grid Reference</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @checkpoints.each do |checkpoint| %>
-      <tr>
-        <td><%= checkpoint.CheckpointID %></td>
-        <td><%= checkpoint.GridReference %></td>
-        <td><%= checkpoint.CheckpointDescription %></td>
-        <td><%= link_to raw("<span class=\"glyphicon glyphicon-eye-open\"></span> Show"), checkpoint %></td>
-        <td><%= link_to raw("<span class=\"glyphicon glyphicon-pencil\"></span> Edit"), edit_checkpoint_path(checkpoint) %></td>
-        <td><%= link_to raw("<span class=\"glyphicon glyphicon-trash\"></span> Delete"), checkpoint, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Grid Reference</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @checkpoints.each do |checkpoint| %>
+          <tr>
+            <td><%= checkpoint.number %></td>
+            <td><%= checkpoint.grid_reference %></td>
+            <td><%= checkpoint.description %></td>
+            <td><%= link_to "Edit", edit_checkpoint_path(checkpoint) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Checkpoint"), new_checkpoint_path, :class=>'btn btn-block btn-success' %>
+  </div>
+  <div class="col-md-3 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), checkpoints_path, :class=>'btn btn-block btn-default' %>
+  </div>
+</div>
