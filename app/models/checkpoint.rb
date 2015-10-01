@@ -1,13 +1,11 @@
 class Checkpoint < ActiveRecord::Base
 
-  validates :number, presence: true,
-                     uniqueness: true,
+  validates :number, uniqueness: true,
                      numericality: {
                                      greater_than_or_equal_to: 1,
-                                     only_integer: true
+                                     only_integer: true,
+                                     message: 'must be a positive integer'
                                    }
-
-  validates :grid_reference, presence: true
 
   validates_each :grid_reference do |record, attr, value|
     if value =~ /\A\d{4}-\d{4}\z/
@@ -19,7 +17,10 @@ class Checkpoint < ActiveRecord::Base
     end
   end
 
-  validates :description, presence: true,
-                          length: { maximum: 375 }
+  validates :description, length: {
+                                    in: 5..400,
+                                    too_short: 'is too short',
+                                    too_long: 'is too long'
+                                  }
 
 end
