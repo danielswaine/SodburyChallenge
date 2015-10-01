@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929231901) do
+ActiveRecord::Schema.define(version: 20151001154455) do
 
   create_table "checkpoints", force: :cascade do |t|
     t.integer  "number"
-    t.string   "grid_ref"
+    t.string   "grid_reference"
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "teams", force: :cascade do |t|
