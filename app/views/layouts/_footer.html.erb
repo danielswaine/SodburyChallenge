@@ -1,12 +1,24 @@
 <footer>
-  <p class="left">
-    Sodbury Challenge <%= Date.current.year %>
-  </p>
-  <nav class="right">
-    <ul>
-      <li><%= link_to "Home",    root_path   %></li>
-      <li><%= link_to "About",   about_path  %></li>
-      <li><%= link_to "Rules",    rules_path   %></li>
-    </ul>
-  </nav>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 hidden-xs">
+      <span class="left">Sodbury Challenge <%= Date.current.year %></span>
+    </div>
+    <div class="col-md-6 col-sm-6 hidden-xs">
+      <nav>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Rules", rules_path %></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="visible-xs-block col-xs-12 vspace center">
+      <span>Sodbury Challenge <%= Date.current.year %></span>
+    </div>
+    <div class="visible-xs-block col-xs-12 vspace center">
+      <%= link_to "Home", root_path %>&nbsp;&nbsp;&nbsp;
+      <%= link_to "About", about_path %>&nbsp;&nbsp;&nbsp;
+      <%= link_to "Rules", rules_path %>
+    </div>
+  </div>
 </footer>
