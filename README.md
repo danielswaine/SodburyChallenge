@@ -23,4 +23,4 @@ All in one for managing teams, start times and scoring.
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
 
-See [LICENSE](https://raw.githubusercontent.com/danielswaine/SodburyChallenge/LICENSE).
+See [LICENSE](https://raw.githubusercontent.com/danielswaine/SodburyChallenge/master/LICENSE).
