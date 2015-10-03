@@ -16,7 +16,7 @@ class CheckpointsController < ApplicationController
 
   # GET /checkpoints/new
   def new
-    next_available_number = 1 + Checkpoint.maximum(:number)
+    next_available_number = 1 + (Checkpoint.maximum(:number) || 0)
     @checkpoint = Checkpoint.new(number: next_available_number)
   end
 
