@@ -4,10 +4,11 @@ class CheckpointsController < ApplicationController
 
   # GET /checkpoints(.:format)
   def index
-    @checkpoints = Checkpoint.paginate(page: params[:page], per_page: 20).order(:number)
     respond_to do |format|
-      format.html # index.html.erb
-      format.pdf  # index.pdf.prawn
+      format.html do
+        @checkpoints = Checkpoint.paginate(page: params[:page], per_page: 20).order(:number)
+      end
+      format.pdf { @checkpoints = Checkpoint.all }
     end
   end
 
