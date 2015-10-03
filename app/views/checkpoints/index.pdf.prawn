@@ -6,34 +6,13 @@ prawn_document(page_size: "A4") do |pdf|
 
 	pdf.move_down 18
 
-	pdf.define_grid(:columns => 6, :rows => 25, :gutter => 10)
-	#pdf.grid.show_all
+	# table(data, options)
+	pdf.table(
+		@checkpoints.collect{ |checkpoint|
+			[checkpoint.number, checkpoint.grid_reference, checkpoint.description]
+		},
+		:width => 525, :row_colors => ["FFFFFF", "F9F9F9"], :cell_style => {:border_color => "DDDDDD"},
+		:column_widths => [30, 125, 370],  :position => :center
+	)
 
-	pdf.grid(3, 0).bounding_box do
-		pdf.text "Number"
-	end
-	pdf.grid([3, 1], [3, 2]).bounding_box do
-		pdf.text "Grid Reference"
-	end
-	pdf.grid([3, 3], [3, 4]).bounding_box do
-		pdf.text "Description"
-	end
-
-
-	#for i in 1..21
-
-	#	@checkpoint = Checkpoint.find(i)
-	#	pdf.grid(j, 0).bounding_box do
-	#		pdf.text "#{@checkpoint.number}"
-	#	end
-
-	#end
-
-	pdf.table([
-		["Number", "Grid Reference", "Description"],
-		@checkpoints.each do |checkpoint|
-			["#{checkpoint.number}", "short", "loooooooooooooooooooong"],
-		end
-		["last", "available", "row"]
-	])
 end
