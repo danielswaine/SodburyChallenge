@@ -49,6 +49,6 @@
     <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Checkpoint"), new_checkpoint_path, :class=>'btn btn-block btn-success' %>
   </div>
   <div class="col-md-3 vspace">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), checkpoints_path, :class=>'btn btn-block btn-default' %>
+    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), checkpoints_path(format: :pdf), :class=>'btn btn-block btn-default' %>
   </div>
 </div>
