@@ -8,11 +8,16 @@ prawn_document(page_size: "A4") do |pdf|
 
 	# table(data, options)
 	pdf.table(
+		[["No.", "Grid Reference", "Description"]],
+		:width => 525, :column_widths => [30, 100, 395],  :position => :center,
+		:cell_style => { :font_style => :bold, :border_color => "DDDDDD", :background_color => "DDDDDD" }
+	)
+	pdf.table(
 		@checkpoints.collect{ |checkpoint|
 			[checkpoint.number, checkpoint.grid_reference, checkpoint.description]
 		},
 		:width => 525, :row_colors => ["FFFFFF", "F9F9F9"], :cell_style => {:border_color => "DDDDDD"},
-		:column_widths => [30, 125, 370],  :position => :center
+		:column_widths => [30, 100, 395],  :position => :center
 	)
 
 end
