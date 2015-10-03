@@ -7,10 +7,7 @@ class CheckpointsController < ApplicationController
     @checkpoints = Checkpoint.paginate(page: params[:page], per_page: 20).order(:number)
     respond_to do |format|
       format.html # index.html.erb
-      format.pdf do
-        pdf = Prawn::Document.new
-        send_data pdf.render, filename: 'checkpoints.pdf', type: 'application/pdf'
-      end
+      format.pdf  # index.pdf.prawn
     end
   end
 
