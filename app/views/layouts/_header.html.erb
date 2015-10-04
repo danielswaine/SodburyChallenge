@@ -26,6 +26,10 @@
                   <li><%= link_to "Checkpoints", checkpoints_path %></li>
                   <li><%= link_to "App Users", users_path %></li>
                   <li><%= link_to "My Account", edit_user_path(current_user) %></li>
+                  <% if current_user.admin? %>
+                    <li class="divider"></li>
+                    <li><%= link_to "Challenges", challenges_path %></li>
+                  <% end %>
                   <li class="divider"></li>
                   <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
                 </ul>
