@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
   before_action :find_challenge, only: [:edit, :update, :destroy]
 
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.all.order(:date)
   end
 
   def new
@@ -47,7 +47,10 @@ class ChallengesController < ApplicationController
     end
 
     def challenge_params
-      params.require(:challenge).permit()
+      params.require(:challenge).permit(
+                                         :date, :time_allowed#, :bonus_one, :bonus_two,
+                                         #:bonus_three, :bonus_four, :bonus_five
+      )
     end
 
     def user_logged_in?
