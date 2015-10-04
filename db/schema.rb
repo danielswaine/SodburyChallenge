@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004115733) do
+ActiveRecord::Schema.define(version: 20151004132404) do
 
   create_table "challenges", force: :cascade do |t|
     t.date     "date"
@@ -50,13 +50,13 @@ ActiveRecord::Schema.define(version: 20151004115733) do
     t.time     "nominal_start_time"
     t.time     "finish_time"
     t.time     "phone_in_time"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "challenge_id"
     t.integer  "group",              default: 0
     t.time     "actual_start_time"
     t.text     "visited"
-    t.boolean  "disqualified"
+    t.boolean  "disqualified",       default: false
   end
 
   create_table "users", force: :cascade do |t|
