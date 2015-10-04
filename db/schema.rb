@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004010214) do
+ActiveRecord::Schema.define(version: 20151004115733) do
+
+  create_table "challenges", force: :cascade do |t|
+    t.date     "date"
+    t.integer  "time_allowed"
+    t.text     "bonus_one"
+    t.text     "bonus_two"
+    t.text     "bonus_three"
+    t.text     "bonus_four"
+    t.text     "bonus_five"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "checkpoints", force: :cascade do |t|
     t.integer  "number"
@@ -23,19 +35,28 @@ ActiveRecord::Schema.define(version: 20151004010214) do
 
   add_index "checkpoints", ["number"], name: "index_checkpoints_on_number", unique: true
 
+  create_table "goals", force: :cascade do |t|
+    t.integer  "challenge_id"
+    t.integer  "checkpoint_id"
+    t.integer  "points_value"
+    t.boolean  "compulsory"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "teams", force: :cascade do |t|
-    t.integer  "team_number"
     t.string   "name"
-    t.integer  "route_id"
     t.integer  "score"
-    t.datetime "start_time"
-    t.datetime "due_end_time"
-    t.datetime "end_time"
-    t.datetime "due_phone_in_time"
-    t.datetime "phone_in_time"
-    t.datetime "team_year"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.time     "nominal_start_time"
+    t.time     "finish_time"
+    t.time     "phone_in_time"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "challenge_id"
+    t.integer  "group",              default: 0
+    t.time     "actual_start_time"
+    t.text     "visited"
+    t.boolean  "disqualified"
   end
 
   create_table "users", force: :cascade do |t|
