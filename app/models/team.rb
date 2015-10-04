@@ -7,6 +7,8 @@ class Team < ActiveRecord::Base
 
   before_save { self.name = name.titleize }
 
+  validates :challenge_id, presence: true
+
   validates :group, presence: true
 
   validates :name, length: {
