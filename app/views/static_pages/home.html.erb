@@ -20,7 +20,14 @@
   </div>
 </div>
 
+<% count = 1 %>
+<% @challenges.order(:time_allowed).reverse_order.each do |challenge| %>
 <div class="row vspace">
+  <div class="col-md-12">
+    <h3><%= challenge.time_allowed %> Hour Challenge</h3>
+  </div>
+</div>
+<div class="row">
   <div class="col-md-12">
     <table class="table table-striped">
       <thead>
@@ -33,16 +40,18 @@
         </tr>
       </thead>
       <tbody>
-        <% @teams.order(:nominal_start_time).each_with_index do |team, num| %>
+        <% challenge.teams.order(:nominal_start_time).each do |team| %>
           <tr>
-            <td><%= num + 1 %></td>
+            <td><%= count %></td>
             <td><%= team.name %></td>
             <td><%= team.group.to_s.titleize %></td>
-            <td><%= team.nominal_start_time %></td>
-            <td><!-- Finish time --></td>
+            <td><%= start_time(team) %></td>
+            <td><%= finish_time(team) %></td>
           </tr>
+          <% count += 1 %>
         <% end %>
       </tbody>
     </table>
   </div>
 </div>
+<% end %>
