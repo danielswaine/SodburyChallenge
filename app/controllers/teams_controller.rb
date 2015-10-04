@@ -1,13 +1,14 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :user_logged_in?
+  before_action :find_team, only: [:edit, :update, :destroy]
 
   # GET /teams
   def index
     @teams = Team.all
-  end
-
-  # GET /teams/1
-  def show
+    respond_to do |format|
+      format.html # index.html.erb
+      format.pdf # index.pdf.prawn
+    end
   end
 
   # GET /teams/new
@@ -15,7 +16,7 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  # GET /teams/1/edit
+  # GET /teams/:id/edit
   def edit
   end
 
@@ -23,38 +24,46 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
-      flash[:success] = "Team sucessfully created"
+      flash[:success] = "Team created sucessfully."
       redirect_to @team
     else
       render 'new'
     end
   end
 
-  # PATCH/PUT /teams/1
+  # PATCH|PUT /teams/:id
   def update
     if @team.update(team_params)
-      flash[:success] = "Team sucessfully updated"
+      flash[:success] = "Team updated sucessfully."
       redirect_to @team
     else
       render 'edit'
     end
   end
 
-  # DELETE /teams/1
+  # DELETE /teams/:id
   def destroy
     @team.destroy
-    flash[:success] = "Team sucessfully deleted."
+    flash[:success] = "Team deleted successfully."
     redirect_to teams_url
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
+
+    def find_team
       @team = Team.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:team_number, :name, :route_id, :score, :start_time, :due_end_time, :end_time, :due_phone_in_time, :phone_in_time, :team_year)
+      params.require(:team).permit()
     end
+
+    def user_logged_in?
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in to manage teams."
+        redirect_to login_url
+      end
+    end
+
 end
