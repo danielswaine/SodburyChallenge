@@ -1,4 +1,6 @@
 class Checkpoint < ActiveRecord::Base
+  has_many :goals
+  has_many :challenges, through: :goals
 
   def to_param
     number.to_s
