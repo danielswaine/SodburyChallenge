@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.all
+    @teams = Team.all.order(:nominal_start_time)
     respond_to do |format|
       format.html # index.html.erb
       format.pdf # index.pdf.prawn
@@ -35,7 +35,7 @@ class TeamsController < ApplicationController
   def update
     if @team.update(team_params)
       flash[:success] = "Team updated sucessfully."
-      redirect_to @team
+      redirect_to teams_url
     else
       render 'edit'
     end
@@ -55,7 +55,11 @@ class TeamsController < ApplicationController
     end
 
     def team_params
-      params.require(:team).permit()
+      params.require(:team).permit(
+                                    :challenge_id, :group, :name, :nominal_start_time,
+                                    :actual_start_time, :phone_in_time, :finish_time,
+                                    :visited, :score, :disqualified
+                                  )
     end
 
     def user_logged_in?

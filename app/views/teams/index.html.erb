@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <p>This page lets you manage the teams taking part in this year's Sodbury Challenge.</p>
+    <p>This page lets you manage the teams taking part in this year&rsquo;s Sodbury Challenge.</p>
   </div>
 </div>
 
@@ -15,18 +15,16 @@
           <th>Name</th>
           <th>Group</th>
           <th>Start Time</th>
-          <th>Score</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-          <% @teams.each do |team| %>
+          <% @teams.each_with_index do |team, num| %>
             <tr>
-              <td><%= team.number %></td>
+              <td><%= num + 1 %></td>
               <td><%= team.name %></td>
-              <td><%= team.group %></td>
+              <td><%= team.group.to_s.titleize %></td>
               <td><%= team.nominal_start_time %></td>
-              <td><%= team.score %></td>
               <td><%= link_to "Manage", edit_team_path(team) %></td>
             </tr>
           <% end %>
