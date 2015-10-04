@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004111159) do
+ActiveRecord::Schema.define(version: 20151004113848) do
 
   create_table "checkpoints", force: :cascade do |t|
     t.integer  "number"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20151004111159) do
   add_index "checkpoints", ["number"], name: "index_checkpoints_on_number", unique: true
 
   create_table "teams", force: :cascade do |t|
-    t.integer  "number"
     t.string   "name"
     t.integer  "score"
     t.time     "nominal_start_time"
