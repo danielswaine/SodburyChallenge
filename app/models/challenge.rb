@@ -11,8 +11,7 @@ class Challenge < ActiveRecord::Base
 
   validates :date, presence: true
 
-  validates :time_allowed, presence: true,
-                           numericality: {
+  validates :time_allowed, numericality: {
                                            greater_than: 0,
                                            only_integer: true,
                                            message: 'must be an integer number of hours'
