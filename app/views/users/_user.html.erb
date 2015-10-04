@@ -5,6 +5,8 @@
   <td>
     <% if current_user?(user) %>
       <%= link_to "Manage", edit_user_path(user) %>
+    <% elsif user.admin? %>
+      <!-- Show no action -->
     <% else %>
       <%= link_to "Remove", user, method: :delete,
                                   data: { confirm: "Remove #{user.name}? This cannot be undone." } %>
