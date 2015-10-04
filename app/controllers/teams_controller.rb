@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     if @team.save
       flash[:success] = "Team created sucessfully."
-      redirect_to @team
+      redirect_to teams_url
     else
       render 'new'
     end

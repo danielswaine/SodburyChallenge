@@ -16,10 +16,10 @@ class Team < ActiveRecord::Base
                              message: 'contains invalid characters'
                            }
 
-  challenges_array = Challenge.all.map { |c| c.id }
+  model_challenges_array = Challenge.all.map { |c| c.id }
 
   validates :challenge_id, presence: true,
-                           inclusion: { in: challenges_array }
+                           inclusion: { in: model_challenges_array }
 
   validates :group, presence: true,
                     inclusion: { in: Team.groups.keys }
