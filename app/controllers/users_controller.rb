@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :correct_user?, only: [:edit, :update]
   before_action :check_not_self, only: [:destroy]
+  before_action :check_not_admin, only: [:destroy]
 
   def index
     @users = User.all
@@ -50,6 +51,13 @@ class UsersController < ApplicationController
 
     def find_user
       @user = User.find(params[:id])
+    end
+
+    def check_not_admin
+      if @user.admin?
+        flash[:danger] = "You cannot remove this user."
+        redirect_to users_path
+      end
     end
 
     def check_not_self
