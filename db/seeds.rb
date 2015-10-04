@@ -1,15 +1,17 @@
-User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
-             password:              "foobar",
-             password_confirmation: "foobar",
+User.create!(name:  "Test User",
+             email: "test@test.com",
+             password:              "testingtesting123",
+             password_confirmation: "testingtesting123",
+             admin: false)
+
+User.create!(name:  "Admin User",
+             email: "admin@admin.com",
+             password:              "adminadmin123",
+             password_confirmation: "adminadmin123",
              admin: true)
 
-99.times do |n|
-  name  = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
-  password = "password"
-  User.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password)
+50.times do |num|
+  Checkpoint.create!(number: num + 1,
+                     grid_reference: "2345-7890",
+                     description: "Example checkpoint number #{num + 1}")
 end
