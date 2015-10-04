@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <p>This is a development feature. Fields are not thoroughly validated.</p>
+    <p><em>Bonuses have not been enabled yet.</em></p>
   </div>
 </div>
 
@@ -12,7 +12,20 @@
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :date, "Challenge Date" %>
-      <%= f.text_field :date, class: 'form-control' %>
+      <div class="input-group date">
+        <%= f.text_field :date, value: "#{@challenge.date.strftime("%-d %B %Y")}", class: 'form-control' %>
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+      </div>
+
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('.input-group.date').datepicker({
+            format: "d MM yyyy",
+            weekStart: 1,
+            autoclose: true
+          });
+        });
+      </script>
 
       <%= f.label :time_allowed, "Time Allowed" %>
       <%= f.text_field :time_allowed, class: 'form-control' %>
