@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
 
   def home
-    @teams = Team.all
+    @challenges = Challenge.all
   end
 
   def rules
