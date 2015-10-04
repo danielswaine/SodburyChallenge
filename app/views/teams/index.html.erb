@@ -25,7 +25,7 @@
               <td><%= team.name %></td>
               <td><%= team.group.to_s.titleize %></td>
               <td><%= team.nominal_start_time %></td>
-              <td><%= link_to "Manage", edit_team_path(team) %></td>
+              <td><%= link_to "Edit", edit_team_path(team) %></td>
             </tr>
           <% end %>
       </tbody>
