@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004115545) do
+ActiveRecord::Schema.define(version: 20151004115733) do
 
   create_table "challenges", force: :cascade do |t|
     t.date     "date"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 20151004115545) do
   end
 
   add_index "checkpoints", ["number"], name: "index_checkpoints_on_number", unique: true
+
+  create_table "goals", force: :cascade do |t|
+    t.integer  "challenge_id"
+    t.integer  "checkpoint_id"
+    t.integer  "points_value"
+    t.boolean  "compulsory"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
