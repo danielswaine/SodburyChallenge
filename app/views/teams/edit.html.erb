@@ -15,13 +15,17 @@
       <%= f.text_field :name, class: 'form-control' %>
 
       <%= f.label :challenge_id, "Challenge" %>
-      <%= f.text_field :challenge_id, class: 'form-control' %>
+      <% challenges_array = Challenge.all.map do |c|
+        ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
+      end %>
+      <%= f.select :challenge_id, options_for_select(challenges_array), class: 'form-control' %>
 
       <%= f.label :group, "Group" %>
-      <%= f.text_field :group, class: 'form-control' %>
+      <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
+      <%= f.select :group, options_for_select(groups_array), class: 'form-control' %>
 
       <%= f.label :nominal_start_time, "Start Time" %>
-      <%= f.text_field :nominal_start_time, class: 'form-control' %>
+      <%= f.text_field :nominal_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
     </div>
   </div>
   <div class="row">
