@@ -1,0 +1,6 @@
+<tr>
+  <td><%= challenge.date.strftime("%-d %B %Y") %></td>
+  <td><%= challenge.time_allowed %> hours</td>
+  <td><%= challenge.teams.size %></td>
+  <td><%= link_to "Edit", edit_challenge_path(challenge) %></td>
+</tr>

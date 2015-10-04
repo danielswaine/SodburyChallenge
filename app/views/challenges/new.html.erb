@@ -1,0 +1,58 @@
+<% provide(:title, 'Create a New Challenge') %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <p><em>Bonuses have not been enabled yet.</em></p>
+  </div>
+</div>
+
+<%= form_for(@challenge) do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :date, "Challenge Date" %>
+      <div class="input-group date">
+        <%= f.text_field :date, class: 'form-control' %>
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+      </div>
+
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('.input-group.date').datepicker({
+            format: "d MM yyyy",
+            weekStart: 1,
+            autoclose: true
+          });
+        });
+      </script>
+
+      <%= f.label :time_allowed, "Time Allowed" %>
+      <%= f.text_field :time_allowed, class: 'form-control' %>
+
+      <%= f.label :bonus_one, "Bonus 1" %>
+      <%= f.text_field :bonus_one, class: 'form-control' %>
+
+      <%= f.label :bonus_two, "Bonus 2" %>
+      <%= f.text_field :bonus_two, class: 'form-control' %>
+
+      <%= f.label :bonus_three, "Bonus 3" %>
+      <%= f.text_field :bonus_three, class: 'form-control' %>
+
+      <%= f.label :bonus_four, "Bonus 4" %>
+      <%= f.text_field :bonus_four, class: 'form-control' %>
+
+      <%= f.label :bonus_five, "Bonus 5" %>
+      <%= f.text_field :bonus_five, class: 'form-control' %>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit "Create Challenge", class: "btn btn-primary" %>
+    </div>
+    <div class="col-md-3 vspace">
+      <%= link_to "Cancel", challenges_path, class: "btn btn-block btn-default" %>
+    </div>
+  </div>
+<% end %>

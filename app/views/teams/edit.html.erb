@@ -1,6 +1,51 @@
-<h1>Editing Team</h1>
+<% provide(:title, "Edit Team") %>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <p>The team's number will be calculated automatically from its start time.</p>
+  </div>
+</div>
 
-<%= link_to 'Show', @team %> |
-<%= link_to 'Back', teams_path %>
+<%= form_for(@team) do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name, "Team Name" %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :challenge_id, "Challenge" %>
+      <% challenges_array = Challenge.all.map do |c|
+        ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
+      end %>
+      <%= f.select :challenge_id, options_for_select(challenges_array), class: 'form-control' %>
+
+      <%= f.label :group, "Group" %>
+      <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
+      <%= f.select :group, options_for_select(groups_array), class: 'form-control' %>
+
+      <%= f.label :nominal_start_time, "Start Time" %>
+      <%= f.text_field :nominal_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit :class=>'btn btn-primary' %>
+    </div>
+    <div class="col-md-3 vspace">
+      <%= link_to "Cancel", teams_path, :class=>'btn btn-block btn-default' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 vspace">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 vspace">
+      <%= link_to "Delete Team", @team, method: :delete,
+        data: { confirm: "Delete team? This cannot be undone." },
+        :class=>'btn btn-group-justified btn-danger' %>
+    </div>
+  </div>
+<% end %>
