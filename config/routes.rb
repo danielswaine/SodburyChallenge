@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
+  resources :challenges, only: [:index, :new, :create, :edit, :update, :destroy]
+
   resources :checkpoints, param: :number,
                           only: [:index, :new, :create, :edit, :update, :destroy]
 

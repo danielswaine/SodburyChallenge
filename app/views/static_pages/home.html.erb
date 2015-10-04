@@ -12,8 +12,8 @@
       </div>
       <div class="panel-body">
         <h4>
-        The actual finish time could be up to 30 minutes after the expected finish
-        time. All times are subject to change.
+          The actual finish time could be up to 30 minutes after the expected finish
+          time. All times are subject to change.
         </h4>
       </div>
     </div>
@@ -27,29 +27,22 @@
         <tr>
           <th>Team Number</th>
           <th>Name</th>
+          <th>Group</th>
           <th>Start Time</th>
           <th>Finish Time</th>
-          <th>Status</th>
         </tr>
       </thead>
       <tbody>
-        <% @teams.each do |team| %>
+        <% @teams.order(:nominal_start_time).each_with_index do |team, num| %>
           <tr>
-            <td><%= team.team_number %></td>
+            <td><%= num + 1 %></td>
             <td><%= team.name %></td>
-            <td><%= team.start_time %></td>
-            <td><%= team.due_end_time %></td>
-            <td><!-- team.status --></td>
+            <td><%= team.group.to_s.titleize %></td>
+            <td><%= team.nominal_start_time %></td>
+            <td><!-- Finish time --></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-md-12 vspace">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), '#', :class=>'btn btn-lg btn-primary' %>
-  </div>
-</div>
-

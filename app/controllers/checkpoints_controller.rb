@@ -29,11 +29,11 @@ class CheckpointsController < ApplicationController
     end
   end
 
-  # GET /checkpoints/:id/edit
+  # GET /checkpoints/:number/edit
   def edit
   end
 
-  # PATCH|PUT /checkpoints/:id
+  # PATCH|PUT /checkpoints/:number
   def update
     if @checkpoint.update(checkpoint_params)
       flash[:success] = "Checkpoint \##{@checkpoint.number} updated."
@@ -43,7 +43,7 @@ class CheckpointsController < ApplicationController
     end
   end
 
-  # DELETE /checkpoints/:id
+  # DELETE /checkpoints/:number
   def destroy
     old_number = @checkpoint.number
     @checkpoint.destroy
