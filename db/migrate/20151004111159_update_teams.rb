@@ -11,7 +11,7 @@ class UpdateTeams < ActiveRecord::Migration
       t.remove :due_end_time
       t.rename :end_time, :finish_time
       t.change :finish_time, :time
-      t.rename :due_phone_in_time, :phone_in_time
+      t.remove :due_phone_in_time
       t.change :phone_in_time, :time
       t.remove :team_year
       t.text :visited
