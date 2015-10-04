@@ -1,7 +1,7 @@
 class Team < ActiveRecord::Base
   belongs_to :challenge, inverse_of: :teams
 
-  enum :group [:scouts, :explorers, :non_competitive]
+  enum group: [:scouts, :explorers, :non_competitive]
 
   serialize :visited, Array
 
