@@ -15,6 +15,14 @@ prawn_document(page_size: "A4", :page_layout => :landscape) do |pdf|
       :width => 750, :column_widths => [50, 460, 80, 80, 80],  :position => :center,
   		:cell_style => { :font_style => :bold, :border_color => "DDDDDD", :background_color => "DDDDDD" }
     )
+    challenge.teams.order(:nominal_start_time).each do |team|
+      pdf.table(
+        [[count, team.name, team.nominal_start_time, phone_in_time(team), finish_time(team)]],
+        :width => 750, :row_colors => ["FFFFFF", "F9F9F9"], :position => :center,
+        :column_widths => [50, 460, 80, 80, 80], :cell_style => { :border_color => "DDDDDD" }
+      )
+      count += 1
+    end
     pdf.move_down 18
   end
 end
