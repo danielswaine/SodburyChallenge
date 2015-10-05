@@ -5,7 +5,7 @@ module TeamsHelper
     if has_started? team
       team.actual_start_time
     else
-      team.nominal_start_time
+      team.planned_start_time
     end
   end
 

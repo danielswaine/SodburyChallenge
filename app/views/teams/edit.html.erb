@@ -24,8 +24,8 @@
       <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
       <%= f.select :group, options_for_select(groups_array, f.object.group), class: 'form-control' %>
 
-      <%= f.label :nominal_start_time, "Start Time" %>
-      <%= f.text_field :nominal_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
+      <%= f.label :planned_start_time, "Planned Start Time" %>
+      <%= f.text_field :planned_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
     </div>
   </div>
   <div class="row">
