@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.all.order(:nominal_start_time)
+    @challenges = Challenge.all
     respond_to do |format|
       format.html # index.html.erb
       format.pdf # index.pdf.prawn
