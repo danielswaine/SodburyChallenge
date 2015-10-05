@@ -21,7 +21,7 @@
 </div>
 
 <% count = 1 %>
-<% @challenges.order(:time_allowed).reverse_order.each do |challenge| %>
+<% @challenges.order(:time_allowed).each do |challenge| %>
 <div class="row vspace">
   <div class="col-md-12">
     <h3><%= challenge.time_allowed %> Hour Challenge</h3>
