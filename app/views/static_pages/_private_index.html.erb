@@ -1,7 +1,22 @@
 <div class="jumbotron center">
-  <h1>Live Team Status</h1>
+  <h1>Team Status</h1>
   <br />
-  <p>Expected times are shown in brackets. They will be updated automatically.</p>
+  <p>This page will refresh automatically.</p>
+</div>
+
+<br />
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">Note</h4>
+      </div>
+      <div class="panel-body">
+        Expected times are shown in brackets. You can click on them to add actual values once they are known.
+      </div>
+    </div>
+  </div>
 </div>
 
 <% count = 1 %>
@@ -34,17 +49,17 @@
             <% if has_started? team %>
               <td><%= start_time(team) %></td>
             <% else %>
-              <td class="expected">(<%= start_time(team) %>)</td>
+              <td class="expected"><%= link_to "(#{start_time(team)})", edit_team_path(team) %></td>
             <% end %>
             <% if has_phoned_in? team %>
               <td><%= phone_in_time(team) %></td>
             <% else %>
-              <td class="expected">(<%= phone_in_time(team) %>)</td>
+              <td class="expected"><%= link_to "(#{phone_in_time(team)})", edit_team_path(team) %></td>
             <% end %>
             <% if has_finished? team %>
               <td><%= finish_time(team) %></td>
             <% else %>
-              <td class="expected">(<%= finish_time(team) %>)</td>
+              <td class="expected"><%= link_to "(#{finish_time(team)})", edit_team_path(team) %></td>
             <% end %>
             <td><%= current_status(team) %></td>
           </tr>
