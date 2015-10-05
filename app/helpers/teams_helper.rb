@@ -5,7 +5,7 @@ module TeamsHelper
     if has_started? team
       team.actual_start_time
     else
-      team.nominal_start_time
+      team.planned_start_time
     end
   end
 
@@ -28,6 +28,20 @@ module TeamsHelper
       (start_time + team.challenge.time_allowed * 3600).strftime("%R")
     end
   end
+
+  # Returns a string representing the current status of a team.
+  def current_status(team)
+    if has_finished? team
+      "Finished"
+    elsif has_phoned_in? team
+      "Phoned in"
+    elsif has_started? team
+      "On course"
+    else
+      nil
+    end
+  end
+
 
   # Returns true if a team has started on the course.
   def has_started?(team)

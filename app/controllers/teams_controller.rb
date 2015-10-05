@@ -56,7 +56,7 @@ class TeamsController < ApplicationController
 
     def team_params
       params.require(:team).permit(
-                                    :challenge_id, :group, :name, :nominal_start_time,
+                                    :challenge_id, :group, :name, :planned_start_time,
                                     :actual_start_time, :phone_in_time, :finish_time,
                                     :visited, :score, :disqualified
                                   )

@@ -1,14 +1,28 @@
-<% provide(:title, "Manage Teams") %>
-
+<div class="jumbotron center">
+  <h1>Official Start Times</h1>
+  <br />
+  <p>Please arrive 45 minutes before your start time for check-in, inspection
+     and route planning.</p>
+</div>
 <div class="row">
   <div class="col-md-12">
-    <p>This page lets you manage the teams taking part in this year&rsquo;s Sodbury Challenge.</p>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">Please Note</h4>
+      </div>
+      <div class="panel-body">
+        <h4>
+          The actual finish time could be up to 30 minutes after the expected finish
+          time. All times are subject to change.
+        </h4>
+      </div>
+    </div>
   </div>
 </div>
 
 <% count = 1 %>
 <% @challenges.order(:time_allowed).each do |challenge| %>
-<div class="row">
+<div class="row vspace">
   <div class="col-md-12">
     <h3><%= challenge.time_allowed %> Hour Challenge</h3>
   </div>
@@ -18,11 +32,11 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Number</th>
+          <th>Team Number</th>
           <th>Name</th>
           <th>Group</th>
           <th>Start Time</th>
-          <th>Action</th>
+          <th>Finish Time</th>
         </tr>
       </thead>
       <tbody>
@@ -31,8 +45,8 @@
             <td><%= count %></td>
             <td><%= team.name %></td>
             <td><%= team.group.to_s.titleize %></td>
-            <td><%= start_time(team) %></td>
-            <td><%= link_to "Edit", edit_team_path(team) %></td>
+            <td><%= team.planned_start_time %></td>
+            <td><%= finish_time(team) %></td>
           </tr>
           <% count += 1 %>
         <% end %>
@@ -41,14 +55,3 @@
   </div>
 </div>
 <% end %>
-
-<br />
-
-<div class="row">
-  <div class="col-md-3 vspace">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Team"), new_team_path, :class=>'btn btn-block btn-success' %>
-  </div>
-  <div class="col-md-3 vspace">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), teams_path(format: :pdf), :class=>'btn btn-block btn-default' %>
-  </div>
-</div>
