@@ -1,0 +1,72 @@
+<div class="jumbotron center">
+  <h1>Team Status</h1>
+  <br />
+  <p>This page will refresh automatically.</p>
+</div>
+
+<br />
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h4 class="panel-title">Note</h4>
+      </div>
+      <div class="panel-body">
+        Expected times are shown in brackets. You can click on them to add actual values once they are known.
+      </div>
+    </div>
+  </div>
+</div>
+
+<% count = 1 %>
+<% @challenges.order(:time_allowed).each do |challenge| %>
+<div class="row vspace">
+  <div class="col-md-12">
+    <h3><%= challenge.time_allowed %> Hour Challenge</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Team Number</th>
+          <th>Name</th>
+          <th>Group</th>
+          <th>Start Time</th>
+          <th>Phone In Time</th>
+          <th>Finish Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% challenge.teams.order(:planned_start_time).each do |team| %>
+          <tr>
+            <td><%= count %></td>
+            <td><%= team.name %></td>
+            <td><%= team.group.to_s.titleize %></td>
+            <% if has_started? team %>
+              <td><%= start_time(team) %></td>
+            <% else %>
+              <td class="expected"><%= link_to "(#{start_time(team)})", edit_team_path(team) %></td>
+            <% end %>
+            <% if has_phoned_in? team %>
+              <td><%= phone_in_time(team) %></td>
+            <% else %>
+              <td class="expected"><%= link_to "(#{phone_in_time(team)})", edit_team_path(team) %></td>
+            <% end %>
+            <% if has_finished? team %>
+              <td><%= finish_time(team) %></td>
+            <% else %>
+              <td class="expected"><%= link_to "(#{finish_time(team)})", edit_team_path(team) %></td>
+            <% end %>
+            <td><%= current_status(team) %></td>
+          </tr>
+          <% count += 1 %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% end %>
