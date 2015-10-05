@@ -1,23 +1,7 @@
 <div class="jumbotron center">
-  <h1>Official Start Times</h1>
+  <h1>Live Team Status</h1>
   <br />
-  <p>Please arrive 45 minutes before your start time for check-in, inspection
-     and route planning.</p>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h4 class="panel-title">Please Note</h4>
-      </div>
-      <div class="panel-body">
-        <h4>
-          The actual finish time could be up to 30 minutes after the expected finish
-          time. All times are subject to change.
-        </h4>
-      </div>
-    </div>
-  </div>
+  <p>Expected times are shown in brackets. They will be updated automatically.</p>
 </div>
 
 <% count = 1 %>
@@ -36,7 +20,9 @@
           <th>Name</th>
           <th>Group</th>
           <th>Start Time</th>
+          <th>Phone In Time</th>
           <th>Finish Time</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -45,8 +31,22 @@
             <td><%= count %></td>
             <td><%= team.name %></td>
             <td><%= team.group.to_s.titleize %></td>
-            <td><%= start_time(team) %></td>
-            <td><%= finish_time(team) %></td>
+            <% if has_started? team %>
+              <td><%= start_time(team) %></td>
+            <% else %>
+              <td class="expected">(<%= start_time(team) %>)</td>
+            <% end %>
+            <% if has_phoned_in? team %>
+              <td><%= phone_in_time(team) %></td>
+            <% else %>
+              <td class="expected">(<%= phone_in_time(team) %>)</td>
+            <% end %>
+            <% if has_finished? team %>
+              <td><%= finish_time(team) %></td>
+            <% else %>
+              <td class="expected">(<%= finish_time(team) %>)</td>
+            <% end %>
+            <td><%= current_status(team) %></td>
           </tr>
           <% count += 1 %>
         <% end %>
