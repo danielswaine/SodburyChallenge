@@ -6,7 +6,6 @@ prawn_document(page_size: "A4") do |pdf|
 
 	pdf.move_down 18
 
-	# table(data, options)
 	pdf.table(
 		[["No.", "Grid Reference", "Description"]],
 		:width => 525, :column_widths => [30, 100, 395],  :position => :center,
@@ -19,5 +18,4 @@ prawn_document(page_size: "A4") do |pdf|
 		:width => 525, :row_colors => ["FFFFFF", "F9F9F9"], :cell_style => {:border_color => "DDDDDD"},
 		:column_widths => [30, 100, 395],  :position => :center
 	)
-
 end
