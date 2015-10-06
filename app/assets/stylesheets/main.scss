@@ -173,3 +173,11 @@ input {
 .vspace {
   margin-top: 18px;
 }
+
+// Tables
+table {
+  white-space: nowrap;
+}
+.wide-table {
+  overflow: auto;
+}
