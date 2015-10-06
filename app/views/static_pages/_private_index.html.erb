@@ -7,7 +7,7 @@
 <br />
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 col-xs-12">
     <div class="panel panel-info">
       <div class="panel-heading">
         <h4 class="panel-title">Note</h4>
@@ -22,12 +22,12 @@
 <% count = 1 %>
 <% @challenges.order(:time_allowed).each do |challenge| %>
 <div class="row vspace">
-  <div class="col-md-12">
+  <div class="col-md-12 col-xs-12">
     <h3><%= challenge.time_allowed %> Hour Challenge</h3>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 col-xs-12">
     <table class="table table-striped">
       <thead>
         <tr>
