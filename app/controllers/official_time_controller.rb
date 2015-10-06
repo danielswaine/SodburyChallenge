@@ -5,7 +5,7 @@ class OfficialTimeController < ApplicationController
   end
 
   def time_now
-    # Returns the number of miffiseconds since the Unix epoch.
+    # Returns the number of milliseconds since the Unix epoch.
     (Time.now.to_f * 1000).round
   end
 
