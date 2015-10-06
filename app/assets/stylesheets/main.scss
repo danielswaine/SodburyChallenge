@@ -96,16 +96,8 @@ footer {
       color: $gray-darker;
     }
   }
-  small {
-    float: left;
-  }
-  ul {
-    float: right;
-    list-style: none;
-    li {
-      float: left;
-      margin-left: 15px;
-    }
+  p {
+    font-size:13px;
   }
 }
 
