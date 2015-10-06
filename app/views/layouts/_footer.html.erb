@@ -1,6 +1,30 @@
 <footer>
   <div class="row">
-    <div class="col-xs-8"><p>Sodbury Challenge <%= Date.current.year %> &copy <a href="http://danielswaine.co.uk/">Daniel Swaine</a> &amp <a href="https://www.joecridge.me/">Joe Cridge</a></p></div>
-    <div class="col-xs-4"><p class="right"><a href="https://raw.githubusercontent.com/danielswaine/SodburyChallenge/master/LICENSE">GPLv3</a> | <a href="https://github.com/danielswaine/SodburyChallenge">Source</a></p></div>
-  <div>
+    <div class="col-md-4 col-sm-4 hidden-xs">
+      <span class="left">Sodbury Challenge <%= Date.current.year %></span>
+    </div>
+    <div class="col-md-4 col-sm-4 hidden-xs center">
+      <span>&copy; <a href="https://www.joecridge.me/">Joe Cridge</a>, <a href="http://danielswaine.co.uk/">Daniel Swaine</a></span><br /><span><a href="https://raw.githubusercontent.com/danielswaine/SodburyChallenge/master/LICENSE">GPLv3</a>&nbsp;&nbsp;<a href="https://github.com/danielswaine/SodburyChallenge">Source</a></span>
+    </div>
+    <div class="col-md-4 col-sm-4 hidden-xs">
+      <nav>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Rules", rules_path %></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="visible-xs-block col-xs-12 vspace center">
+      <%= link_to "Home", root_path %>&nbsp;&nbsp;&nbsp;
+      <%= link_to "About", about_path %>&nbsp;&nbsp;&nbsp;
+      <%= link_to "Rules", rules_path %>
+    </div>
+    <div class="visible-xs-block col-xs-12 vspace center">
+      <span>&copy; <a href="https://www.joecridge.me/">Joe Cridge</a>, <a href="http://danielswaine.co.uk/">Daniel Swaine</a></span>
+    </div>
+    <div class="visible-xs-block col-xs-12 center">
+      <span><a href="https://raw.githubusercontent.com/danielswaine/SodburyChallenge/master/LICENSE">GPLv3</a>&nbsp;&nbsp;<a href="https://github.com/danielswaine/SodburyChallenge">Source</a></span>
+    </div>
+  </div>
 </footer>

@@ -97,7 +97,15 @@ footer {
     }
   }
   p {
-    font-size:13px;
+    font-size: 13px;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
   }
 }
 
