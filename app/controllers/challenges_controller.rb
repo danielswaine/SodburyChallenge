@@ -1,6 +1,5 @@
 class ChallengesController < ApplicationController
   before_action :user_logged_in?
-  before_action :user_is_admin?
   before_action :find_challenge, only: [:show, :update, :destroy]
 
   def index
@@ -61,13 +60,6 @@ class ChallengesController < ApplicationController
         store_location
         flash[:danger] = "Please log in to manage challenges."
         redirect_to login_url
-      end
-    end
-
-    def user_is_admin?
-      unless current_user.admin?
-        flash[:warning] = "Sorry, challenges are currently a development feature."
-        redirect_to root_url
       end
     end
 
