@@ -1,17 +1,17 @@
 var localOffset = 0;
+var zoneOffset = 0;
 
 window.onload = function() {
-  displayTime();
-  getOffset();
-  setInterval(displayTime, 200);
-  setInterval(getOffset, 300000);
+  synchronise();
+  setInterval(synchronise, 300000);
+  setInterval(display, 200);
 }
 
-function displayTime() {
+function display() {
   var localTime = new Date().getTime();
-  var officialTime = new Date(localTime - localOffset);
-  var h = officialTime.getHours();
-  var m = officialTime.getMinutes();
+  var officialTime = new Date(localTime + zoneOffset - localOffset);
+  var h = officialTime.getUTCHours();
+  var m = officialTime.getUTCMinutes();
   if (h < 10) {
     h = "0" + h;
   }
@@ -21,11 +21,12 @@ function displayTime() {
   $("#clock").html(h + ":" + m);
 }
 
-function getOffset() {
+function synchronise() {
   $.ajax({
     type: "GET",
     url: "/time"
-  }).done( function calculateOffset(serverTime) {
-    localOffset = new Date().getTime() - serverTime;
+  }).done( function evaluate(serverTime) {
+    zoneOffset =  serverTime.zone
+    localOffset = new Date().getTime() - serverTime.unix;
   });
 }
