@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :checkpoints, param: :number,
                           only: [:index, :new, :create, :edit, :update, :destroy]
 
+  resources :goals, only: [:new, :create, :edit, :update, :destroy]
+
   resources :teams, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
 
