@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005190025) do
+ActiveRecord::Schema.define(version: 20151007193112) do
 
   create_table "challenges", force: :cascade do |t|
     t.date     "date"
@@ -21,8 +21,9 @@ ActiveRecord::Schema.define(version: 20151005190025) do
     t.text     "bonus_three"
     t.text     "bonus_four"
     t.text     "bonus_five"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "published",    default: false
   end
 
   create_table "checkpoints", force: :cascade do |t|
