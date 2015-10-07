@@ -1,0 +1,86 @@
+<% provide(:title, "#{@challenge.time_allowed} Hour Challenge #{@challenge.date.strftime('%Y')}") %>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <h2>Goals</h2>
+  </div>
+</div>
+<div class="row vspace">
+  <div class="col-md-12 col-xs-12 wide-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Checkpoint</th>
+          <th>Grid Reference</th>
+          <th>Points Value</th>
+          <th>Compulsory?</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row vspace">
+  <div class="col-md-3 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> Add Goal"), new_team_path, :class=>'btn btn-block btn-success' %>
+  </div>
+</div>
+
+<div class="row vspace">
+  <div class="col-md-12 col-xs-12 vspace">
+    <h2>Bonuses</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <p>You can add to up 5 bonuses to each challenge:</p>
+    <p><code>{ visit: 22, value: 15 }</code> will grant 15 points to teams who visit at
+       least 22 checkpoints.</p>
+    <p><code>{ visit: [5, 7, 51], value: 20 }</code> will grant 20 points to teams who visit
+       checkpoints #5, #7 and #51.</p>
+  </div>
+</div>
+
+<%= form_for(@challenge) do |f| %>
+  <div class="row vspace">
+    <div class="col-md-12">
+      <%= f.label :bonus_one, "Bonus 1" %>
+      <%= f.text_field :bonus_one, class: 'form-control' %>
+
+      <%= f.label :bonus_two, "Bonus 2" %>
+      <%= f.text_field :bonus_two, class: 'form-control' %>
+
+      <%= f.label :bonus_three, "Bonus 3" %>
+      <%= f.text_field :bonus_three, class: 'form-control' %>
+
+      <%= f.label :bonus_four, "Bonus 4" %>
+      <%= f.text_field :bonus_four, class: 'form-control' %>
+
+      <%= f.label :bonus_five, "Bonus 5" %>
+      <%= f.text_field :bonus_five, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row vspace">
+    <div class="col-md-3">
+      <%= f.submit "Update Bonuses", class: 'btn btn-block btn-primary' %>
+    </div>
+  </div>
+<% end %>
+
+<div class="row vspace">
+  <div class="col-md-12">
+    <hr />
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 col-md-offset-3 vspace">
+      <%= link_to "Back", challenges_path, class: "btn btn-block btn-default" %>
+  </div>
+  <div class="col-md-3 vspace">
+      <%= link_to "Delete Challenge", @challenge, method: :delete,
+        data: { confirm: "Delete challenge and all associated teams? This cannot be undone." },
+        :class=>'btn btn-block btn-danger' %>
+  </div>
+</div>
