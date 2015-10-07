@@ -4,6 +4,9 @@ class GoalsController < ApplicationController
 
   def new
     @goal = Goal.new
+    if goal_params[:challenge_id]
+      @goal.challenge_id = goal_params[:challenge_id]
+    end
   end
 
   def edit
