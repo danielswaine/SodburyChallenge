@@ -4,9 +4,6 @@ class GoalsController < ApplicationController
 
   def new
     @goal = Goal.new
-    if goal_params[:challenge_id]
-      @goal.challenge_id = goal_params[:challenge_id]
-    end
   end
 
   def edit
@@ -15,8 +12,8 @@ class GoalsController < ApplicationController
   def create
     @goal = Goal.new(goal_params)
     if @goal.save
-      flash[:success] = "Goal added successfully."
-      redirect_to challenge_path(@goal.challenge)
+      flash[:success] = "Goal added."
+      redirect_to challenge_path(@goal.challenge_id)
     else
       render 'new'
     end
@@ -24,8 +21,8 @@ class GoalsController < ApplicationController
 
   def update
     if @goal.update(goal_params)
-      flash[:success] = "Goal updated successfully."
-      redirect_to challenge_path(@goal.challenge)
+      flash[:success] = "Goal updated."
+      redirect_to challenge_path(@goal.challenge_id)
     else
       render 'edit'
     end
@@ -33,8 +30,8 @@ class GoalsController < ApplicationController
 
   def destroy
     @goal.destroy
-    flash[:success] = "Goal removed successfully."
-    redirect_to challenge_path(@goal.challenge)
+    flash[:success] = "Goal removed."
+    redirect_to challenge_path(@goal.challenge_id)
   end
 
   private
