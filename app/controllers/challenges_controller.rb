@@ -7,7 +7,7 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    @goals = @challenge.goals
+    @goals ||= @challenge.goals
     respond_to do |format|
       format.html # show.html.erb
       format.pdf # show.pdf.prawn
@@ -34,18 +34,16 @@ class ChallengesController < ApplicationController
     redirect_to challenges_path
   end
 
-  def edit
-  end
-
   def update
     if @challenge.update(challenge_params)
       flash[:success] = "Challenge updated."
       redirect_to challenges_path
     else
-      render 'edit'
+      @goals = @challenge.goals
+      flash[:danger] = "Bonus is incorrectly formatted."
+      render 'show'
     end
   end
-
 
   private
 
