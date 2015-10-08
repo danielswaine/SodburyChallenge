@@ -1,0 +1,40 @@
+<% provide(:title, "Edit Goal") %>
+
+<%= form_for(@goal) do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <label for="goal_challenge_id">Challenge</label>
+      <select name="goal[challenge_id]" class="form-control" type="text" disabled><option><%= "Sodbury Challenge #{@goal.challenge.date.year} (#{@goal.challenge.time_allowed} hours)" %></option></select>
+
+      <%= f.label :checkpoint_id, "Checkpoint" %>
+      <% checkpoints_array = Checkpoint.all.map do |c| ["\##{c.number} #{truncate c.description}", c.id] end %>
+      <%= f.select :checkpoint_id, options_for_select(checkpoints_array, f.object.checkpoint_id), { }, { class: 'form-control' } %>
+
+      <%= f.label :points_value, "Points Value" %>
+      <%= f.text_field :points_value, class: 'form-control' %>
+
+      <%= f.label :compulsory, "Compulsory?" %>
+      <%= f.select :compulsory, options_for_select([["No", false], ["Yes", true]], f.object.compulsory), { }, { class: 'form-control' } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit "Save Goal", :class=>'btn btn-primary' %>
+    </div>
+    <div class="col-md-3 vspace">
+      <%= link_to "Cancel", challenge_path(@goal.challenge), class: 'btn btn-block btn-default' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 vspace">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 vspace">
+      <%= link_to "Remove Goal", @goal, method: :delete, class: 'btn btn-group-justified btn-danger' %>
+    </div>
+  </div>
+<% end %>
