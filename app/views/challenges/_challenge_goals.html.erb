@@ -13,6 +13,7 @@ end %>
     <td><%= goal[:grid_reference] %></td>
     <td><%= goal[:points_value] %></td>
     <td><%= goal[:compulsory?] %></td>
-    <td><%= link_to "Edit", edit_goal_path(id: goal[:id]) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Delete", Goal.find(goal[:id]), method: :delete %></td>
+    <td><%= link_to "Edit", edit_goal_path(id: goal[:id]) %></td>
+    <td><%= link_to "Delete", Goal.find(goal[:id]), method: :delete %></td>
   </tr>
 <% end %>
