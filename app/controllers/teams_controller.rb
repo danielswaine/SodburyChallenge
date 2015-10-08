@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     if @team.save
       flash[:success] = "Team created sucessfully."
-      redirect_to teams_url
+      redirect_to teams_path
     else
       render 'new'
     end
@@ -35,7 +35,7 @@ class TeamsController < ApplicationController
   def update
     if @team.update(team_params)
       flash[:success] = "Team updated sucessfully."
-      redirect_to teams_url
+      redirect_to teams_path
     else
       render 'edit'
     end
@@ -45,7 +45,7 @@ class TeamsController < ApplicationController
   def destroy
     @team.destroy
     flash[:success] = "Team deleted successfully."
-    redirect_to teams_url
+    redirect_to teams_path
   end
 
   private

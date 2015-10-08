@@ -1,8 +1,9 @@
-<% provide(:title, 'Create a New Challenge') %>
+<% provide(:title, 'New Challenge') %>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <p><em>Bonuses have not been enabled yet.</em></p>
+    <p>Use this form to create a new challenge. Once created, you will be able
+       to add teams, goal checkpoints and bonuses.</p>
   </div>
 </div>
 
@@ -27,23 +28,8 @@
         });
       </script>
 
-      <%= f.label :time_allowed, "Time Allowed" %>
+      <%= f.label :time_allowed, "Time Allowed", class: 'vspace' %>
       <%= f.text_field :time_allowed, class: 'form-control' %>
-
-      <%= f.label :bonus_one, "Bonus 1" %>
-      <%= f.text_field :bonus_one, class: 'form-control' %>
-
-      <%= f.label :bonus_two, "Bonus 2" %>
-      <%= f.text_field :bonus_two, class: 'form-control' %>
-
-      <%= f.label :bonus_three, "Bonus 3" %>
-      <%= f.text_field :bonus_three, class: 'form-control' %>
-
-      <%= f.label :bonus_four, "Bonus 4" %>
-      <%= f.text_field :bonus_four, class: 'form-control' %>
-
-      <%= f.label :bonus_five, "Bonus 5" %>
-      <%= f.text_field :bonus_five, class: 'form-control' %>
 
     </div>
   </div>

@@ -1,0 +1,44 @@
+<% provide(:title, "New Goal") %>
+
+<%= form_for(@goal) do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <% challenge_id = params[:challenge] || f.object.challenge_id %>
+      <% if challenge_id %>
+        <%= f.hidden_field :challenge_id, value: challenge_id %>
+      <% else %>
+        <%= f.label :challenge_id, "Challenge" %>
+        <% challenges_array = Challenge.all.map do |c|
+          ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
+        end %>
+        <%= f.select :challenge_id, options_for_select(challenges_array), { }, { class: 'form-control' } %>
+      <% end %>
+
+      <%= f.label :checkpoint_id, "Checkpoint" %>
+      <% checkpoints_array = Checkpoint.all.map do |c| ["\##{c.number} #{truncate c.description}", c.id] end %>
+      <%= f.select :checkpoint_id, options_for_select(checkpoints_array), { }, { class: 'form-control' } %>
+
+      <%= f.label :points_value, "Points Value" %>
+      <%= f.text_field :points_value, class: 'form-control' %>
+
+      <%= f.label :compulsory, "Compulsory?" %>
+      <%= f.select :compulsory, options_for_select([["No", false], ["Yes", true]], f.object.compulsory), { }, { class: 'form-control' } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit "Add Goal", :class=>'btn btn-primary' %>
+    </div>
+    <div class="col-md-3 vspace">
+      <% if @goal.challenge %>
+        <%= link_to "Cancel", challenge_path(@goal.challenge), class: 'btn btn-block btn-default' %>
+      <% elsif challenge_id %>
+        <%= link_to "Cancel", challenge_path(id: challenge_id), class: 'btn btn-block btn-default' %>
+      <% else %>
+        <%= link_to "Cancel", challenges_path, class: 'btn btn-block btn-default' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

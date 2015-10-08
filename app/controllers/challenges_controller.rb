@@ -1,10 +1,17 @@
 class ChallengesController < ApplicationController
   before_action :user_logged_in?
-  before_action :user_is_admin?
-  before_action :find_challenge, only: [:edit, :update, :destroy]
+  before_action :find_challenge, only: [:show, :update, :destroy]
 
   def index
     @challenges = Challenge.all.order(:date)
+  end
+
+  def show
+    @goals = @challenge.goals
+    respond_to do |format|
+      format.html # show.html.erb
+      format.pdf # show.pdf.prawn
+    end
   end
 
   def new
@@ -48,8 +55,8 @@ class ChallengesController < ApplicationController
 
     def challenge_params
       params.require(:challenge).permit(
-                                         :date, :time_allowed#, :bonus_one, :bonus_two,
-                                         #:bonus_three, :bonus_four, :bonus_five
+                                         :date, :time_allowed, :bonus_one, :bonus_two,
+                                         :bonus_three, :bonus_four, :bonus_five
       )
     end
 
@@ -58,13 +65,6 @@ class ChallengesController < ApplicationController
         store_location
         flash[:danger] = "Please log in to manage challenges."
         redirect_to login_url
-      end
-    end
-
-    def user_is_admin?
-      unless current_user.admin?
-        flash[:warning] = "Sorry, challenges are currently a development feature."
-        redirect_to root_url
       end
     end
 
