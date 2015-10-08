@@ -18,11 +18,11 @@
       <% selection_challenges_array = Challenge.all.map do |c|
         ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
       end %>
-      <%= f.select :challenge_id, options_for_select(selection_challenges_array), class: 'form-control' %>
+      <%= f.select :challenge_id, options_for_select(selection_challenges_array), { }, { class: 'form-control' } %>
 
       <%= f.label :group, "Group" %>
       <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
-      <%= f.select :group, options_for_select(groups_array), class: 'form-control' %>
+      <%= f.select :group, options_for_select(groups_array), { }, { class: 'form-control' } %>
 
       <%= f.label :planned_start_time, "Planned Start Time" %>
       <%= f.text_field :planned_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
