@@ -1,0 +1,18 @@
+<% rows = @goals.map do |goal|
+  {
+    id: goal.id,
+    checkpoint: goal.checkpoint.number,
+    grid_reference: goal.checkpoint.grid_reference,
+    points_value: goal.points_value,
+    compulsory?: (goal.compulsory? && "Yes") || "No"
+  }
+end %>
+<% rows.sort_by! { |row| row[:checkpoint] }.each do |goal| %>
+  <tr>
+    <td><%= goal[:checkpoint] %></td>
+    <td><%= goal[:grid_reference] %></td>
+    <td><%= goal[:points_value] %></td>
+    <td><%= goal[:compulsory?] %></td>
+    <td><%= link_to "Edit", edit_goal_path(id: goal[:id]) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Delete", Goal.find(goal[:id]), method: :delete %></td>
+  </tr>
+<% end %>
