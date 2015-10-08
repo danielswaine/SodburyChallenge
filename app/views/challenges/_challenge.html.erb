@@ -2,6 +2,8 @@
   <td><%= challenge.date.strftime("%-d %B %Y") %></td>
   <td><%= challenge.time_allowed %> hours</td>
   <td><%= challenge.teams.size %></td>
+  <td><%= challenge.goals.size %></td>
+  <td><%= points_available(challenge) %></td>
   <td><%= link_to (challenge.published? && "View") || "Manage", challenge_path(challenge) %></td>
   <% if challenge.published? %>
     <!-- Link to view results -->
