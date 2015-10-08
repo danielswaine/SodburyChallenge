@@ -7,6 +7,11 @@ class ChallengesController < ApplicationController
   end
 
   def show
+    @goals = @challenge.goals
+    respond_to do |format|
+      format.html # show.html.erb
+      format.pdf # show.pdf.prawn
+    end
   end
 
   def new

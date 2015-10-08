@@ -14,10 +14,11 @@
           <th>Grid Reference</th>
           <th>Points Value</th>
           <th>Compulsory?</th>
-          <th>Action</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
+        <%= render "challenge_goals" %>
       </tbody>
     </table>
   </div>
@@ -26,6 +27,9 @@
   <div class="col-md-3 vspace">
     <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> Add Goal"),
         new_goal_path(challenge: @challenge.id), :class=>'btn btn-block btn-success' %>
+  </div>
+  <div class="col-md-3 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), challenge_path(@challenge, format: :pdf), :class=>'btn btn-block btn-default' %>
   </div>
 </div>
 
