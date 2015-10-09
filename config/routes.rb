@@ -18,6 +18,14 @@ Rails.application.routes.draw do
   resources :teams, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
 
+  get 'teams/:id/log' => 'teams#log', as: 'log_team'
+  put 'teams/:id/log' => 'teams#update_times'
+  patch 'teams/:id/log' => 'teams#update_times'
+
+  get 'teams/:id/score' => 'teams#score', as: 'score_team'
+  put 'teams/:id/score' => 'teams#update_score'
+  patch 'teams/:id/score' => 'teams#update_score'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

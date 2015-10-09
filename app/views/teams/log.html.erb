@@ -1,0 +1,35 @@
+<% provide(:title, "Log Actual Times") %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <p><%= @team.name %></p>
+  </div>
+</div>
+
+<%= form_for @team, url: { action: :update_times } do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :actual_start_time, "Start Time" %>
+      <%= f.text_field :actual_start_time, placeholder: "Planned: #{start_time(@team)}",
+          value: @team.actual_start_time || nil, class: 'form-control' %>
+
+      <%= f.label :phone_in_time, "Phone In Time" %>
+      <%= f.text_field :phone_in_time, placeholder: "Expected: #{phone_in_time(@team)}",
+          value: @team.phone_in_time || nil, class: 'form-control' %>
+
+      <%= f.label :finish_time, "Finish Time" %>
+      <%= f.text_field :finish_time, placeholder: "Expected: #{finish_time(@team)}",
+          value: @team.finish_time || nil, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit "Update Times", :class=>'btn btn-primary' %>
+    </div>
+    <div class="col-md-3 vspace">
+      <%= link_to "Cancel", root_path, :class=>'btn btn-block btn-default' %>
+    </div>
+  </div>
+<% end %>
