@@ -22,7 +22,7 @@
           <th>Name</th>
           <th>Group</th>
           <th>Start Time</th>
-          <th>Action</th>
+          <th colspan="2">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -33,6 +33,7 @@
             <td><%= team.group.to_s.titleize %></td>
             <td><%= start_time(team) %></td>
             <td><%= link_to "Edit", edit_team_path(team) %></td>
+            <td><%= link_to "Score", score_team_path(team) %><% if team.score-%>&nbsp;&nbsp;&#10003;<% end %></td>
           </tr>
           <% count += 1 %>
         <% end %>

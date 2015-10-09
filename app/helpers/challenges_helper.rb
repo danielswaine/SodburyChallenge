@@ -9,9 +9,23 @@ module ChallengesHelper
       tally += goal.points_value
     end
 
-    from_bonuses = challenge.time_allowed > 5 ? 85 : 0  # TODO
+    from_bonuses = bonuses(challenge).reduce(0) do |tally, bonus|
+      tally += bonus ? bonus[:value] : 0
+    end
 
     start_with + phone_in_bonus + from_goals + from_bonuses
+  end
+
+  def bonuses(challenge)
+
+    [
+      eval(challenge.bonus_one.to_s),
+      eval(challenge.bonus_two.to_s),
+      eval(challenge.bonus_three.to_s),
+      eval(challenge.bonus_four.to_s),
+      eval(challenge.bonus_five.to_s)
+    ]
+
   end
 
 end
