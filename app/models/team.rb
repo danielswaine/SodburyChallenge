@@ -27,7 +27,7 @@ class Team < ActiveRecord::Base
   validates_each :planned_start_time, :actual_start_time,
                  :phone_in_time, :finish_time do |record, attr, value|
 
-    unless value.nil?
+    unless value.empty?
       unless value =~ /\A(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]\z/
         record.errors.add(attr, 'must be a valid 24-hour time')
       end
