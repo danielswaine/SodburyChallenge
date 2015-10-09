@@ -2,7 +2,6 @@ class Team < ActiveRecord::Base
   belongs_to :challenge, inverse_of: :teams
 
   enum group: [:scouts, :explorers, :non_competitive]
-  serialize :visited, Array
 
   before_save { self.name = name.titleize }
 
