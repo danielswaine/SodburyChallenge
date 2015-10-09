@@ -6,26 +6,16 @@
   </div>
 </div>
 
-<%= form_for(@team) do |f| %>
-  <div class="row">
+<%= form_for @team, url: score_team_path(@team) do |f| %>
+  <div class="row vspace">
     <div class="col-md-6 col-md-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :name, "Team Name" %>
-      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.label :visited, "Visited Checkpoints" %>
+      <%= f.text_area :visited, placeholder: "e.g. 54, 64, 8, 48, 21", class: 'form-control' %>
 
-      <%= f.label :challenge_id, "Challenge" %>
-      <% challenges_array = Challenge.all.map do |c|
-        ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
-      end %>
-      <%= f.select :challenge_id, options_for_select(challenges_array, f.object.challenge_id), { }, { class: 'form-control' } %>
-
-      <%= f.label :group, "Group" %>
-      <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
-      <%= f.select :group, options_for_select(groups_array, f.object.group), { }, { class: 'form-control' } %>
-
-      <%= f.label :planned_start_time, "Planned Start Time" %>
-      <%= f.text_field :planned_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
+      <%= f.label :disqualified, "Disqualified?" %>
+      <%= f.select :disqualified, options_for_select([["No", false], ["Yes", true]], f.object.disqualified), { }, { class: 'form-control' } %>
     </div>
   </div>
   <div class="row">

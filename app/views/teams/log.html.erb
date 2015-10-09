@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<%= form_for @team, url: { action: :update_times } do |f| %>
+<%= form_for @team, url: log_team_path(@team) do |f| %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
