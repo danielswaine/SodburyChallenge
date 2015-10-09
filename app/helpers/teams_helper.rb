@@ -45,17 +45,17 @@ module TeamsHelper
 
   # Returns true if a team has started on the course.
   def has_started?(team)
-    !team.actual_start_time.nil?
+    !team.actual_start_time.to_s.empty?
   end
 
   # Returns true if a team has phoned in.
   def has_phoned_in?(team)
-    !team.phone_in_time.nil?
+    !team.phone_in_time.to_s.empty?
   end
 
   # Returns true if a team has finished.
   def has_finished?(team)
-    !team.finish_time.nil?
+    !team.finish_time.to_s.empty?
   end
 
 end

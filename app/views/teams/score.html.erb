@@ -1,0 +1,29 @@
+<% provide(:title, "Score Team") %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <p><%= @team.name %></p>
+  </div>
+</div>
+
+<%= form_for @team, url: score_team_path(@team) do |f| %>
+  <div class="row vspace">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :visited, "Visited Checkpoints" %>
+      <%= f.text_area :visited, placeholder: "e.g. 54, 64, 8, 48, 21", class: 'form-control' %>
+
+      <%= f.label :disqualified, "Disqualified?" %>
+      <%= f.select :disqualified, options_for_select([["No", false], ["Yes", true]], f.object.disqualified), { }, { class: 'form-control' } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3 vspace">
+      <%= f.submit "Save Score", :class=>'btn btn-primary' %>
+    </div>
+    <div class="col-md-3 vspace">
+      <%= link_to "Cancel", teams_path, :class=>'btn btn-block btn-default' %>
+    </div>
+  </div>
+<% end %>

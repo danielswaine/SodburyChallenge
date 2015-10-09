@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :user_logged_in?
-  before_action :find_team, only: [:edit, :update, :destroy]
+  before_action :find_team, only: [:edit, :log, :update_times, :update,
+                                   :score, :update_scores, :destroy]
 
   # GET /teams
   def index
@@ -18,6 +19,35 @@ class TeamsController < ApplicationController
 
   # GET /teams/:id/edit
   def edit
+  end
+
+  # GET /teams/:id/log
+  def log
+  end
+
+  # PATCH /teams/:id/log
+  def update_times
+    if @team.update(team_params)
+      flash[:success] = "Team times saved."
+      redirect_to root_path
+    else
+      render 'log'
+    end
+  end
+
+
+  # GET /teams/:id/score
+  def score
+  end
+
+  # PATCH /teams/:id/score
+  def update_score
+    if @team.update(team_params)
+      flash[:success] = "Team score saved."
+      redirect_to teams_path
+    else
+      render 'score'
+    end
   end
 
   # POST /teams
