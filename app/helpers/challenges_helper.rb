@@ -10,7 +10,7 @@ module ChallengesHelper
     end
 
     from_bonuses = bonuses(challenge).reduce(0) do |tally, bonus|
-      tally + bonus ? bonus[:value] : 0
+      tally + (bonus ? bonus[:value] : 0)
     end
 
     start_with + phone_in_bonus + from_goals + from_bonuses
