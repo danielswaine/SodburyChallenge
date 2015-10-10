@@ -17,9 +17,9 @@ class Challenge < ActiveRecord::Base
     unless value.empty?
       if value =~ /[^{ }a-z:,0-9\[\]]/
         record.errors.add(attr, 'contains invalid characters')
-      elsif value =~ /\A\{ ?visit: ?[1-9][0-9]* ?, ?value: ?[1-9][0-9]* ?}\z/
+      elsif value =~ /\A\{ *visit: *[1-9][0-9]* *, *value: *[1-9][0-9]* *}\z/
         # Valid bonus, based on total checkpoints visited.
-      elsif value =~ /\A\{ ?visit: ?\[ ?([1-9][0-9]*, ?)*[1-9][0-9]* ?\] ?, ?value: ?[1-9][0-9]* ?}\z/
+      elsif value =~ /\A\{ *visit: *\[ *([1-9][0-9]* *, *)*[1-9][0-9]* *\] *, *value: *[1-9][0-9]* *}\z/
         # Valid bonus, based on visiting a specific subset of checkpoints.
       else
         record.errors.add(attr, 'does not have a valid format')
@@ -27,5 +27,16 @@ class Challenge < ActiveRecord::Base
     end
 
   end
+
+  before_save do
+    self.bonus_one = prettify(bonus_one)
+  end
+
+  private
+
+    def prettify(bonuses_string)
+      bonuses_hash = eval(bonuses_string)
+      "{ visit: #{bonuses_hash[:visit]}, value: #{bonuses_hash[:value]} }"
+    end
 
 end

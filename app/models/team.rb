@@ -3,7 +3,12 @@ class Team < ActiveRecord::Base
 
   enum group: [:scouts, :explorers, :non_competitive]
 
-  before_save { self.name = name.titleize }
+  before_save do
+    self.name = name.titleize
+    if visited
+      self.visited = eval("[#{visited}]").to_s.tr('[]', '')
+    end
+  end
 
   validates :name, length: {
                              in: 5..70,
@@ -32,6 +37,23 @@ class Team < ActiveRecord::Base
       end
     end
 
+  end
+
+  validates :score, allow_blank: true, numericality: {
+                                         only_integer: true,
+                                         message: 'must be an integer'
+                                       }
+
+  validates_each :visited do |record, attr, value|
+    unless value.to_s.empty?
+      if value =~ /\A *([1-9][0-9]* *, *)*[1-9][0-9]* *\z/
+        # Valid checkpoint list.
+      elsif value =~ /[^0-9, ]/
+        record.errors.add(attr, 'checkpoints list contains invalid characters')
+      else
+        record.errors.add(attr, 'checkpoints must be a comma-separated list')
+      end
+    end
   end
 
 end
