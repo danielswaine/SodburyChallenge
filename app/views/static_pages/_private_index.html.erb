@@ -47,17 +47,17 @@
             <td><%= team.name %></td>
             <td><%= team.group.to_s.titleize %></td>
             <% if has_started? team %>
-              <td><%= start_time(team) %></td>
+              <td class="actual"><%= link_to start_time(team), log_team_path(team) %></td>
             <% else %>
               <td class="expected"><%= link_to "(#{start_time(team)})", log_team_path(team) %></td>
             <% end %>
             <% if has_phoned_in? team %>
-              <td><%= phone_in_time(team) %></td>
+              <td class="actual"><%= link_to phone_in_time(team), log_team_path(team) %></td>
             <% else %>
               <td class="expected"><%= link_to "(#{phone_in_time(team)})", log_team_path(team) %></td>
             <% end %>
             <% if has_finished? team %>
-              <td><%= finish_time(team) %></td>
+              <td class="actual"><%= link_to finish_time(team), log_team_path(team) %></td>
             <% else %>
               <td class="expected"><%= link_to "(#{finish_time(team)})", log_team_path(team) %></td>
             <% end %>
