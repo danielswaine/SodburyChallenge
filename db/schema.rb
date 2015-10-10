@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20151010094632) do
     t.string   "actual_start_time"
     t.text     "visited"
     t.boolean  "disqualified",       default: false
-    t.boolean  "dropped_out"
+    t.boolean  "dropped_out",        default: false
   end
 
   create_table "users", force: :cascade do |t|
