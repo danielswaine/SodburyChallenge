@@ -12,3 +12,16 @@
     }
   }
 }
+
+.actual {
+  color: #333;
+  a {
+    &,
+    &:link,
+    &:visited,
+    &:hover {
+      color: #333;
+      cursor: default;
+    }
+  }
+}
