@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
       self.visited = eval("[#{visited}]").uniq.sort.to_s.tr('[]', '')
     end
 
-    calculate_score
+    self.score = calculate_score unless visited.to_s.empty?
 
   end
 
@@ -67,12 +67,20 @@ class Team < ActiveRecord::Base
 
       total_points = 30  # All teams start with 30 points.
 
+      ##
+      # Points from visiting checkpoints
+      ##
+
       challenge.goals.each do |goal|
         if goal.compulsory?
           disqualify unless visited? goal.checkpoint.number
         end
         total_points += goal.points_value if visited? goal.checkpoint.number
       end
+
+      ##
+      # Points from achieving checkpoint bonuses
+      ##
 
       bonuses = [
                   eval(challenge.bonus_one.to_s),
@@ -94,6 +102,31 @@ class Team < ActiveRecord::Base
         total_points += succeeded ? bonus[:value] : 0
       end
 
+      ##
+      # Phone in bonus
+      ##
+
+      if forgot_to_phone_in?
+        disqualify
+      else
+        minutes_away = lateness_in_minutes(expected_phone_in_time, phone_in_time).abs
+        total_points += [30 - minutes_away, 0].max
+      end
+
+      ##
+      # Late return penalty
+      ##
+
+      if dropped_out?
+        total_points -= 30
+      else
+        minutes_late = lateness_in_minutes(expected_finish_time, finish_time)
+        disqualify if minutes_late >= 30
+        total_points -= [minutes_late, 30].max
+      end
+
+      total_points
+
     end
 
     def visited?(checkpoint_number)
@@ -103,6 +136,31 @@ class Team < ActiveRecord::Base
 
     def disqualify
       self.disqualified = true
+    end
+
+    def time_to_i(time)
+      time_array = eval("[#{time.to_s.tr(':', ',')}]")
+      60 * time_array[0] + time_array[1]
+    end
+
+    def lateness_in_minutes(intended_time, actual_time)
+      lateness = time_to_i(actual_time) - time_to_i(intended_time)
+      if lateness > 720
+        lateness -= 1440
+      elsif lateness < -720
+        lateness += 1440
+      end
+      lateness
+    end
+
+    def expected_phone_in_time
+      start_time = Time.parse("#{challenge.date}T#{actual_start_time}")
+      (start_time + challenge.time_allowed * 1800).strftime("%R")
+    end
+
+    def expected_finish_time
+      start_time = Time.parse("#{challenge.date}T#{actual_start_time}")
+      (start_time + challenge.time_allowed * 3600).strftime("%R")
     end
 
 end
