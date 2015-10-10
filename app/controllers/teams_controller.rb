@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_action :user_logged_in?
   before_action :find_team, only: [:edit, :log, :update_times, :update,
-                                   :score, :update_scores, :destroy]
+                                   :score, :update_score, :destroy]
 
   # GET /teams
   def index
