@@ -4,10 +4,15 @@ class Team < ActiveRecord::Base
   enum group: [:scouts, :explorers, :non_competitive]
 
   before_save do
+
     self.name = name.titleize
+
     if visited
-      self.visited = eval("[#{visited}]").to_s.tr('[]', '')
+      self.visited = eval("[#{visited}]").uniq.sort.to_s.tr('[]', '')
     end
+
+    calculate_score
+
   end
 
   validates :name, length: {
@@ -55,5 +60,49 @@ class Team < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+    def calculate_score
+
+      total_points = 30  # All teams start with 30 points.
+
+      challenge.goals.each do |goal|
+        if goal.compulsory?
+          disqualify unless visited? goal.checkpoint.number
+        end
+        total_points += goal.points_value if visited? goal.checkpoint.number
+      end
+
+      bonuses = [
+                  eval(challenge.bonus_one.to_s),
+                  eval(challenge.bonus_two.to_s),
+                  eval(challenge.bonus_three.to_s),
+                  eval(challenge.bonus_four.to_s),
+                  eval(challenge.bonus_five.to_s)
+                ]
+
+      bonuses.each do |bonus|
+        succeeded = false
+        if bonus && bonus[:visit].is_a?(Array)  # Bonus based on specific checkpoints.
+          succeeded = bonus[:visit].reduce(true) do |memo, checkpoint_number|
+            memo && visited?(checkpoint_number)
+          end
+        elsif bonus  # Bonus based on total number of checkpoints.
+          succeeded = eval("[#{visited}]").uniq.size >= bonus[:visited]
+        end
+        total_points += succeeded ? bonus[:value] : 0
+      end
+
+    end
+
+    def visited?(checkpoint_number)
+      visited_checkpoints = eval("[#{visited}]")
+      visited_checkpoints.include? checkpoint_number
+    end
+
+    def disqualify
+      self.disqualified = true
+    end
 
 end
