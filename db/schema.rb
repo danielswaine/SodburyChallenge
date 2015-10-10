@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010094632) do
+ActiveRecord::Schema.define(version: 20151010120521) do
 
   create_table "challenges", force: :cascade do |t|
     t.date     "date"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20151010094632) do
     t.text     "visited"
     t.boolean  "disqualified",       default: false
     t.boolean  "dropped_out",        default: false
+    t.boolean  "forgot_to_phone_in", default: false
   end
 
   create_table "users", force: :cascade do |t|
