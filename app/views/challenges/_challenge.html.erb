@@ -4,13 +4,15 @@
   <td><%= challenge.teams.size %></td>
   <td><%= challenge.goals.size %></td>
   <td><%= points_available(challenge) %></td>
-  <td><%= link_to (challenge.published? && "View") || "Manage", challenge_path(challenge) %></td>
+  <td><%= link_to challenge.published ? "View" : "Manage", challenge_path(challenge) %></td>
   <% if challenge.published? %>
-    <!-- Link to view results -->
-  <% else %>
-    <td><%= link_to "Publish", '#',
-      data: { confirm: "Publish results for the #{challenge.time_allowed} hour challenge? " \
-                       "Published routes and scores cannot be edited." } %>
+    <td>
+      <%= link_to "View", results_path %>
     </td>
-  <% end %>
+  <% else %>
+  <td><%= link_to "Publish", publish_path(challenge), method: :patch,
+    data: { confirm: "Publish results for the #{challenge.time_allowed} hour challenge? " \
+                     "Published routes and scores cannot be edited." } %>
+  </td>
+  <% end%>
 </tr>
