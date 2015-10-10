@@ -1,7 +1,8 @@
 class TeamsController < ApplicationController
   before_action :user_logged_in?
   before_action :find_team, only: [:edit, :log, :update_times, :update,
-                                   :score, :update_scores, :destroy]
+                                   :score, :update_score, :destroy]
+  before_action :team_times_saved?, only: [:score, :update_score]
 
   # GET /teams
   def index
@@ -97,6 +98,19 @@ class TeamsController < ApplicationController
         store_location
         flash[:danger] = "Please log in to manage teams."
         redirect_to login_url
+      end
+    end
+
+    def team_times_saved?
+      if @team.actual_start_time.to_s.empty?
+        flash[:danger] = "Please submit team start time before scoring."
+        redirect_to log_team_path(@team)
+      elsif @team.phone_in_time.to_s.empty? && !@team.forgot_to_phone_in?
+        flash[:danger] = "Please submit phone in time (or mark as forgotten) before scoring."
+        redirect_to log_team_path(@team)
+      elsif @team.finish_time.to_s.empty? && !@team.dropped_out?
+        flash[:danger] = "Please submit finish time (or mark as dropped out) before scoring."
+        redirect_to log_team_path(@team)
       end
     end
 
