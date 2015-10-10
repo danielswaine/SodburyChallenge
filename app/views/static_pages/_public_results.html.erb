@@ -1,0 +1,33 @@
+<div class="jumbotron center">
+  <h1>Official Results <%= Time.now.year %></h1>
+  <br />
+  <p>Results will be published here once they are known.</p>
+</div>
+
+<% count = 1 %>
+<% @challenges.order(:time_allowed).each do |challenge| %>
+<div class="row vspace">
+  <div class="col-md-12 col-xs-12">
+    <h3><%= challenge.time_allowed %> Hour Challenge</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-xs-12 wide-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Team Number</th>
+          <th>Name</th>
+          <th>Group</th>
+          <th>Start Time</th>
+          <th>Phone In Time</th>
+          <th>Finish Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% end %>

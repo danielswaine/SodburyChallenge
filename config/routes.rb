@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get 'about' => 'static_pages#about'
   get 'rules' => 'static_pages#rules'
+  get 'results' => 'static_pages#results', as: 'results'
   get 'time' => 'official_time#index'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
@@ -25,6 +26,9 @@ Rails.application.routes.draw do
   get 'teams/:id/score' => 'teams#score', as: 'score_team'
   put 'teams/:id/score' => 'teams#update_score'
   patch 'teams/:id/score' => 'teams#update_score'
+
+  put 'challenges/:id/publish' => 'challenges#publish'
+  patch 'challenges/:id/publish' => 'challenges#publish', as: 'publish'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
