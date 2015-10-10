@@ -97,7 +97,7 @@ class Team < ActiveRecord::Base
             memo && visited?(checkpoint_number)
           end
         elsif bonus  # Bonus based on total number of checkpoints.
-          succeeded = eval("[#{visited}]").uniq.size >= bonus[:visited]
+          succeeded = (eval("[#{visited}]").uniq.size >= bonus[:visit])
         end
         total_points += succeeded ? bonus[:value] : 0
       end
@@ -123,7 +123,7 @@ class Team < ActiveRecord::Base
       else
         minutes_late = lateness_in_minutes(expected_finish_time, finish_time)
         disqualify if minutes_late >= 30
-        total_points -= [minutes_late, 30].max if minutes_late > 0
+        total_points -= [minutes_late, 30].min if minutes_late > 0
       end
 
       total_points
