@@ -29,7 +29,11 @@ class Challenge < ActiveRecord::Base
   end
 
   before_save do
-    self.bonus_one = prettify(bonus_one)
+    self.bonus_one = prettify(bonus_one) unless bonus_one.to_s.empty?
+    self.bonus_two = prettify(bonus_two) unless bonus_two.to_s.empty?
+    self.bonus_three = prettify(bonus_three) unless bonus_three.to_s.empty?
+    self.bonus_four = prettify(bonus_four) unless bonus_four.to_s.empty?
+    self.bonus_five = prettify(bonus_five) unless bonus_five.to_s.empty?
   end
 
   private
