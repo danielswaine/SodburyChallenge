@@ -89,7 +89,8 @@ class TeamsController < ApplicationController
       params.require(:team).permit(
                                     :challenge_id, :group, :name, :planned_start_time,
                                     :actual_start_time, :phone_in_time, :finish_time,
-                                    :visited, :score, :disqualified
+                                    :visited, :score, :disqualified, :dropped_out,
+                                    :forgot_to_phone_in
                                   )
     end
 

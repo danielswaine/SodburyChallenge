@@ -4,7 +4,7 @@ module ApplicationHelper
   def full_title(page_title = '')
     getCurrentYear = Date.current.year
     base_title = "Sodbury Challenge #{getCurrentYear}"
-    if page_title.empty?
+    if page_title.to_s.empty?
       base_title
     else
       page_title + " - " + base_title
