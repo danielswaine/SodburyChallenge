@@ -16,6 +16,10 @@
 
       <%= f.label :disqualified, "Disqualified?" %>
       <%= f.select :disqualified, options_for_select([["No", false], ["Yes", true]], f.object.disqualified), { }, { class: 'form-control' } %>
+
+      <%= f.label :dropped_out, "Dropped Out?" %>
+      <%= f.select :dropped_out, options_for_select([["No", false], ["Yes", true]], f.object.dropped_out), { }, { class: 'form-control' } %>
+
     </div>
   </div>
   <div class="row">
