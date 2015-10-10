@@ -141,7 +141,7 @@ class Team < ActiveRecord::Base
 
     def time_to_i(time)
       time_array = eval("[#{time.to_s.tr(':', ',')}]")
-      60 * time_array[0] + time_array[1]
+      60 * time_array[0].to_i + time_array[1].to_i
     end
 
     def lateness_in_minutes(intended_time, actual_time)
