@@ -1,0 +1,113 @@
+<div class="jumbotron center">
+  <h1>Official Results <%= Time.now.year %></h1>
+  <br />
+  <p>Results will be published here once they are known.</p>
+</div>
+
+<% @challenges.order(:time_allowed).each do |challenge| %>
+  <% if challenge.published? %>
+    <% scout_teams = challenge.teams.where(group: 0).where(disqualified: false) %>
+    <% explorer_teams = challenge.teams.where(group: 1).where(disqualified: false) %>
+    <% non_competetive_teams = challenge.teams.where(group: 2).where(disqualified: false) %>
+    <% disqualified_teams = challenge.teams.where(disqualified: true) %>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12">
+        <h2><%= challenge.time_allowed %> Hour Challenge</h2>
+        <hr />
+      </div>
+    </div>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12">
+        <h3>Scouts</h3>
+      </div>
+    </div>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12 wide-table">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Team</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% position = 1 %>
+            <% scout_teams.order(:score).each do |team| %>
+              <tr>
+                <td><%= position.ordinalize %></td>
+                <td><%= team.name %></td>
+                <td><%= team.score %></td>
+                <% position += 1 %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12">
+        <h3>Explorers</h3>
+      </div>
+    </div>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12 wide-table">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Team</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% position = 1 %>
+            <% explorer_teams.order(:score).each do |team| %>
+              <tr>
+                <td><%= position.ordinalize %></td>
+                <td><%= team.name %></td>
+                <td><%= team.score %></td>
+                <% position = 1 %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12">
+        <h3>Non Competetive</h3>
+      </div>
+    </div>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12 wide-table">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Team</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% non_competetive_teams.order(:score).each do |team| %>
+              <tr>
+                <td>&nbsp;&ndash;</td>
+                <td><%= team.name %> (N/C)</td>
+                <td><%= team.score %></td>
+              </tr>
+            <% end %>
+            <% disqualified_teams.order(:score).each do |team| %>
+              <tr>
+                <td>&nbsp;&ndash;</td>
+                <td><%= team.name %> (Disqualified)</td>
+                <td><%= team.score %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+  <% end %>
+<% end %>

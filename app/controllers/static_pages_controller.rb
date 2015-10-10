@@ -4,6 +4,10 @@ class StaticPagesController < ApplicationController
     @challenges = Challenge.all
   end
 
+  def results
+    @challenges = Challenge.all
+  end
+
   def rules
   end
 

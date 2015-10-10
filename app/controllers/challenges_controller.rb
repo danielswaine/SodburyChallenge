@@ -1,6 +1,7 @@
 class ChallengesController < ApplicationController
   before_action :user_logged_in?
-  before_action :find_challenge, only: [:show, :update, :destroy]
+  before_action :find_challenge, only: [:show, :results, :update, :publish, :destroy]
+  before_action :all_teams_scored?, only: [:publish]
 
   def index
     @challenges = Challenge.all.order(:date)
@@ -45,6 +46,17 @@ class ChallengesController < ApplicationController
     end
   end
 
+  def publish
+    if @challenge.update({ id: params[:id], published: true })
+      flash[:success] = "Results published successfully."
+      redirect_to results_path
+    else
+      flash[:danger] = "Results could not be published."
+      redirect_to challenges_path
+    end
+  end
+
+
   private
 
     def find_challenge
@@ -63,6 +75,14 @@ class ChallengesController < ApplicationController
         store_location
         flash[:danger] = "Please log in to manage challenges."
         redirect_to login_url
+      end
+    end
+
+    def all_teams_scored?
+      ready = @challenge.teams.reduce(true) { |memo, team| memo && !team.score.nil? }
+      unless ready
+        flash[:danger] = "Please score all teams in the challenge before publishing results."
+        redirect_to teams_path
       end
     end
 
