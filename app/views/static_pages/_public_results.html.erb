@@ -12,7 +12,7 @@
   <% if challenge.published? && challenge.teams.size > 0 %>
     <% scout_teams = challenge.teams.where(group: 0).where(disqualified: false) %>
     <% explorer_teams = challenge.teams.where(group: 1).where(disqualified: false) %>
-    <% non_competetive_teams = challenge.teams.where(group: 2).where(disqualified: false) %>
+    <% non_competitive_teams = challenge.teams.where(group: 2).where(disqualified: false) %>
     <% disqualified_teams = challenge.teams.where(disqualified: true) %>
     <div class="row vspace">
       <div class="col-md-12 col-xs-12">
@@ -82,10 +82,10 @@
         </div>
       </div>
     <% end %>
-    <% if (non_competetive_teams.size + disqualified_teams.size) > 0 %>
+    <% if (non_competitive_teams.size + disqualified_teams.size) > 0 %>
       <div class="row vspace">
         <div class="col-md-12 col-xs-12">
-          <h3>Non Competetive</h3>
+          <h3>Non Competitive</h3>
         </div>
       </div>
       <div class="row vspace">
@@ -99,7 +99,7 @@
               </tr>
             </thead>
             <tbody>
-              <% non_competetive_teams.order(:score).each do |team| %>
+              <% non_competitive_teams.order(:score).each do |team| %>
                 <tr>
                   <td>&nbsp;&ndash;</td>
                   <td><%= team.name %> (N/C)</td>
@@ -109,7 +109,7 @@
               <% disqualified_teams.order(:score).each do |team| %>
                 <tr>
                   <td>&nbsp;&ndash;</td>
-                  <td><%= team.name %> (Disqualified)</td>
+                  <td><%= team.name %> (Disqualified: <%= reason_for_disqualification(team) %>)</td>
                   <td><%= team.score %></td>
                 </tr>
               <% end %>
