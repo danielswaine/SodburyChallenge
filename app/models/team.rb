@@ -118,11 +118,12 @@ class Team < ActiveRecord::Base
       ##
 
       if dropped_out?
+        disqualify
         total_points -= 30
       else
         minutes_late = lateness_in_minutes(expected_finish_time, finish_time)
         disqualify if minutes_late >= 30
-        total_points -= [minutes_late, 30].max
+        total_points -= [minutes_late, 30].max if minutes_late > 0
       end
 
       total_points
