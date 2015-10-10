@@ -14,7 +14,7 @@ class Challenge < ActiveRecord::Base
   validates_each :bonus_one, :bonus_two, :bonus_three,
                  :bonus_four, :bonus_five do |record, attr, value|
 
-    unless value.empty?
+    unless value.to_s.empty?
       if value =~ /[^{ }a-z:,0-9\[\]]/
         record.errors.add(attr, 'contains invalid characters')
       elsif value =~ /\A\{ *visit: *[1-9][0-9]* *, *value: *[1-9][0-9]* *}\z/
