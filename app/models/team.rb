@@ -140,7 +140,7 @@ class Team < ActiveRecord::Base
     end
 
     def time_to_i(time)
-      time_array = eval("[#{time.to_s.tr(':', ',')}]")
+      time_array = eval("[#{time.to_s.tr(':', ',').gsub(/0([0-9])/, '\1')}]")
       60 * time_array[0].to_i + time_array[1].to_i
     end
 
