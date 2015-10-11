@@ -84,7 +84,7 @@ module TeamsHelper
 
   # Takes a 24-hour time string and returns the number of minutes since 00:00.
   def time_to_i(time)
-    time_array = eval("[#{time.to_s.tr(':', ',')}]")
+    time_array = eval("[#{time.to_s.tr(':', ',').gsub(/0([0-9])/, '\1')}]")
     60 * time_array[0].to_i + time_array[1].to_i
   end
 
