@@ -1,6 +1,7 @@
 <% content_for :head do %>
   <meta http-equiv="refresh" content="60">
 <% end %>
+<%= content_for(:body_attributes) do %> data-no-turbolink <% end %>
 
 <div class="jumbotron center">
   <h1>Official Results <%= Time.now.year %></h1>
