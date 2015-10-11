@@ -40,7 +40,7 @@
             </thead>
             <tbody>
               <% position = 1 %>
-              <% scout_teams.order(:score).each do |team| %>
+              <% scout_teams.order(:score).reverse.each do |team| %>
                 <tr>
                   <td><%= position.ordinalize %></td>
                   <td><%= team.name %></td>
@@ -71,7 +71,7 @@
             </thead>
             <tbody>
               <% position = 1 %>
-              <% explorer_teams.order(:score).each do |team| %>
+              <% explorer_teams.order(:score).reverse.each do |team| %>
                 <tr>
                   <td><%= position.ordinalize %></td>
                   <td><%= team.name %></td>
@@ -101,14 +101,14 @@
               </tr>
             </thead>
             <tbody>
-              <% non_competitive_teams.order(:score).each do |team| %>
+              <% non_competitive_teams.order(:score).reverse.each do |team| %>
                 <tr>
                   <td>&nbsp;&ndash;</td>
                   <td><%= team.name %> (N/C)</td>
                   <td><%= team.score %></td>
                 </tr>
               <% end %>
-              <% disqualified_teams.order(:score).each do |team| %>
+              <% disqualified_teams.order(:score).reverse.each do |team| %>
                 <tr>
                   <td>&nbsp;&ndash;</td>
                   <td><%= team.name %> (<%= reason_for_disqualification(team) %>)</td>
