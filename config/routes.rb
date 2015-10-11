@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#home'
+  root 'static_pages#results'
   get 'about' => 'static_pages#about'
   get 'rules' => 'static_pages#rules'
   get 'results' => 'static_pages#results', as: 'results'
