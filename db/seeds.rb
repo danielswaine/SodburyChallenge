@@ -11,7 +11,9 @@ User.create(name:  "Admin User",
             admin: true)
 
 50.times do |num|
+  description = Faker::Lorem.sentence
   Checkpoint.create(number: num + 1,
-                    grid_reference: "2345-7890",
-                    description: "Example checkpoint number #{num + 1}")
+                    grid_reference: "2839-1028",
+                    description: description
+                    )
 end
