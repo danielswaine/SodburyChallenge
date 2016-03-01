@@ -17,6 +17,9 @@
 
       <%= f.label :compulsory, "Compulsory?" %>
       <%= f.select :compulsory, options_for_select([["No", false], ["Yes", true]], f.object.compulsory), { }, { class: 'form-control' } %>
+
+      <%= f.label :compulsory, "Start Point?" %>
+      <%= f.select :start_point, options_for_select([["No", false], ["Yes", true]], f.object.start_point), { }, { class: 'form-control' } %>
     </div>
   </div>
   <div class="row">

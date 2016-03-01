@@ -4,7 +4,8 @@
     checkpoint: goal.checkpoint.number,
     grid_reference: goal.checkpoint.grid_reference,
     points_value: goal.points_value,
-    compulsory?: (goal.compulsory? && "Yes") || "No"
+    compulsory?: (goal.compulsory? && "Yes") || "No",
+    start_point?: (goal.start_point? && "Yes") || "No"
   }
 end %>
 <% rows.sort_by! { |row| row[:checkpoint] }.each do |goal| %>
@@ -13,6 +14,7 @@ end %>
     <td><%= goal[:grid_reference] %></td>
     <td><%= goal[:points_value] %></td>
     <td><%= goal[:compulsory?] %></td>
+    <td><%= goal[:start_point?] %></td>
     <td><%= link_to "Edit", edit_goal_path(id: goal[:id]) %></td>
     <td><%= link_to "Delete", Goal.find(goal[:id]), method: :delete %></td>
   </tr>
