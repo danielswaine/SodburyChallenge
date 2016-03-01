@@ -63,9 +63,7 @@ prawn_document(page_size: "A4") do |pdf|
     :cell_style => { :align => :left, :border_color => "DDDDDD" }
   )
   pdf.table(
-    [
-      ["Total Points", ""]
-    ],
+    [["Total Points", ""]],
     :width => 524, :column_widths => [430, 94], :position => :center,
     :cell_style => { :align => :right, :font_style => :bold, :border_color => "DDDDDD" }
   )
