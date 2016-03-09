@@ -56,6 +56,21 @@ prawn_document(page_size: "A4") do |pdf|
   pdf.table(
     [
       ["Total visited checkpoints", ""],
+        if @challenge.bonus_one?
+          [@challenge.bonus_one, ""]
+        end,
+        [if @challenge.bonus_two?
+          @challenge.bonus_two
+        end, ""],
+        [if @challenge.bonus_three?
+          @challenge.bonus_three
+        end, ""],
+        [if @challenge.bonus_four?
+          @challenge.bonus_four
+        end, ""],
+        [if @challenge.bonus_five?
+          @challenge.bonus_five
+        end, ""],
       ["Phone call on time bonus (30 points, -1 for every minute early or late)", ""],
       ["Bonus for not being late back (30 points, -1 for every minutes late up to -30)", ""],
     ],
@@ -67,4 +82,5 @@ prawn_document(page_size: "A4") do |pdf|
     :width => 524, :column_widths => [430, 94], :position => :center,
     :cell_style => { :align => :right, :font_style => :bold, :border_color => "DDDDDD" }
   )
+
 end
