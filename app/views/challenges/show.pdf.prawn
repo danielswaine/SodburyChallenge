@@ -21,11 +21,7 @@ prawn_document(page_size: "A4") do |pdf|
   pdf.table(
 		@goals.order(start_point: :DESC, compulsory: :DESC).collect{ |goal|
 			[
-        if goal.start_point?
-          "Start"
-        elsif goal.compulsory?
-          "Compulsory"
-        end,
+        get_type(goal),
         goal.checkpoint_id,
         goal.checkpoint.grid_reference,
         goal.points_value
@@ -56,21 +52,29 @@ prawn_document(page_size: "A4") do |pdf|
   pdf.table(
     [
       ["Total visited checkpoints", ""],
-        if @challenge.bonus_one?
-          [@challenge.bonus_one, ""]
-        end,
-        [if @challenge.bonus_two?
-          @challenge.bonus_two
-        end, ""],
-        [if @challenge.bonus_three?
-          @challenge.bonus_three
-        end, ""],
-        [if @challenge.bonus_four?
-          @challenge.bonus_four
-        end, ""],
-        [if @challenge.bonus_five?
-          @challenge.bonus_five
-        end, ""],
+    ],
+    :width => 524, :column_widths => [430, 94], :position => :center,
+    :cell_style => { :align => :left, :border_color => "DDDDDD" }
+  )
+
+  bonuses = [
+              @challenge.bonus_one.to_s,
+              @challenge.bonus_two.to_s,
+              @challenge.bonus_three.to_s,
+              @challenge.bonus_four.to_s,
+              @challenge.bonus_five.to_s
+            ]
+
+  bonuses.each do |bonus|
+    pdf.table(
+      [[bonus, ""]],
+      :width => 524, :column_widths => [430, 94], :position => :center,
+      :cell_style => { :border_color => "DDDDDD" }
+    )
+  end
+
+  pdf.table(
+    [
       ["Phone call on time bonus (30 points, -1 for every minute early or late)", ""],
       ["Bonus for not being late back (30 points, -1 for every minutes late up to -30)", ""],
     ],
