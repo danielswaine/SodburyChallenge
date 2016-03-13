@@ -65,12 +65,13 @@ prawn_document(page_size: "A4") do |pdf|
               @challenge.bonus_five.to_s
             ]
 
-  bonuses.each do |bonus|
+  bonuses.each do |bonus| unless bonus.empty?
     pdf.table(
       [[bonus, ""]],
       :width => 524, :column_widths => [430, 94], :position => :center,
       :cell_style => { :border_color => "DDDDDD" }
     )
+  end
   end
 
   pdf.table(
