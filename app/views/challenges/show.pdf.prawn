@@ -69,7 +69,7 @@ prawn_document(page_size: "A4") do |pdf|
       bonus = eval(bonus)
       pdf.table(
         if bonus[:visit].is_a?(Array)  # Bonus based on specific checkpoints.
-          [["Bonus #{idx} - visiting checkpoints #{bonus[:visit]} = #{bonus[:value]} points", ""]]
+          [["Bonus #{idx} - visiting checkpoints #{bonus[:visit].to_sentence(:last_word_connector => " and ")} = #{bonus[:value]} points", ""]]
         elsif bonus  # Bonus based on total number of checkpoints.
           [["Bonus #{idx} - visiting #{bonus[:visit]} out of #{@goals.count} checkpoints = #{bonus[:value]} points", ""]]
         end,
