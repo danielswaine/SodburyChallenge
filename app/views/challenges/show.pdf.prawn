@@ -21,18 +21,18 @@ prawn_document(page_size: "A4") do |pdf|
 	)
 
   pdf.table(
-		@goals.order(start_point: :desc, compulsory: :desc).collect{ |goal|
+    @goals.order(start_point: :desc, compulsory: :desc).map do |goal|
 	    [
         get_type(goal),
         goal.checkpoint_id,
         goal.checkpoint.grid_reference,
         goal.points_value
       ]
-		},
+		end,
 		width: 524, row_colors: ["FFFFFF", "F9F9F9"], cell_style: {border_color: 'DDDDDD', align: :center},
 		column_widths: [131, 131, 131, 131],  position: :center
   )
-  
+
   pdf.table(
     [["Finish (Scout Hut)", "-", "7275-8265", "-"]],
     width: 524, column_widths: [131, 131, 131, 131], position: :center,
