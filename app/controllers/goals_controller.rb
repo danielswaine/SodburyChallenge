@@ -43,7 +43,7 @@ class GoalsController < ApplicationController
     def goal_params
       params.require(:goal).permit(
                                     :challenge_id, :checkpoint_id,
-                                    :points_value, :compulsory
+                                    :points_value, :compulsory, :start_point
                                   )
     end
 

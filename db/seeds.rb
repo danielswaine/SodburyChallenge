@@ -10,8 +10,13 @@ User.create(name:  "Admin User",
             password_confirmation: "adminadmin123",
             admin: true)
 
+p "#{User.count} Users created."
+
 50.times do |num|
+  description = Faker::Lorem.sentence
   Checkpoint.create(number: num + 1,
-                    grid_reference: "2345-7890",
-                    description: "Example checkpoint number #{num + 1}")
+                    grid_reference: "%04d-%04d" % [(5 * rand(2000)), (5 * rand(2000))],
+                    description: description)
 end
+
+p "#{Checkpoint.count} Checkpoints created."
