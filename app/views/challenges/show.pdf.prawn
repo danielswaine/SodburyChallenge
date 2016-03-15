@@ -10,15 +10,15 @@ prawn_document(page_size: "A4") do |pdf|
               ["Due Finish Time:", "Finish Time:"],
               ["Due Phone In Time:", "Phone In Time:"]
             ], width: 525, cell_style: { border_width: 0 }
-	         )
+            )
 
   pdf.move_down 20
 
   pdf.table(
-        		[["", "Checkpoint", "Grid Reference", "Score"]],
-        		width: 524, column_widths: [131, 131, 131, 131],  position: :center,
-        		cell_style: { align: :center, font_style: :bold, border_color: 'DDDDDD', background_color: 'DDDDDD' }
-	         )
+            [["", "Checkpoint", "Grid Reference", "Score"]],
+            width: 524, column_widths: [131, 131, 131, 131],
+            position: :center, cell_style: { align: :center, font_style: :bold, border_color: 'DDDDDD', background_color: 'DDDDDD' }
+            )
 
   pdf.table(
             @goals.order(start_point: :desc, compulsory: :desc).map do |goal|
@@ -82,8 +82,7 @@ prawn_document(page_size: "A4") do |pdf|
     end
   end
 
-  pdf.table(
-            [
+  pdf.table([
               ["Phone call on time bonus (30 points, -1 for every minute early or late)", ""],
               ["Bonus for not being late back (30 points, -1 for every minutes late up to -30)", ""]
             ],
