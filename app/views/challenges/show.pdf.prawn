@@ -22,23 +22,23 @@ prawn_document(page_size: "A4") do |pdf|
 
   pdf.table(
             @goals.order(start_point: :desc, compulsory: :desc).map do |goal|
-        	    [
+              [
                 get_type(goal),
                 goal.checkpoint_id,
                 goal.checkpoint.grid_reference,
                 goal.points_value
               ]
-        		end,
-        		width: 524, row_colors: ["FFFFFF", "F9F9F9"],
+            end,
+            width: 524, row_colors: ["FFFFFF", "F9F9F9"],
             cell_style: {border_color: 'DDDDDD', align: :center},
-        		column_widths: [131, 131, 131, 131],  position: :center
-	         )
+            column_widths: [131, 131, 131, 131],  position: :center
+            )
 
   pdf.table(
             [["Finish (Scout Hut)", "-", "7275-8265", "-"]],
             width: 524, column_widths: [131, 131, 131, 131], position: :center,
             cell_style: { align: :center, border_color: 'DDDDDD'}
-	         )
+            )
 
   pdf.move_down 20
 
@@ -53,12 +53,12 @@ prawn_document(page_size: "A4") do |pdf|
             [["Points Calculation", ""]],
             width: 524, column_widths: [523, 1], position: :center,
             cell_style: { align: :center, font_style: :bold, border_color: 'DDDDDD', background_color: 'DDDDDD' }
-	         )
+            )
   pdf.table(
             [["Total visited checkpoints", ""]],
             width: 524, column_widths: [430, 94], position: :center,
             cell_style: { align: :left, border_color: 'DDDDDD' }
-	         )
+            )
 
   bonuses = [
               @challenge.bonus_one.to_s,
@@ -78,7 +78,7 @@ prawn_document(page_size: "A4") do |pdf|
               end,
               width: 524, column_widths: [430, 94], position: :center,
               cell_style: { border_color: 'DDDDDD' }
-	         )
+              )
     end
   end
 
@@ -89,12 +89,12 @@ prawn_document(page_size: "A4") do |pdf|
             ],
             width: 524, column_widths: [430, 94], position: :center,
             cell_style: { align: :left, border_color: 'DDDDDD' }
-	         )
+            )
 
   pdf.table(
             [["Total Points", ""]],
             width: 524, column_widths: [430, 94], position: :center,
             cell_style: { align: :right, font_style: :bold,
             border_color: 'DDDDDD' }
-	         )
+            )
 end
