@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :goals, only: [:new, :create, :edit, :update, :destroy]
 
   resources :teams, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :members, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
 
   get 'teams/:id/log' => 'teams#log', as: 'log_team'
