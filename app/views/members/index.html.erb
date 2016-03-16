@@ -1,0 +1,28 @@
+<% provide(:title, "Manage Team Members") %>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12 wide-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Member Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @members.each do |member| %>
+            <tr>
+              <td><%= member.name %></td>
+              <td><%= link_to "Edit", edit_member_path(member) %></td>
+            </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Member"), new_member_path, :class=>'btn btn-block btn-success' %>
+  </div>
+</div>
