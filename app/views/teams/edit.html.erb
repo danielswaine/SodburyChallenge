@@ -5,6 +5,15 @@
     e.preventDefault()
     $(this).tab('show')
   })
+  $(function() {
+    $('a[data-toggle="tab"]').on('click', function (e) {
+      localStorage.setItem('lastTab', $(e.target).attr('href'));
+    });
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        $('a[href="'+lastTab+'"]').click();
+    }
+  });
 </script>
 
 <div class="col-md-6 col-md-offset-3">
