@@ -28,12 +28,12 @@ prawn_document(page_size: "A4") do |pdf|
 
         pdf.move_down 30
 
-        pdf.text "for completing the Sodbury Challenge YEAR", align: :center, style: :bold, size: 20
+        pdf.text "for completing the Sodbury Challenge #{member.team.challenge.date.strftime('%Y')}", align: :center, style: :bold, size: 20
 
         #pdf.image "#{Rails.root}/app/assets/images/signature.jpg", position: :right, at: [360, 110], scale: 0.8
 
         pdf.bounding_box([15, 30], :width => 300, :height => 20) do
-          pdf.text "Challenge Date", size: 14
+          pdf.text member.team.challenge.date.to_formatted_s(:long_ordinal), size: 14
         end
 
         pdf.bounding_box([100, 50], :width => 400, :height => 20) do
