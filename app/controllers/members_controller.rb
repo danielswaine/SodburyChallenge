@@ -1,10 +1,6 @@
 class MembersController < ApplicationController
   before_action :user_logged_in?
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @members = Member.all
-  end
+  before_action :set_member, only: [:edit, :update, :destroy]
 
   def new
     @member = Member.new
@@ -17,7 +13,7 @@ class MembersController < ApplicationController
     @member = Member.new(member_params)
     if @member.save
       flash[:success] = "Member added."
-      redirect_to members_path
+      redirect_to edit_team_path(@member.team_id)
     else
       render 'new'
     end
@@ -26,7 +22,7 @@ class MembersController < ApplicationController
   def update
     if @member.update(member_params)
       flash[:success] = "Member updated."
-      redirect_to members_path
+      redirect_to edit_team_path(@member.team_id)
     else
       render 'edit'
     end
@@ -35,7 +31,7 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy
     flash[:success] = "Member removed."
-    redirect_to members_path
+    redirect_to edit_team_path(@member.team_id)
   end
 
   private
@@ -45,7 +41,10 @@ class MembersController < ApplicationController
     end
 
     def member_params
-      params.require(:member).permit(:name)
+      params.require(:member).permit(
+                                      :name,
+                                      :team_id
+                                    )
     end
 
     def user_logged_in?

@@ -5,6 +5,17 @@
     <div class="col-md-6 col-md-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
 
+      <% team_id = params[:team] || f.object.team_id %>
+      <% if team_id %>
+        <%= f.hidden_field :team_id, value: team_id %>
+      <% else %>
+        <%= f.label :team_id, "Team" %>
+        <% teams_array = Team.all.map do |c|
+          [c.name, c.id]
+        end %>
+        <%= f.select :team_id, options_for_select(teams_array), { }, { class: 'form-control' } %>
+      <% end %>
+
       <%= f.label :name, "Name" %>
       <%= f.text_field :name, class: 'form-control' %>
     </div>
@@ -14,7 +25,13 @@
       <%= f.submit "Add Member", :class=>'btn btn-primary' %>
     </div>
     <div class="col-md-3 vspace">
-        <%= link_to "Cancel", members_path, class: 'btn btn-block btn-default' %>
+      <% if @member.team %>
+        <%= link_to "Cancel", team_path(@member.team), class: 'btn btn-block btn-default' %>
+      <% elsif team_id %>
+        <%= link_to "Cancel", team_path(id: team_id), class: 'btn btn-block btn-default' %>
+      <% else %>
+        <%= link_to "Cancel", team_path, class: 'btn btn-block btn-default' %>
+      <% end %>
     </div>
   </div>
 <% end %>
