@@ -20,6 +20,10 @@ class TeamsController < ApplicationController
 
   # GET /teams/:id/edit
   def edit
+    @members ||= @team.members
+    respond_to do |format|
+      format.html # show.html.erb
+    end
   end
 
   # GET /teams/:id/log
@@ -35,7 +39,6 @@ class TeamsController < ApplicationController
       render 'log'
     end
   end
-
 
   # GET /teams/:id/score
   def score
