@@ -23,6 +23,7 @@ class TeamsController < ApplicationController
     @members ||= @team.members
     respond_to do |format|
       format.html # show.html.erb
+      format.pdf # show.pdf.prawn
     end
   end
 
