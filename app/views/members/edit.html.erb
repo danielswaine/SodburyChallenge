@@ -14,7 +14,7 @@
       <%= f.submit "Save Member", :class=>'btn btn-primary' %>
     </div>
     <div class="col-md-3 vspace">
-      <%= link_to "Cancel", members_path, class: 'btn btn-block btn-default' %>
+      <%= link_to "Cancel", edit_team_path(@member.team), class: 'btn btn-block btn-default' %>
     </div>
   </div>
   <div class="row">
