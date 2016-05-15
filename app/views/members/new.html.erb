@@ -26,11 +26,11 @@
     </div>
     <div class="col-md-3 vspace">
       <% if @member.team %>
-        <%= link_to "Cancel", team_path(@member.team), class: 'btn btn-block btn-default' %>
+        <%= link_to "Cancel", edit_team_path(@member.team), class: 'btn btn-block btn-default' %>
       <% elsif team_id %>
-        <%= link_to "Cancel", team_path(id: team_id), class: 'btn btn-block btn-default' %>
+        <%= link_to "Cancel", edit_team_path(id: team_id), class: 'btn btn-block btn-default' %>
       <% else %>
-        <%= link_to "Cancel", team_path, class: 'btn btn-block btn-default' %>
+        <%= link_to "Cancel", edit_team_path, class: 'btn btn-block btn-default' %>
       <% end %>
     </div>
   </div>
