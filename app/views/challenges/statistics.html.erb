@@ -1,0 +1,18 @@
+<% visited_checkpoints = [] %>
+
+<% @challenge.teams.each do |team| %>
+  <ul>
+    <li>
+      <%= team.name %> - <%= eval("[#{team.visited}]") %>
+      <% visited_checkpoints += eval("[#{team.visited}]") %>
+    </li>
+  </ul>
+<% end %>
+
+<ul>
+  <% visited_checkpoints.uniq.each do |elem| %>
+    <li>
+      <%= elem %> - <%= visited_checkpoints.count(elem) %>
+    </li>
+  <% end %>
+</ul>
