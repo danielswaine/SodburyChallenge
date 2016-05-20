@@ -56,8 +56,8 @@ class ChallengesController < ApplicationController
     end
   end
 
+  # GET /challenges/:id/statistics
   def statistics
-    @challenges = Challenge.all.order(:date)
   end
 
   private
