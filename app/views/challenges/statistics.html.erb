@@ -1,18 +1,80 @@
-<% visited_checkpoints = [] %>
+<% provide(:title, "#{@challenge.time_allowed} Hour Challenge #{@challenge.date.strftime('%Y')} - Statistics") %>
 
-<% @challenge.teams.each do |team| %>
-  <ul>
-    <li>
-      <%= team.name %> - <%= eval("[#{team.visited}]") %>
-      <% visited_checkpoints += eval("[#{team.visited}]") %>
-    </li>
-  </ul>
-<% end %>
+<%
+  visited_checkpoints = []
+  @challenge.teams.each do |team|
+    visited_checkpoints += eval("[#{team.visited}]")
+  end
 
-<ul>
-  <% visited_checkpoints.uniq.each do |elem| %>
-    <li>
-      <%= elem %> - <%= visited_checkpoints.count(elem) %>
-    </li>
-  <% end %>
-</ul>
+  count = Hash.new(0);
+  visited_checkpoints.each {|v| count[v] +=1 }
+  count
+%>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12 table-responsive">
+    <table id="datatable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Checkpoint</th>
+          <th>Number of Visits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @challenge.goals.each do |goal| %>
+          <tr>
+            <td><%= goal.checkpoint.number %></td>
+            <td><%= count[goal.checkpoint.number] %></td>
+          <tr>
+        <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <div id="container" style="margin: 0 auto"></div>
+  </div>
+</div>
+
+<script>
+$(function () {
+    $('#container').highcharts({
+        data: {
+          table: 'datatable'
+        },
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: ''
+        },
+        legend: {
+          enabled: false
+        },
+        yAxis: {
+          allowDecimals: false,
+          title: {
+              text: 'Number of Visits'
+          }
+        },
+        xAxis: {
+          allowDecimals: false,
+          title: {
+              text: 'Checkpoint'
+          }
+        },
+        tooltip: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
+        exporting: {
+          enabled: false
+        }
+    });
+});
+</script>

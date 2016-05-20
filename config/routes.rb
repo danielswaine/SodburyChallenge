@@ -32,8 +32,6 @@ Rails.application.routes.draw do
   patch 'challenges/:id/publish' => 'challenges#publish', as: 'publish'
 
   get 'challenges/:id/statistics' => 'challenges#statistics'
-  put 'challenges/:id/statistics' => 'challenges#statistics'
-  patch 'challenges/:id/statistics' => 'challenges#statistics', as: 'statistics'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
