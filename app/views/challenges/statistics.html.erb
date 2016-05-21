@@ -10,7 +10,7 @@
   visited_checkpoints.each {|v| count[v] +=1 }
   count
 %>
-
+<!--
 <div class="row">
   <div class="col-md-12 col-xs-12 table-responsive">
     <table id="datatable" class="table table-striped">
@@ -32,7 +32,7 @@
     </table>
   </div>
 </div>
-
+-->
 <div class="row">
   <div class="col-md-12 col-xs-12">
     <div id="container" style="margin: 0 auto"></div>
@@ -41,40 +41,49 @@
 
 <script>
 $(function () {
-    $('#container').highcharts({
-        data: {
-          table: 'datatable'
-        },
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: ''
-        },
-        legend: {
-          enabled: false
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-              text: 'Number of Visits'
-          }
-        },
-        xAxis: {
-          allowDecimals: false,
-          title: {
-              text: 'Checkpoint'
-          }
-        },
-        tooltip: {
-          enabled: false
-        },
-        credits: {
-          enabled: false
-        },
-        exporting: {
-          enabled: false
-        }
-    });
+  $('#container').highcharts({
+    title: {
+        text: ''
+    },
+    chart: {
+      type: 'column'
+    },
+    legend: {
+      enabled:false
+    },
+    tooltip: {
+      enabled: false
+    },
+    xAxis: {
+      title: {
+        text: 'Checkpoint'
+      },
+      categories: [
+        <% @challenge.goals.each do |goal| %>
+          <%= goal.checkpoint.number.to_s %>,
+        <% end %>
+      ]
+    },
+    yAxis: {
+      title: {
+        text: 'Number of Visits'
+      },
+      allowDecimals: false,
+      tickInterval: 1
+    },
+    series: [{
+        data: [
+          <% @challenge.goals.each do |goal| %>
+            [<%= count[goal.checkpoint.number].to_s %>],
+          <% end %>
+        ]
+    }],
+    exporting: {
+      enabled: false
+    },
+    credits: {
+      enabled: false
+    }
+  });
 });
 </script>
