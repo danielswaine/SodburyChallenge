@@ -9,6 +9,7 @@
   count = Hash.new(0);
   visited_checkpoints.each {|v| count[v] +=1 }
 %>
+
 <!--
 <div class="row">
   <div class="col-md-12 col-xs-12 table-responsive">
@@ -32,15 +33,31 @@
   </div>
 </div>
 -->
+
 <div class="row">
   <div class="col-md-12 col-xs-12">
-    <div id="container" style="margin: 0 auto"></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Checkpoints Visited</h3>
+      </div>
+      <div class="panel-body">
+        <% if visited_checkpoints.empty? %>
+          No checkpoints have been visited yet!
+        <% else %>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div id="checkpoints-visited" style="margin: 0 auto"></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
 $(function () {
-  $('#container').highcharts({
+  $('#checkpoints-visited').highcharts({
     title: {text: ''},
     chart: {type: 'column'},
     legend: {enabled:false},
