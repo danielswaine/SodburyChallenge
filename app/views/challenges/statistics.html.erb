@@ -8,7 +8,6 @@
 
   count = Hash.new(0);
   visited_checkpoints.each {|v| count[v] +=1 }
-  count
 %>
 <!--
 <div class="row">
@@ -42,18 +41,12 @@
 <script>
 $(function () {
   $('#container').highcharts({
-    title: {
-        text: ''
-    },
-    chart: {
-      type: 'column'
-    },
-    legend: {
-      enabled:false
-    },
-    tooltip: {
-      enabled: false
-    },
+    title: {text: ''},
+    chart: {type: 'column'},
+    legend: {enabled:false},
+    tooltip: {enabled: false},
+    exporting: {enabled: false},
+    credits: {enabled: false},
     xAxis: {
       title: {
         text: 'Checkpoint'
@@ -77,13 +70,7 @@ $(function () {
             [<%= count[goal.checkpoint.number].to_s %>],
           <% end %>
         ]
-    }],
-    exporting: {
-      enabled: false
-    },
-    credits: {
-      enabled: false
-    }
+    }]
   });
 });
 </script>
