@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/danielswaine/SodburyChallenge.svg?branch=master)](https://travis-ci.com/danielswaine/SodburyChallenge)
+
 # Sodbury Challenge App
 
 **Currently in development**
