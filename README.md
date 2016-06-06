@@ -6,6 +6,15 @@
 
 All in one for managing teams, start times and scoring.
 
+## Development Notes
+
+[PhantomJS](http://phantomjs.org/) must be installed for some Capybara tests to
+work:
+
+```bash
+brew install phantomjs
+```
+
 ## License
 
 ```
