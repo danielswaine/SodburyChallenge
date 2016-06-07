@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.com/danielswaine/SodburyChallenge.svg?branch=master)](https://travis-ci.com/danielswaine/SodburyChallenge)
+[![Build Status](https://img.shields.io/travis/danielswaine/SodburyChallenge/master.svg?maxAge=2592000)](https://travis-ci.com/danielswaine/SodburyChallenge)
+[![Code Climate](https://img.shields.io/codeclimate/github/danielswaine/SodburyChallenge.svg?maxAge=2592000)](https://codeclimate.com/github/danielswaine/SodburyChallenge)
+[![Coverage](https://img.shields.io/coveralls/danielswaine/SodburyChallenge/master.svg?maxAge=2592000)](https://coveralls.io/danielswaine/SodburyChallenge)
 
 # Sodbury Challenge App
 
