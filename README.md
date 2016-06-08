@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/danielswaine/SodburyChallenge.svg?branch=master)](https://travis-ci.org/danielswaine/SodburyChallenge)
 [![Code Climate](https://codeclimate.com/github/danielswaine/SodburyChallenge/badges/gpa.svg)](https://codeclimate.com/github/danielswaine/SodburyChallenge)
-[![Coverage](https://coveralls.io/repos/github/danielswaine/sodbury-challenge/badge.svg?branch=master)](https://coveralls.io/github/danielswaine/sodbury-challenge?branch=master)
+[![Coverage](https://coveralls.io/repos/github/danielswaine/SodburyChallenge/badge.svg?branch=master)](https://coveralls.io/github/danielswaine/SodburyChallenge?branch=master)
 
 # Sodbury Challenge App
 
