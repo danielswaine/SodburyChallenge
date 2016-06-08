@@ -3,6 +3,12 @@ require: rubocop-rspec
 
 AllCops:
   DisabledByDefault: true
+  Include:
+    - '**/config.ru'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Capfile'
+    - '**/*.prawn'
 
 # Lint
 
