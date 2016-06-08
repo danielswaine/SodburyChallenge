@@ -49,3 +49,4 @@ exclude_paths:
   - "**.md"
   - "**.png"
   - "**.txt"
+  - "**.yml"
