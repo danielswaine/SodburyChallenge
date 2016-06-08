@@ -24,14 +24,28 @@ engines:
     enabled: true
 ratings:
   paths:
+    - Capfile
+    - Gemfile
     - Gemfile.lock
+    - Rakefile
+    - config.ru
     - "**.coffee"
-    - "**.erb"
     - "**.js"
+    - "**.prawn"
     - "**.rb"
+    - "**.scss"
 exclude_paths:
+  - LICENSE
+  - bin/
   - config/
   - db/
   - spec/
   - test/
   - vendor/
+  - "**.erb"
+  - "**.html"
+  - "**.ico"
+  - "**.json"
+  - "**.md"
+  - "**.png"
+  - "**.txt"
