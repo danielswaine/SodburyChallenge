@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
   before_action :user_logged_in?
-  before_action :find_challenge, only: [:show, :results, :update, :publish, :destroy]
+  before_action :find_challenge, only: [:show, :results, :update, :publish, :destroy, :statistics]
   before_action :all_teams_scored?, only: [:publish]
 
   def index
@@ -56,6 +56,9 @@ class ChallengesController < ApplicationController
     end
   end
 
+  # GET /challenges/:id/statistics
+  def statistics
+  end
 
   private
 

@@ -1,0 +1,93 @@
+<% provide(:title, "#{@challenge.time_allowed} Hour Challenge #{@challenge.date.strftime('%Y')} - Statistics") %>
+
+<%
+  visited_checkpoints = []
+  @challenge.teams.each do |team|
+    visited_checkpoints += eval("[#{team.visited}]")
+  end
+
+  count = Hash.new(0);
+  visited_checkpoints.each {|v| count[v] +=1 }
+%>
+
+<!--
+<div class="row">
+  <div class="col-md-12 col-xs-12 table-responsive">
+    <table id="datatable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Checkpoint</th>
+          <th>Number of Visits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @challenge.goals.each do |goal| %>
+          <tr>
+            <td><%= goal.checkpoint.number %></td>
+            <td><%= count[goal.checkpoint.number] %></td>
+          <tr>
+        <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+-->
+
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Checkpoints Visited</h3>
+      </div>
+      <div class="panel-body">
+        <% if visited_checkpoints.empty? %>
+          No checkpoints have been visited yet!
+        <% else %>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div id="checkpoints-visited" style="margin: 0 auto"></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function () {
+  $('#checkpoints-visited').highcharts({
+    title: {text: ''},
+    chart: {type: 'column'},
+    legend: {enabled:false},
+    tooltip: {enabled: false},
+    exporting: {enabled: false},
+    credits: {enabled: false},
+    xAxis: {
+      title: {
+        text: 'Checkpoint'
+      },
+      categories: [
+        <% @challenge.goals.each do |goal| %>
+          <%= goal.checkpoint.number.to_s %>,
+        <% end %>
+      ]
+    },
+    yAxis: {
+      title: {
+        text: 'Number of Visits'
+      },
+      allowDecimals: false,
+      tickInterval: 1
+    },
+    series: [{
+        data: [
+          <% @challenge.goals.each do |goal| %>
+            [<%= count[goal.checkpoint.number].to_s %>],
+          <% end %>
+        ]
+    }]
+  });
+});
+</script>

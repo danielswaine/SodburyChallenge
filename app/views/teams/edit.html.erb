@@ -1,51 +1,129 @@
 <% provide(:title, "Edit Team") %>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <p>The team's number will be calculated automatically from its start time.</p>
+<script type="text/javascript">
+  $('#teamTabs a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  $(function() {
+    $('a[data-toggle="tab"]').on('click', function (e) {
+      localStorage.setItem('lastTab', $(e.target).attr('href'));
+    });
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        $('a[href="'+lastTab+'"]').click();
+    }
+  });
+</script>
+
+<div class="col-md-6 col-md-offset-3">
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
+    <li role="presentation"><a href="#members" aria-controls="members" role="tab" data-toggle="tab">Members</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="info">
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Team Info</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <p>The team's number will be calculated automatically from its start time.</p>
+        </div>
+      </div>
+
+      <%= form_for(@team) do |f| %>
+        <div class="row">
+          <div class="col-md-12">
+            <%= render 'shared/error_messages', object: f.object %>
+
+            <%= f.label :name, "Team Name" %>
+            <%= f.text_field :name, class: 'form-control' %>
+
+            <%= f.label :challenge_id, "Challenge" %>
+            <% challenges_array = Challenge.all.map do |c|
+              ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
+            end %>
+            <%= f.select :challenge_id, options_for_select(challenges_array, f.object.challenge_id), { }, { class: 'form-control' } %>
+
+            <%= f.label :group, "Group" %>
+            <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
+            <%= f.select :group, options_for_select(groups_array, f.object.group), { }, { class: 'form-control' } %>
+
+            <%= f.label :planned_start_time, "Planned Start Time" %>
+            <%= f.text_field :planned_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 vspace">
+            <%= f.submit :class=>'btn btn-primary' %>
+          </div>
+
+          <div class="col-md-6 vspace">
+            <%= link_to "Cancel", teams_path, :class=>'btn btn-block btn-default' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="members">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Team Members</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th colspan="2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @members.each do |member| %>
+                <tr>
+                  <td><%= member.name %></td>
+                  <td><%= link_to "Edit", edit_member_path(member.id) %></td>
+                  <td><%= link_to "Delete", Member.find(member.id), method: :delete %></td>
+                </tr>
+              <% end %>
+            <tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row vspace">
+        <div class="col-md-6 vspace">
+          <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> Add Member"), new_member_path(team: @team.id), :class=>'btn btn-block btn-success' %>
+        </div>
+        <div class="col-md-6 vspace">
+          <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download Certificates"), edit_team_path(@team, format: :pdf), :class=>'btn btn-block btn-default' %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<%= form_for(@team) do |f| %>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <%= render 'shared/error_messages', object: f.object %>
-
-      <%= f.label :name, "Team Name" %>
-      <%= f.text_field :name, class: 'form-control' %>
-
-      <%= f.label :challenge_id, "Challenge" %>
-      <% challenges_array = Challenge.all.map do |c|
-        ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
-      end %>
-      <%= f.select :challenge_id, options_for_select(challenges_array, f.object.challenge_id), { }, { class: 'form-control' } %>
-
-      <%= f.label :group, "Group" %>
-      <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
-      <%= f.select :group, options_for_select(groups_array, f.object.group), { }, { class: 'form-control' } %>
-
-      <%= f.label :planned_start_time, "Planned Start Time" %>
-      <%= f.text_field :planned_start_time, placeholder: 'e.g. 18:00', class: 'form-control' %>
-    </div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 vspace">
+    <hr />
   </div>
-  <div class="row">
-    <div class="col-md-3 col-md-offset-3 vspace">
-      <%= f.submit :class=>'btn btn-primary' %>
-    </div>
-    <div class="col-md-3 vspace">
-      <%= link_to "Cancel", teams_path, :class=>'btn btn-block btn-default' %>
-    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 vspace">
+    <%= link_to "Delete Team", @team, method: :delete,
+      data: { confirm: "Delete team? This cannot be undone." },
+      :class=>'btn btn-group-justified btn-danger' %>
   </div>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 vspace">
-      <hr />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 vspace">
-      <%= link_to "Delete Team", @team, method: :delete,
-        data: { confirm: "Delete team? This cannot be undone." },
-        :class=>'btn btn-group-justified btn-danger' %>
-    </div>
-  </div>
-<% end %>
+</div>

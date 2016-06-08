@@ -14,5 +14,6 @@
     data: { confirm: "Publish results for the #{challenge.time_allowed} hour challenge? " \
                      "Published routes and scores cannot be edited." } %>
   </td>
-  <% end%>
+  <% end %>
+  <td><%= link_to "View", statistics_path(challenge) %></td>
 </tr>
