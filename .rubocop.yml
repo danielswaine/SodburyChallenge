@@ -4,6 +4,7 @@ require:
 
 inherit_from:
   - .rubocop_defaults.yml
+  - .rubocop_cc.yml
 
 AllCops:
   Include:
