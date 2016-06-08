@@ -1,8 +1,21 @@
+[![Build Status](https://img.shields.io/travis/danielswaine/SodburyChallenge/master.svg?maxAge=2592000)](https://travis-ci.com/danielswaine/SodburyChallenge)
+[![Code Climate](https://img.shields.io/codeclimate/github/danielswaine/SodburyChallenge.svg?maxAge=2592000)](https://codeclimate.com/github/danielswaine/SodburyChallenge)
+[![Coverage](https://img.shields.io/coveralls/danielswaine/SodburyChallenge/master.svg?maxAge=2592000)](https://coveralls.io/danielswaine/SodburyChallenge)
+
 # Sodbury Challenge App
 
 **Currently in development**
 
 All in one for managing teams, start times and scoring.
+
+## Development Notes
+
+[PhantomJS](http://phantomjs.org/) must be installed for some Capybara tests to
+work:
+
+```bash
+brew install phantomjs
+```
 
 ## License
 
