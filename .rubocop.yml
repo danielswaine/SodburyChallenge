@@ -1,3 +1,14 @@
 ---
+require:
+  - rubocop-rspec
+
 inherit_from:
   - .rubocop_defaults.yml
+
+AllCops:
+  Include:
+    - '**/config.ru'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Capfile'
+    - '**/*.prawn'
