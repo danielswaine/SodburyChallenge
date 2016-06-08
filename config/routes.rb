@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#results'
+  root 'static_pages#home'
   get 'about' => 'static_pages#about'
   get 'rules' => 'static_pages#rules'
   get 'results' => 'static_pages#results', as: 'results'
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :goals, only: [:new, :create, :edit, :update, :destroy]
 
   resources :teams, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :members, only: [:new, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
 
   get 'teams/:id/log' => 'teams#log', as: 'log_team'
@@ -29,6 +30,8 @@ Rails.application.routes.draw do
 
   put 'challenges/:id/publish' => 'challenges#publish'
   patch 'challenges/:id/publish' => 'challenges#publish', as: 'publish'
+
+  get 'challenges/:id/statistics' => 'challenges#statistics', as: 'statistics'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
