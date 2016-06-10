@@ -39,7 +39,6 @@ exclude_paths:
   - bin/
   - config/
   - db/
-  - spec/
   - test/
   - vendor/
   - "**.erb"
