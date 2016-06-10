@@ -53,11 +53,11 @@ RSpec::Matchers.define :gracefully_handle_blank do |attribute|
   end
 
   failure_message do
-    <<-MSG.squish
+    message = %Q(
       expected blank values of #{@attribute.inspect} to be invalid, with
       exactly one error that matches #{@message.inspect}, but found that:
-      #{@errors.join(', ')}
-    MSG
+    ).gsub(/^\s*/, '')
+    message << '- ' << @errors.join("\n- ")
   end
 
   description do
