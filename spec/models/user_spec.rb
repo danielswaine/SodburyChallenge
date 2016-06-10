@@ -12,6 +12,8 @@ RSpec.describe User, type: :model do
         .with_message("doesn't appear to be valid")
     end
 
+    it { is_expected.to gracefully_handle_blank(:email) }
+
     it do
       is_expected.to validate_uniqueness_of(:email)
         .ignoring_case_sensitivity
