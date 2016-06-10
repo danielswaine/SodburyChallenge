@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  # TODO: Rename :email table column to :email_address.
+
   # Adds authentication functionality.
   has_secure_password
 
