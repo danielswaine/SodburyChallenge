@@ -235,6 +235,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    validates_email_format_of (1.6.3)
+      i18n
     web-console (2.0.0.beta3)
       activemodel (~> 4.0)
       binding_of_caller (= 0.7.3.pre1)
@@ -281,6 +283,7 @@ DEPENDENCIES
   turbolinks (= 2.3.0)
   uglifier (= 2.5.3)
   unicorn (~> 4.9.0)
+  validates_email_format_of
   web-console (= 2.0.0.beta3)
   will_paginate (~> 3.0.7)
 
