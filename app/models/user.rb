@@ -4,21 +4,23 @@ class User < ActiveRecord::Base
   has_secure_password
 
   # Validate name.
+  validates :name, presence: true
   validates(
     :name,
     length: {
       in: 3..70,
       too_short: 'is too short',
       too_long: 'is too long'
-    }
+    },
+    if: 'name.present?'
   )
-  validates_each :name do |record, attr, value|
-    if value =~ /[^[[:alpha:]]., -]/
-      record.errors.add(attr, 'contains invalid characters')
-    elsif value =~ /(\A[., -]|\.[[[:alpha:]].-]|,[[[:alpha:]].,-]| [., -]|-[., -]|[, -]\z)/
-      record.errors.add(attr, 'contains invalid punctuation')
-    end
-  end
+  # validates_each :name do |record, attr, value|
+  #   if value =~ /[^[[:alpha:]]., -]/
+  #     record.errors.add(attr, 'contains invalid characters')
+  #   elsif value =~ /(\A[., -]|\.[[[:alpha:]].-]|,[[[:alpha:]].,-]| [., -]|-[., -]|[, -]\z)/
+  #     record.errors.add(attr, 'contains invalid punctuation')
+  #   end
+  # end
 
   # Validate email address.
   before_save { self.email = email.downcase }
