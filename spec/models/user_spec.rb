@@ -32,15 +32,19 @@ RSpec.describe User, type: :model do
         .with_message('is already registered')
     end
 
-    it 'converts the address to lowercase' do
-      raw_email = 'User-99@eXample.COM'
-      user = create(:user, email: raw_email)
+    it 'converts the domain part to lower-case (simple address)' do
+      user = build_stubbed(:user, email: 'Alpha.Beta@Gamma.COM')
+      user.valid?
+      expect(user.email).to eq('Alpha.Beta@gamma.com')
+    end
 
-      expect(user.email).to eq(raw_email.downcase)
+    it 'converts the domain part to lower-case (complex address)' do
+      original = 'Alpha.Beta."@Gamma@".Delta@Kappa.NET(Comment (with an @))'
+      normalised = 'Alpha.Beta."@Gamma@".Delta@kappa.net(Comment (with an @))'
+
+      user = build_stubbed(:user, email: original)
+      user.valid?
+      expect(user.email).to eq(normalised)
     end
   end
-
-  # context 'when given new password' do
-  #   it { should validate_presence_of(:password) }
-  # end
 end

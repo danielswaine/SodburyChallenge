@@ -18,8 +18,12 @@ class User < ActiveRecord::Base
     if: 'name.present?'
   )
 
+  # Normalise email addresses by converting their domain part to lower-case.
+  before_validation do
+    email.sub!(/(?<=@)[^@]*?(?=(?:\(.*\))?\z)/, &:downcase) unless email.nil?
+  end
+
   # Validate email address.
-  before_save { self.email = email.downcase }
   validates(
     :email,
     presence: true,
