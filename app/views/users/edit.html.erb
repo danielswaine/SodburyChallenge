@@ -6,7 +6,13 @@
   </div>
 </div>
 
-<%= form_for(@user) do |f| %>
+<!--
+  TODO: The `novalidate` attribute is applied to the form to prevent
+    Bootstrap's (somewhat lacking) email validator from running *in addition*
+    to the (slightly less lacking) Rails email validator. This behaviour needs
+    an integration test!
+-->
+<%= form_for(@user, html: { novalidate: true }) do |f| %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
