@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates(
     :name,
     length: {
-      in: 3..70,
+      in: 3..30,
       too_short: 'is too short',
       too_long: 'is too long'
     },
