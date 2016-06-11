@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
     it do
       is_expected.to validate_length_of(:name)
         .is_at_least(3).with_short_message('is too short')
-        .is_at_most(70).with_long_message('is too long')
+        .is_at_most(30).with_long_message('is too long')
     end
 
     it { is_expected.to gracefully_handle_blank(:name) }
