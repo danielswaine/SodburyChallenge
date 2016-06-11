@@ -1,4 +1,7 @@
 # TODO: Rename :email table column to :email_address.
+# TODO: Add a `novalidate` attribute to the User forms so to prevent the
+#   Bootstrap email validator running in addition to the Rails ones. Also add
+#   integration tests to verify that this is working!
 class User < ActiveRecord::Base
   # Add authentication functionality.
   has_secure_password
@@ -14,13 +17,6 @@ class User < ActiveRecord::Base
     },
     if: 'name.present?'
   )
-  # validates_each :name do |record, attr, value|
-  #   if value =~ /[^[[:alpha:]]., -]/
-  #     record.errors.add(attr, 'contains invalid characters')
-  #   elsif value =~ /(\A[., -]|\.[[[:alpha:]].-]|,[[[:alpha:]].,-]| [., -]|-[., -]|[, -]\z)/
-  #     record.errors.add(attr, 'contains invalid punctuation')
-  #   end
-  # end
 
   # Validate email address.
   before_save { self.email = email.downcase }
