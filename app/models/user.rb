@@ -1,19 +1,10 @@
+# App users can manage the list of checkpoints, challenges and teams. They can
+# also submit scores and add and remove other users.
+#
 # TODO: Rename :email table column to :email_address.
 class User < ActiveRecord::Base
   # Add authentication functionality.
   has_secure_password
-
-  # Validate name.
-  validates :name, presence: true
-  validates(
-    :name,
-    length: {
-      in: 3..30,
-      too_short: 'is too short',
-      too_long: 'is too long'
-    },
-    if: 'name.present?'
-  )
 
   # Perform basic input normalisation prior to validation.
   before_validation do
@@ -29,6 +20,18 @@ class User < ActiveRecord::Base
       self.email = email.strip.sub(/(?<=@)[^@]*?(?=(?:\(.*\))?\z)/, &:downcase)
     end
   end
+
+  # Validate name.
+  validates :name, presence: true
+  validates(
+    :name,
+    length: {
+      in: 3..30,
+      too_short: 'is too short',
+      too_long: 'is too long'
+    },
+    if: 'name.present?'
+  )
 
   # Validate email address.
   validates(
