@@ -59,4 +59,31 @@ RSpec.describe User, type: :model do
         .with_message('is already registered')
     end
   end
+
+  # `has_secure_password` ensures that password is present on creation, and
+  # that it does not exceed a maximum length. It also checks that password
+  # matches password confirmation *if password confirmation is not nil*.
+  it { is_expected.to have_secure_password }
+
+  context 'when given a new password' do
+    it { is_expected.to validate_length_of(:password).is_at_least(8) }
+
+    it "doesn't check length when :password is nil" do
+      user = build_stubbed(:user, password: nil)
+      user.valid?
+      expect(user.errors[:password]).to eq(["can't be blank"])
+    end
+
+    it "doesn't check length when :password is empty" do
+      user = build_stubbed(:user, password: '')
+      user.valid?
+      expect(user.errors[:password]).to eq(["can't be blank"])
+    end
+
+    it "doesn't check length when :password is blank" do
+      user = build_stubbed(:user, password: ' ')
+      user.valid?
+      expect(user.errors[:password]).to eq(["can't be blank"])
+    end
+  end
 end
