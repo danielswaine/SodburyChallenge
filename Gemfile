@@ -18,6 +18,7 @@ gem 'prawn_rails',                '~> 0.0.11'
 gem 'prawn-table',                '~> 0.2.2'
 gem 'bootstrap-datepicker-rails', '~> 1.4.0'
 gem 'validates_email_format_of'
+gem 'strong_password', '~> 0.0.5'
 
 group :development, :test do
   gem 'sqlite3',                  '1.3.9'
