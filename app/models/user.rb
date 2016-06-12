@@ -15,9 +15,19 @@ class User < ActiveRecord::Base
     if: 'name.present?'
   )
 
-  # Normalise email addresses by converting their domain part to lower-case.
+  # Perform basic input normalisation prior to validation.
   before_validation do
-    email.sub!(/(?<=@)[^@]*?(?=(?:\(.*\))?\z)/, &:downcase) unless email.nil?
+    # Remove surplus whitespace from the name.
+    name.squish! if name.present?
+
+    # Remove leading and trailing whitespace from the email address, and
+    # convert the domain part to lower-case.
+    #
+    # The regex matches everything from just after the last non-comment `@`
+    # until the last domain-name character.
+    if email.present?
+      self.email = email.strip.sub(/(?<=@)[^@]*?(?=(?:\(.*\))?\z)/, &:downcase)
+    end
   end
 
   # Validate email address.

@@ -5,6 +5,12 @@ RSpec.describe User, type: :model do
   subject { build_stubbed(:user) }
 
   context 'when given a new name' do
+    it 'removes surplus whitespace' do
+      user = build_stubbed(:user, name: "   Some  Random \tPerson  \r\n ")
+      user.valid?
+      expect(user.name).to eq('Some Random Person')
+    end
+
     it { is_expected.to validate_presence_of(:name) }
 
     it do
@@ -17,19 +23,10 @@ RSpec.describe User, type: :model do
   end
 
   context 'when given a new email address' do
-    it { is_expected.to validate_presence_of(:email) }
-
-    it do
-      is_expected.to validate_email_format_of(:email)
-        .with_message("doesn't appear to be valid")
-    end
-
-    it { is_expected.to gracefully_handle_blank(:email) }
-
-    it do
-      is_expected.to validate_uniqueness_of(:email)
-        .ignoring_case_sensitivity
-        .with_message('is already registered')
+    it 'removes leading and trailing whitespace' do
+      user = build_stubbed(:user, email: %( "example user"@website.com  \r\n))
+      user.valid?
+      expect(user.email).to eq('"example user"@website.com')
     end
 
     it 'converts the domain part to lower-case (simple address)' do
@@ -45,6 +42,21 @@ RSpec.describe User, type: :model do
       user = build_stubbed(:user, email: original)
       user.valid?
       expect(user.email).to eq(normalised)
+    end
+
+    it { is_expected.to validate_presence_of(:email) }
+
+    it do
+      is_expected.to validate_email_format_of(:email)
+        .with_message("doesn't appear to be valid")
+    end
+
+    it { is_expected.to gracefully_handle_blank(:email) }
+
+    it do
+      is_expected.to validate_uniqueness_of(:email)
+        .ignoring_case_sensitivity
+        .with_message('is already registered')
     end
   end
 end
