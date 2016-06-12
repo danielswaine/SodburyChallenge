@@ -49,16 +49,12 @@ class User < ActiveRecord::Base
   )
 
   # Validate password.
-  validates :password, allow_nil: true, length: { in: 8..40 }
-  validates_each :password do |record, attr, value|
-    unless value.nil?
-      if value =~ /[^[[:alpha:]]]/
-        if value =~ /[^ -~]/
-          record.errors.add(attr, 'contains invalid characters')
-        end
-      else
-        record.errors.add(attr, 'must contain a number or symbol')
-      end
-    end
-  end
+  validates(
+    :password,
+    presence: true,
+    # HACK: `has_secure_password` implements presence validation for nil and
+    #   empty passwords, but *not* for non-empty blanks like ' '.
+    unless: 'password.nil? || password.empty?'
+  )
+  validates :password, length: { minimum: 8 }, if: 'password.present?'
 end
