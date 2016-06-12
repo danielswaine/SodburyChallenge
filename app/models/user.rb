@@ -1,64 +1,68 @@
+# App users can manage the list of checkpoints, challenges and teams. They can
+# also submit scores and add and remove other users.
+#
+# TODO: Rename :email table column to :email_address.
 class User < ActiveRecord::Base
-
-  # Adds authentication functionality.
+  # Add authentication functionality.
   has_secure_password
 
-  before_save { self.email = email.downcase }
+  # Perform basic input normalisation prior to validation.
+  before_validation do
+    # Remove surplus whitespace from the name.
+    name.squish! if name.present?
 
-  validates :name, length: {
-                             in: 3..70,
-                             too_short: 'is too short',
-                             too_long: 'is too long'
-                           }
-
-  validates_each :name do |record, attr, value|
-    if value =~ /[^[[:alpha:]]., -]/
-      record.errors.add(attr, 'contains invalid characters')
-    elsif value =~ /(\A[., -]|\.[[[:alpha:]].-]|,[[[:alpha:]].,-]| [., -]|-[., -]|[, -]\z)/
-      record.errors.add(attr, 'contains invalid punctuation')
+    # Remove leading and trailing whitespace from the email address, and
+    # convert the domain part to lower-case.
+    #
+    # The regex matches everything from just after the last non-comment `@`
+    # until the last domain-name character.
+    if email.present?
+      self.email = email.strip.sub(/(?<=@)[^@]*?(?=(?:\(.*\))?\z)/, &:downcase)
     end
   end
 
-  validates :email, uniqueness: { case_sensitive: false },
-                    length: {
-                              in: 6..320,
-                              too_short: 'address is too short',
-                              too_long: 'address is too long'
-                            }
+  # Validate name.
+  validates :name, presence: true
+  validates(
+    :name,
+    length: {
+      in: 3..30,
+      too_short: 'is too short',
+      too_long: 'is too long'
+    },
+    if: 'name.present?'
+  )
 
-  validates_each :email do |record, attr, value|
+  # Validate email address.
+  validates(
+    :email,
+    presence: true,
+    uniqueness: {
+      case_sensitive: false,
+      message: 'is already registered'
+    }
+  )
+  validates_email_format_of(
+    :email,
+    message: "doesn't appear to be valid",
+    if: 'email.present?'
+  )
 
-    # Form helper takes care of most of the RFC3696 complaince.
-
-    if value =~ /@.+\..+/
-      if value =~ /\A\./
-        record.errors.add(attr, 'address cannot start with a period')
-      elsif value =~ /\.@/
-        record.errors.add(attr, 'address cannot contain \'.@\'')
-      elsif value =~ /\.{2,}/
-        record.errors.add(attr, 'address cannot contain consecutive periods')
-      end
-    else
-      record.errors.add(attr, 'address must be fully qualified')
-    end
-
-  end
-
-  validates :password, allow_nil: true,
-                       length: { in: 8..40 }
-
-  validates_each :password do |record, attr, value|
-
-    unless value.nil?
-      if value =~ /[^[[:alpha:]]]/
-        if value =~ /[^ -~]/
-          record.errors.add(attr, 'contains invalid characters')
-        end
-      else
-        record.errors.add(attr, 'must contain a number or symbol')
-      end
-    end
-
-  end
-
+  # Validate password.
+  validates(
+    :password,
+    presence: true,
+    # HACK: `has_secure_password` implements presence validation for nil and
+    #   empty passwords, but *not* for non-empty blanks like ' '.
+    unless: 'password.nil? || password.empty?'
+  )
+  validates(
+    :password,
+    password_strength: {
+      min_entropy: 15, # Removes need for length requirement.
+      use_dictionary: true, # Check against common passwords.
+      message: 'is not strong enough'
+    },
+    if: 'password.present?'
+  )
 end
