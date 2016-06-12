@@ -56,5 +56,13 @@ class User < ActiveRecord::Base
     #   empty passwords, but *not* for non-empty blanks like ' '.
     unless: 'password.nil? || password.empty?'
   )
-  validates :password, length: { minimum: 8 }, if: 'password.present?'
+  validates(
+    :password,
+    password_strength: {
+      min_entropy: 15, # Removes need for length requirement.
+      use_dictionary: true, # Check against common passwords.
+      message: 'is not strong enough'
+    },
+    if: 'password.present?'
+  )
 end
