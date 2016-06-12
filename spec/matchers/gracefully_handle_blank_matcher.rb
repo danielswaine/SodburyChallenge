@@ -26,11 +26,13 @@ module ModelMatchers
   #     # This example would fail without the `:if` option in the model.
   #     it { is_expected.to gracefully_handle_blank(:email_address) }
   #   end
-  def gracefully_handle_blank(*args)
-    GracefullyHandleBlankMatcher.new(*args)
+  #
+  # @param [Symbol] a symbol that corresponds to an attribute on the model.
+  # @return [GracefullyHandleBlankMatcher]
+  def gracefully_handle_blank(attribute)
+    GracefullyHandleBlankMatcher.new(attribute)
   end
 
-  # @private
   class GracefullyHandleBlankMatcher
     # These values will all respond `true` to `blank?`, and are chosen to be
     # agnostic of general length requirements.
@@ -45,8 +47,7 @@ module ModelMatchers
 
     # Create a new matcher.
     #
-    # @param attribute [Symbol] a symbol that corresponds to an attribute on
-    #   the model.
+    # @param [Symbol] a symbol that corresponds to an attribute on the model.
     # @return [void]
     def initialize(attribute)
       @attribute = attribute
@@ -56,8 +57,7 @@ module ModelMatchers
 
     # Evaluate the match.
     #
-    # @param model [ActiveRecord::Base] the model to be tested. This is
-    #   supplied by RSpec.
+    # @param [ActiveRecord::Base] the model to be tested (supplied by RSpec).
     # @return [Boolean] whether the model matches.
     def matches?(model)
       @model = model
@@ -70,7 +70,7 @@ module ModelMatchers
     # Specify the expected error message (overrides the default "can't be
     # blank").
     #
-    # @param message [String] the expected error message.
+    # @param [String] the expected error message.
     # @return [self]
     def with_message(message)
       @message = message
@@ -134,4 +134,6 @@ module ModelMatchers
       end
     end
   end
+
+  private_constant :GracefullyHandleBlankMatcher
 end
