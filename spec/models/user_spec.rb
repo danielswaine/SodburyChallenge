@@ -66,21 +66,60 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_secure_password }
 
   context 'when given a new password' do
-    it { is_expected.to validate_length_of(:password).is_at_least(8) }
+    # Similar to a common password. Should probably be invalid.
+    COMMON_PASSWORDS = [
+      'Qw3rty1?',
+      '_d4rkne55',
+      'password 12345',
+      'mOnKeY96969'
+    ].freeze
 
-    it "doesn't check length when :password is nil" do
+    # Rated yellow-green according to the Password Assistant that's built in to
+    # Mac OS X. Should probably be valid.
+    COMPLEX_PASSWORDS = [
+      'Ku3}Boca',
+      'HAe6rxKQ',
+      '713644618219179',
+      'stwsNj_R',
+      'ahtikiozoewenyofosdev',
+      'louise radar'
+    ].freeze
+
+    # Rated orange-yellow according to OS X. Should probably be invalid.
+    SIMPLE_PASSWORDS = [
+      'To.5put',
+      '7ps45b5',
+      '007662063102',
+      's}[_WV',
+      'issynryy',
+      'on 6th'
+    ].freeze
+
+    it do
+      is_expected.not_to allow_values(*COMMON_PASSWORDS).for(:password)
+        .with_message('is not strong enough')
+    end
+
+    it { is_expected.to allow_values(*COMPLEX_PASSWORDS).for(:password) }
+
+    it do
+      is_expected.not_to allow_values(*SIMPLE_PASSWORDS).for(:password)
+        .with_message('is not strong enough')
+    end
+
+    it "doesn't check complexity when :password is nil" do
       user = build_stubbed(:user, password: nil)
       user.valid?
       expect(user.errors[:password]).to eq(["can't be blank"])
     end
 
-    it "doesn't check length when :password is empty" do
+    it "doesn't check complexity when :password is empty" do
       user = build_stubbed(:user, password: '')
       user.valid?
       expect(user.errors[:password]).to eq(["can't be blank"])
     end
 
-    it "doesn't check length when :password is blank" do
+    it "doesn't check complexity when :password is blank" do
       user = build_stubbed(:user, password: ' ')
       user.valid?
       expect(user.errors[:password]).to eq(["can't be blank"])
