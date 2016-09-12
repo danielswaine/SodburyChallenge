@@ -1,11 +1,11 @@
 class StaticPagesController < ApplicationController
 
   def home
-    @challenges = Challenge.all
+    @challenges = Challenge.where(date:(Date.today.beginning_of_year..Date.today.end_of_year)).order(:time_allowed)
   end
 
   def results
-    @challenges = Challenge.all
+    @challenges = Challenge.where(date:(Date.today.beginning_of_year..Date.today.end_of_year)).order(:time_allowed)
   end
 
   def rules
