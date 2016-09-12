@@ -42,9 +42,9 @@ prawn_document(page_size: "A4") do |pdf|
 
   pdf.move_down 20
 
-  pdf.text "Emergency Number: 01234567890", align: :center, style: :bold,
+  pdf.text "Emergency Number: 01234 567890", align: :center, style: :bold,
   size: 14
-  pdf.text "Phone in Number: 01234567890", align: :center, style: :bold,
+  pdf.text "Phone in Number: 01234 567890", align: :center, style: :bold,
   size: 14
 
   pdf.move_down 20
