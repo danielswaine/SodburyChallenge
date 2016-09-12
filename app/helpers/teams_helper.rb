@@ -30,6 +30,14 @@ module TeamsHelper
     end
   end
 
+  # Used to only open collapsible panel for current year's challenge
+  def is_current_year(challenge)
+    if challenge.date.year == Time.now.year
+      " in"
+    else
+      nil
+    end
+  end
 
   # Returns true if a team has started on the course.
   def has_started?(team)
