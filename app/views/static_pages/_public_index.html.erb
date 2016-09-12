@@ -31,36 +31,46 @@
 
 <% count = 1 %>
 <% @challenges.order(:time_allowed).each do |challenge| %>
-<div class="row vspace">
-  <div class="col-md-12 col-xs-12">
-    <h3><%= challenge.time_allowed %> Hour Challenge</h3>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12 col-sx-12 wide-table">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Team Number</th>
-          <th>Name</th>
-          <th>Group</th>
-          <th>Planned Start Time</th>
-          <th>Expected Finish Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% challenge.teams.order(:planned_start_time).each do |team| %>
-          <tr>
-            <td><%= count %></td>
-            <td><%= team.name %></td>
-            <td><%= team.group.to_s.titleize %></td>
-            <td><%= team.planned_start_time %></td>
-            <td><%= finish_time(team) %></td>
-          </tr>
-          <% count += 1 %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-<% end %>
+    <div class="row vspace">
+      <div class="col-md-12 col-xs-12">
+        <h3><%= challenge.time_allowed %> Hour Challenge</h3>
+      </div>
+    </div>
+    <% if challenge.teams.size == 0 %>
+      <div class="row vspace">
+        <div class="col-md-12 col-xs-12">
+          <div class="alert alert-info" role="alert">
+            Please check back later for your start time.
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col-md-12 col-sx-12 wide-table">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Team Number</th>
+                <th>Name</th>
+                <th>Group</th>
+                <th>Planned Start Time</th>
+                <th>Expected Finish Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% challenge.teams.order(:planned_start_time).each do |team| %>
+                <tr>
+                  <td><%= count %></td>
+                  <td><%= team.name %></td>
+                  <td><%= team.group.to_s.titleize %></td>
+                  <td><%= team.planned_start_time %></td>
+                  <td><%= finish_time(team) %></td>
+                </tr>
+                <% count += 1 %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
