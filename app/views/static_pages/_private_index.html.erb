@@ -25,53 +25,71 @@
 </div>
 
 <% count = 1 %>
-<% @challenges.order(:time_allowed).each do |challenge| %>
-<div class="row vspace">
-  <div class="col-md-12 col-xs-12">
-    <h3><%= challenge.time_allowed %> Hour Challenge</h3>
+
+<% if @challenges.size == 0 %>
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4 class="panel-title">Note</h4>
+        </div>
+        <div class="panel-body">
+          <h4>
+            Please enter some information about this year's challenge!
+          </h4>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12 col-xs-12 wide-table">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Team Number</th>
-          <th>Name</th>
-          <th>Group</th>
-          <th>Start Time</th>
-          <th>Phone In Time</th>
-          <th>Finish Time</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% challenge.teams.order(:planned_start_time).each do |team| %>
+<% else %>
+  <% @challenges.order(:time_allowed).each do |challenge| %>
+  <div class="row vspace">
+    <div class="col-md-12 col-xs-12">
+      <h3><%= challenge.time_allowed %> Hour Challenge</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-xs-12 wide-table">
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td><%= count %></td>
-            <td><%= team.name %></td>
-            <td><%= team.group.to_s.titleize %></td>
-            <% if has_started? team %>
-              <td class="actual"><%= link_to start_time(team), log_team_path(team) %></td>
-            <% else %>
-              <td class="expected"><%= link_to "(#{start_time(team)})", log_team_path(team) %></td>
-            <% end %>
-            <% if has_phoned_in? team %>
-              <td class="actual"><%= link_to phone_in_time(team), log_team_path(team) %></td>
-            <% else %>
-              <td class="expected"><%= link_to "(#{phone_in_time(team)})", log_team_path(team) %></td>
-            <% end %>
-            <% if has_finished? team %>
-              <td class="actual"><%= link_to finish_time(team), log_team_path(team) %></td>
-            <% else %>
-              <td class="expected"><%= link_to "(#{finish_time(team)})", log_team_path(team) %></td>
-            <% end %>
-            <td><%= current_status(team) %></td>
+            <th>Team Number</th>
+            <th>Name</th>
+            <th>Group</th>
+            <th>Start Time</th>
+            <th>Phone In Time</th>
+            <th>Finish Time</th>
+            <th>Status</th>
           </tr>
-          <% count += 1 %>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% challenge.teams.order(:planned_start_time).each do |team| %>
+            <tr>
+              <td><%= count %></td>
+              <td><%= team.name %></td>
+              <td><%= team.group.to_s.titleize %></td>
+              <% if has_started? team %>
+                <td class="actual"><%= link_to start_time(team), log_team_path(team) %></td>
+              <% else %>
+                <td class="expected"><%= link_to "(#{start_time(team)})", log_team_path(team) %></td>
+              <% end %>
+              <% if has_phoned_in? team %>
+                <td class="actual"><%= link_to phone_in_time(team), log_team_path(team) %></td>
+              <% else %>
+                <td class="expected"><%= link_to "(#{phone_in_time(team)})", log_team_path(team) %></td>
+              <% end %>
+              <% if has_finished? team %>
+                <td class="actual"><%= link_to finish_time(team), log_team_path(team) %></td>
+              <% else %>
+                <td class="expected"><%= link_to "(#{finish_time(team)})", log_team_path(team) %></td>
+              <% end %>
+              <td><%= current_status(team) %></td>
+            </tr>
+            <% count += 1 %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+  <% end %>
 <% end %>
