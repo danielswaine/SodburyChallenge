@@ -42,9 +42,9 @@ prawn_document(page_size: "A4") do |pdf|
 
   pdf.move_down 20
 
-  pdf.text "Emergency Number: 01234567890", align: :center, style: :bold,
+  pdf.text "Emergency Number: 01234 567890", align: :center, style: :bold,
   size: 14
-  pdf.text "Phone in Number: 01234567890", align: :center, style: :bold,
+  pdf.text "Phone in Number: 01234 567890", align: :center, style: :bold,
   size: 14
 
   pdf.move_down 20
@@ -84,7 +84,7 @@ prawn_document(page_size: "A4") do |pdf|
 
   pdf.table([
               ["Phone call on time bonus (30 points, -1 for every minute early or late)", ""],
-              ["Bonus for not being late back (30 points, -1 for every minutes late up to -30)", ""]
+              ["Bonus for not being late back (30 points, -1 for every minute late up to -30)", ""]
             ],
             width: 524, column_widths: [430, 94], position: :center,
             cell_style: { align: :left, border_color: 'DDDDDD' }
