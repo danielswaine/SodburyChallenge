@@ -17,7 +17,7 @@ $gray-medium-light: #eaeaea;
   margin-top: 45px;
   @include box_sizing;
 }
-.panel-body {
+.panel-body.bold {
   font-size: 1.2em;
   line-height: 1.7em;
 }
