@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <p>This page lets you manage the teams taking part in this year&rsquo;s Sodbury Challenge.</p>
+    <p>This page lets you manage the teams taking part in each Sodbury Challenge.</p>
   </div>
 </div>
 
@@ -14,6 +14,7 @@
         <h4 class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= idx %>" aria-expanded="false" aria-controls="collapse<%= idx %>">
             <%= challenge.time_allowed %> Hour - <%= challenge.date.strftime("%-d %B %Y") %>
+            <%= challenge.id %>
           </a>
         </h4>
       </div>
@@ -40,12 +41,17 @@
                       <td><%= team.group.to_s.titleize %></td>
                       <td><%= start_time(team) %></td>
                       <td><%= link_to "Edit", edit_team_path(team) %></td>
-                      <td><%= link_to "Score", score_team_path(team) %><% if team.score-%>&nbsp;&nbsp;&#10003;<% end %></td>
+                      <td><%= link_to "Score", score_team_path(team) %><% if team.score %>&nbsp;&nbsp;&#10003;<% end %></td>
                     </tr>
                     <% count += 1 %>
                   <% end %>
                 </tbody>
               </table>
+              <div class="row">
+                <div class="col-md-3 vspace">
+                  <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Team"), new_team_path(challenge: challenge.id), :class=>'btn btn-block btn-success' %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -57,9 +63,6 @@
 <br />
 
 <div class="row">
-  <div class="col-md-3 vspace">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Team"), new_team_path, :class=>'btn btn-block btn-success' %>
-  </div>
   <div class="col-md-3 vspace">
     <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), teams_path(format: :pdf), :class=>'btn btn-block btn-default' %>
   </div>
