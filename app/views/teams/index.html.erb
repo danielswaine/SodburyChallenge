@@ -14,7 +14,6 @@
         <h4 class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= idx %>" aria-expanded="false" aria-controls="collapse<%= idx %>">
             <%= challenge.time_allowed %> Hour - <%= challenge.date.strftime("%-d %B %Y") %>
-            <%= challenge.id %>
           </a>
         </h4>
       </div>
@@ -51,6 +50,9 @@
                 <div class="col-md-3 vspace">
                   <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Team"), new_team_path(challenge: challenge.id), :class=>'btn btn-block btn-success' %>
                 </div>
+                <div class="col-md-3 vspace">
+                  <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), teams_path(challenge: challenge.id, format: :pdf), :class=>'btn btn-block btn-default' %>
+                </div>
               </div>
             </div>
           </div>
@@ -63,7 +65,5 @@
 <br />
 
 <div class="row">
-  <div class="col-md-3 vspace">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download as PDF"), teams_path(format: :pdf), :class=>'btn btn-block btn-default' %>
-  </div>
+
 </div>
