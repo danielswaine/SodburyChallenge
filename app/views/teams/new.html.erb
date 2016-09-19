@@ -14,11 +14,16 @@
       <%= f.label :name, "Team Name" %>
       <%= f.text_field :name, class: 'form-control' %>
 
-      <%= f.label :challenge_id, "Challenge" %>
-      <% selection_challenges_array = Challenge.all.map do |c|
-        ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
-      end %>
-      <%= f.select :challenge_id, options_for_select(selection_challenges_array), { }, { class: 'form-control' } %>
+      <% challenge_id = params[:challenge] || f.object.challenge_id %>
+      <% if challenge_id %>
+        <%= f.hidden_field :challenge_id, value: challenge_id %>
+      <% else %>
+        <%= f.label :challenge_id, "Challenge" %>
+        <% selection_challenges_array = Challenge.all.map do |c|
+          ["Sodbury Challenge #{c.date.year} (#{c.time_allowed} hours)", c.id]
+        end %>
+        <%= f.select :challenge_id, options_for_select(selection_challenges_array), { }, { class: 'form-control' } %>
+      <% end %>
 
       <%= f.label :group, "Group" %>
       <% groups_array = Team.groups.keys.map { |key| [key.to_s.titleize, key] } %>
@@ -37,4 +42,3 @@
     </div>
   </div>
 <% end %>
-

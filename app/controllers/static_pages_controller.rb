@@ -13,4 +13,8 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+
+  def archive
+    @challenges = Challenge.all
+  end
 end
