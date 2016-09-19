@@ -1,8 +1,9 @@
 prawn_document(page_size: "A4") do |pdf|
   count = 1
-  @challenges.order(:time_allowed).each_with_index do |challenge, idx|
+  challenge_id = params[:challenge]
+  @challenges.where(id: challenge_id).order(:time_allowed).each_with_index do |challenge, idx|
     pdf.start_new_page unless idx == 0
-    pdf.text "Sodbury Challenge #{challenge.time_allowed} Hour Start Times", align: :center, style: :bold, size: 18
+    pdf.text "Sodbury Challenge #{challenge.date.year} -  #{challenge.time_allowed} Hour Start Times", align: :center, style: :bold, size: 18
     pdf.move_down 12
     pdf.text "Exported at #{Time.now.strftime("%R on %-d %B %Y")} by #{current_user.name}",
             align: :center, size: 14
