@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get 'about' => 'static_pages#about'
   get 'rules' => 'static_pages#rules'
+  get 'archive' => 'static_pages#archive'
   get 'results' => 'static_pages#results', as: 'results'
   get 'time' => 'official_time#index'
   get 'login' => 'sessions#new'
