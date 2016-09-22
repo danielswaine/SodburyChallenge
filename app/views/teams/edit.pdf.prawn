@@ -24,13 +24,18 @@ prawn_document(page_size: "A4") do |pdf|
 
         pdf.move_down 15
 
-        pdf.text "#{@team.name}", align: :center, size: 20
+        pdf.text "#{@team.name}", align: :center, size: 20, style: :italic
 
         pdf.move_down 30
 
         pdf.text "for completing the Sodbury Challenge #{member.team.challenge.date.strftime('%Y')}", align: :center, style: :bold, size: 20
 
-        #pdf.image "#{Rails.root}/app/assets/images/signature.jpg", position: :right, at: [360, 110], scale: 0.8
+        pdf.move_down 20
+
+        pdf.image "#{Rails.root}/app/assets/images/scouts_logo.png", scale: 0.1, position: :center
+
+        pdf.image "#{Rails.root}/app/assets/images/signature.jpg", position: :right, at: [400, 100], scale: 0.6
+        #pdf.image "#{Rails.root}/app/assets/images/Signature.png", position: :right, at: [375, 120], scale: 0.2
 
         pdf.bounding_box([15, 30], :width => 300, :height => 20) do
           pdf.text member.team.challenge.date.to_formatted_s(:long_ordinal), size: 14
