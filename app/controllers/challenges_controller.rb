@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
   before_action :user_logged_in?
-  before_action :find_challenge, only: [:show, :results, :update, :publish, :destroy, :statistics]
+  before_action :find_challenge, only: [:show, :results, :update, :publish, :destroy, :statistics, :clipper]
   before_action :all_teams_scored?, only: [:publish]
 
   def index
@@ -13,6 +13,9 @@ class ChallengesController < ApplicationController
       format.html # show.html.erb
       format.pdf # show.pdf.prawn
     end
+  end
+
+  def clipper
   end
 
   def new
