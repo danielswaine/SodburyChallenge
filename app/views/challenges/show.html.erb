@@ -35,6 +35,9 @@
   <div class="col-md-3 vspace">
     <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download Clipper Sheet as PDF"), clipper_path(@challenge, format: :pdf), :class=>'btn btn-block btn-default' %>
   </div>
+  <div class="col-md-3 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download #{@challenge.date.year} Master List as PDF"), master_list_path(date: @challenge.date, format: :pdf), :class=>'btn btn-block btn-default' %>
+  </div>
 </div>
 
 <div class="row vspace">
