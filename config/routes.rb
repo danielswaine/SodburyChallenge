@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   get 'challenges/:id/statistics' => 'challenges#statistics', as: 'statistics'
 
   get 'challenges/:id/clipper' => 'challenges#clipper', as: 'clipper'
+  
+  get 'challenges/:id/master_list' => 'challenges#master_list', as: 'master_list'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
