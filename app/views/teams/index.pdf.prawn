@@ -1,7 +1,7 @@
 prawn_document(page_size: "A4") do |pdf|
   count = 1
-  challenge_id = params[:challenge]
-  @challenges.where(id: challenge_id).order(:time_allowed).each_with_index do |challenge, idx|
+  challenge_date = params[:date]
+  @challenges.where(date: challenge_date).order(:time_allowed).each_with_index do |challenge, idx|
     pdf.start_new_page unless idx == 0
     pdf.text "Sodbury Challenge #{challenge.date.year} -  #{challenge.time_allowed} Hour Start Times", align: :center, style: :bold, size: 18
     pdf.move_down 12
