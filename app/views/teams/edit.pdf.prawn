@@ -34,7 +34,7 @@ prawn_document(page_size: "A4") do |pdf|
 
         pdf.image "#{Rails.root}/app/assets/images/scouts_logo.png", scale: 0.1, position: :center
 
-        pdf.image "#{Rails.root}/app/assets/images/signature.jpg", position: :right, at: [400, 100], scale: 0.6
+        pdf.image "#{Rails.root}/app/assets/images/signature.jpg", position: :right, at: [400, 90], scale: 0.6
         #pdf.image "#{Rails.root}/app/assets/images/Signature.png", position: :right, at: [375, 120], scale: 0.2
 
         pdf.bounding_box([15, 30], :width => 300, :height => 20) do
