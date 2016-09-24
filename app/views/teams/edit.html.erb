@@ -94,7 +94,7 @@
                 <tr>
                   <td><%= member.name %></td>
                   <td><%= link_to "Edit", edit_member_path(member.id) %></td>
-                  <td><%= link_to "Delete", Member.find(member.id), method: :delete %></td>
+                  <td><%= link_to "Delete", member, method: :delete, data: { confirm: 'Are you sure?' }  %></td>
                 </tr>
               <% end %>
             <tbody>
