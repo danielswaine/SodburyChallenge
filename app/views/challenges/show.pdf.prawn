@@ -24,7 +24,7 @@ prawn_document(page_size: "A4") do |pdf|
             @goals.order(start_point: :desc, compulsory: :desc).map do |goal|
               [
                 get_type(goal),
-                goal.checkpoint_id,
+                goal.checkpoint.number,
                 goal.checkpoint.grid_reference,
                 goal.points_value
               ]

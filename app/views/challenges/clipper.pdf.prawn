@@ -15,7 +15,7 @@ prawn_document(page_size: "A4") do |pdf|
     @challenge.goals.where(start_point: false).each do |goal|
       pdf.grid(x, y).bounding_box do
         pdf.stroke_bounds
-        pdf.draw_text "#{goal.checkpoint_id}", at: [2, 40]
+        pdf.draw_text "#{goal.checkpoint.number}", at: [2, 40]
         y += 1;
         if y == 8 then x += 1; y = 0 end
       end
