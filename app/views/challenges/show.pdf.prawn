@@ -19,7 +19,7 @@ prawn_document(page_size: "A4") do |pdf|
             width: 524, column_widths: [131, 131, 131, 131],
             position: :center, cell_style: { align: :center, font_style: :bold, border_color: 'DDDDDD', background_color: 'DDDDDD' }
             )
-
+  pdf.cell.padding = 0
   pdf.table(
             @goals.order(start_point: :desc, compulsory: :desc).map do |goal|
               [
@@ -30,7 +30,7 @@ prawn_document(page_size: "A4") do |pdf|
               ]
             end,
             width: 524, row_colors: ["FFFFFF", "F9F9F9"],
-            cell_style: {border_color: 'DDDDDD', align: :center},
+            cell_style: {padding: 2, border_color: 'DDDDDD', align: :center},
             column_widths: [131, 131, 131, 131],  position: :center
             )
 
