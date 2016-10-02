@@ -30,7 +30,7 @@ prawn_document(page_size: "A4") do |pdf|
               ]
             end,
             width: 524, row_colors: ["FFFFFF", "F9F9F9"],
-            cell_style: {border_color: 'DDDDDD', align: :center},
+            cell_style: {padding: 2, border_color: 'DDDDDD', align: :center},
             column_widths: [131, 131, 131, 131],  position: :center
             )
 
