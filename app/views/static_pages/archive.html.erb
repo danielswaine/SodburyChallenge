@@ -7,7 +7,7 @@
   <h1>Previous Results</h1>
 </div>
 
-<% @challenges.order(:time_allowed).each_with_index do |challenge, idx| %>
+<% @challenges.order(date: :desc, time_allowed: :asc).each_with_index do |challenge, idx| %>
   <% if challenge.published? && challenge.teams.size > 0 %>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
