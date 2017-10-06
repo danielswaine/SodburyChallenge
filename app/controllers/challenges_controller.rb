@@ -22,6 +22,10 @@ class ChallengesController < ApplicationController
     @challenges = Challenge.all
   end
 
+  def team_certificates
+    @challenges = Challenge.where(date: params[:date])
+  end
+
   def new
     @challenge = Challenge.new
   end

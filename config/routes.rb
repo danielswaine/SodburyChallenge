@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   resources :challenges, only: [:index, :show, :new, :create, :update, :destroy]
+  get 'challenge/:id/certificates' => 'challenges#team_certificates', as: 'team_certificates'
 
   resources :checkpoints, param: :number,
                           only: [:index, :new, :create, :edit, :update, :destroy]
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
   get 'challenges/:id/statistics' => 'challenges#statistics', as: 'statistics'
 
   get 'challenges/:id/clipper' => 'challenges#clipper', as: 'clipper'
-  
+
   get 'challenges/:id/master_list' => 'challenges#master_list', as: 'master_list'
 
   # The priority is based upon order of creation: first created -> highest priority.

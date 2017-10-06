@@ -5,6 +5,14 @@
     <h2>Goals</h2>
   </div>
 </div>
+
+<div class="row vspace">
+  <div class="col-md-3">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> Add Goal"),
+        new_goal_path(challenge: @challenge.id), :class=>'btn btn-block btn-success' %>
+  </div>
+</div>
+
 <div class="row vspace">
   <div class="col-md-12 col-xs-12 wide-table">
     <table class="table table-striped">
@@ -24,11 +32,8 @@
     </table>
   </div>
 </div>
+
 <div class="row vspace">
-  <div class="col-md-3 vspace">
-    <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> Add Goal"),
-        new_goal_path(challenge: @challenge.id), :class=>'btn btn-block btn-success' %>
-  </div>
   <div class="col-md-3 vspace">
     <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download Team Sheet as PDF"), challenge_path(@challenge, format: :pdf), :class=>'btn btn-block btn-default' %>
   </div>
@@ -37,6 +42,9 @@
   </div>
   <div class="col-md-3 vspace">
     <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download #{@challenge.date.year} Master List as PDF"), master_list_path(date: @challenge.date, format: :pdf), :class=>'btn btn-block btn-default' %>
+  </div>
+  <div class="col-md-3 vspace">
+    <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download #{@challenge.date.year} Certificates"), team_certificates_path(date: @challenge.date, format: :pdf), :class=>'btn btn-block btn-default' %>
   </div>
 </div>
 
