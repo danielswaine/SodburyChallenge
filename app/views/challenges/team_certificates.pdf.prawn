@@ -4,10 +4,13 @@ prawn_document(page_size: "A4") do |pdf|
   pdf.line_width 10
   pdf.stroke_color "473061"
 
-  @challenges.each do |challenge|
-    challenge.teams.each_with_index do |team, idx|
+  @challenges.each_with_index do |challenge, idx|
 
-      pdf.start_new_page unless idx == 0
+    pdf.start_new_page unless idx == 0
+    
+    challenge.teams.each_with_index do |team, idx1|
+
+      pdf.start_new_page unless idx1 == 0
 
       # Page Border
       pdf.bounding_box([0,770], width: 515, height: 770) do
