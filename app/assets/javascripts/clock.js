@@ -18,7 +18,7 @@ function display() {
   if (m < 10) {
     m = "0" + m;
   }
-  $("#clock").html(h + ":" + m);
+  $(".clock").html(h + ":" + m);
 }
 
 function synchronise() {

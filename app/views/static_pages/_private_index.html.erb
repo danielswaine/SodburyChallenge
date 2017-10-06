@@ -4,9 +4,21 @@
 <%= content_for(:body_attributes) do %> data-no-turbolink <% end %>
 
 <div class="jumbotron center">
-  <h1>Team Status</h1>
-  <br />
-  <p>This page will refresh automatically.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Team Status</h1>
+      <br />
+    </div>
+    <div class="col-md-6">
+      <h1><span style="top:8px;" class="glyphicon glyphicon-time"></span> <span class="clock"></span></h1>
+      <br />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p>This page will refresh automatically.</p>
+    </div>
+  </div>
 </div>
 
 <br />
