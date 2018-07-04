@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
   get 'about' => 'static_pages#about'
+  get 'kit' => 'static_pages#kit'
   get 'rules' => 'static_pages#rules'
   get 'archive' => 'static_pages#archive'
   get 'results' => 'static_pages#results', as: 'results'
