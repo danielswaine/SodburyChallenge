@@ -22,7 +22,7 @@ end
 p "#{Checkpoint.count} Checkpoints created."
 
 4.times do
-  date = Faker::Date.forward
+  date = Faker::Date.between(2.years.ago, 1.year.from_now)
   Challenge.create(date: date, time_allowed: 5)
   Challenge.create(date: date, time_allowed: 8)
 end
@@ -44,7 +44,7 @@ p "#{Goal.count} Goals created."
 Challenge.count.times do |ch|
   20.times do |num|
     Team.create(challenge_id: ch + 1,
-                group: [:scouts, :explorers, :non_competitive].sample,
+                group: [:scouts, :explorers, :non_competitive, :network, :leaders].sample,
                 name: "Team #{num + 1}",
                 planned_start_time: "%d:%02d" % [rand(17..23), 5 * rand(12)])
   end
