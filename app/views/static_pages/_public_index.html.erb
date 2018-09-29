@@ -18,10 +18,11 @@
       <div class="panel-body">
         <h4>
           <ul>
-            <li>The actual finish time could be up to 30 minutes after the expected finish
-            time.</li>
+            <li>We try to keep as close as we can to the planned times,
+                however this is not always possible.</li>
             <br />
-            <li>Expected finish times will update as teams start on the course.</li>
+            <li>Expected finish times will update as teams start on the course
+                so please check back during the course of the night.</li>
           </ul>
         </h4>
       </div>
@@ -64,7 +65,7 @@
                   <td><%= team.name %></td>
                   <td><%= team.group.to_s.titleize %></td>
                   <td><%= team.planned_start_time %></td>
-                  <td><%= finish_time(team) %></td>
+                  <td><%= expected_finish_time_with_padding(team) %></td>
                 </tr>
                 <% count += 1 %>
               <% end %>

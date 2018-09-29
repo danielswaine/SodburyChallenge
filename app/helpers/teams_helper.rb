@@ -120,4 +120,10 @@ module TeamsHelper
     (started_at + team.challenge.time_allowed * 3600).strftime("%R")
   end
 
+  # Returns expected finish time + 30 minutes for public view
+  def expected_finish_time_with_padding(team)
+    started_at = Time.parse("#{team.challenge.date}T#{start_time(team)}")
+    (started_at + team.challenge.time_allowed * 3600 + 30.minutes).strftime("%R")
+  end
+
 end
