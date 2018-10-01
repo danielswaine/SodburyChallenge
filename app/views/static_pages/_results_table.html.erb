@@ -1,6 +1,6 @@
 <% if challenge.teams.size > 0 %>
-  <% scout_teams = challenge.teams.where(group: 0).where(disqualified: false) %>
-  <% explorer_teams = challenge.teams.where(group: 1).where(disqualified: false) %>
+  <% scout_guide_teams = challenge.teams.where(group: [0,5]).where(disqualified: false) %>
+  <% explorer_ranger_teams = challenge.teams.where(group: [1, 6]).where(disqualified: false) %>
   <% non_competitive_teams = challenge.teams.where(group: 2).where(disqualified: false) %>
   <% network_leader_teams = challenge.teams.where(group: [3, 4]).where(disqualified: false) %>
   <% disqualified_teams = challenge.teams.where(disqualified: true) %>
@@ -10,10 +10,10 @@
       <h2 class="panel-title"><%= challenge.time_allowed %> Hour Challenge</h2>
     </div>
     <div class="panel-body">
-      <% if scout_teams.size > 0 %>
+      <% if scout_guide_teams.size > 0 %>
         <div class="row vspace">
           <div class="col-md-12 col-xs-12">
-            <h3>Scouts</h3>
+            <h3>Scouts &amp; Guides</h3>
           </div>
         </div>
         <div class="row vspace">
@@ -28,7 +28,7 @@
               </thead>
               <tbody>
                 <% position = 1 %>
-                <% scout_teams.order(:score).reverse.each do |team| %>
+                <% scout_guide_teams.order(:score).reverse.each do |team| %>
                   <tr>
                     <td><%= position.ordinalize %></td>
                     <td><%= team.name %></td>
@@ -41,10 +41,10 @@
           </div>
         </div>
       <% end %>
-      <% if explorer_teams.size > 0 %>
+      <% if explorer_ranger_teams.size > 0 %>
         <div class="row vspace">
           <div class="col-md-12 col-xs-12">
-            <h3>Explorers</h3>
+            <h3>Explorers &amp; Rangers</h3>
           </div>
         </div>
         <div class="row vspace">
@@ -59,7 +59,7 @@
               </thead>
               <tbody>
                 <% position = 1 %>
-                <% explorer_teams.order(:score).reverse.each do |team| %>
+                <% explorer_ranger_teams.order(:score).reverse.each do |team| %>
                   <tr>
                     <td><%= position.ordinalize %></td>
                     <td><%= team.name %></td>

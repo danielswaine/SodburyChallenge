@@ -1,7 +1,7 @@
 class Team < ActiveRecord::Base
   belongs_to :challenge, inverse_of: :teams
   has_many :members, inverse_of: :team, dependent: :destroy
-  enum group: [:scouts, :explorers, :non_competitive, :network, :leaders]
+  enum group: [:scouts, :explorers, :non_competitive, :network, :leaders, :guides, :rangers]
 
   before_save do
 
