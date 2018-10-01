@@ -22,6 +22,7 @@ class StaticPagesController < ApplicationController
     date = DateTime.new(params[:year].to_i)
     @challenges = Challenge.where(published: true,
                                   date: date.beginning_of_year..date.end_of_year)
+                           .order(:time_allowed)
   end
 
 end

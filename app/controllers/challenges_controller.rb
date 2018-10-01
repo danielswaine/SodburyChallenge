@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
   before_action :all_teams_scored?, only: [:publish]
 
   def index
-    @challenges = Challenge.all.order(:date)
+    @challenges = Challenge.all.order(:date, :time_allowed)
   end
 
   def show
