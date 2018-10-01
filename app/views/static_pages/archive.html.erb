@@ -7,23 +7,15 @@
   <h1>Previous Results</h1>
 </div>
 
-<% @challenges.order(date: :desc, time_allowed: :asc).each_with_index do |challenge, idx| %>
-  <% if challenge.published? && challenge.teams.size > 0 %>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading<%= idx %>">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= idx %>" aria-expanded="true" aria-controls="collapse<%= idx %>">
-              <%= challenge.date.year %> - <%= challenge.time_allowed %> Hour
-            </a>
-          </h4>
-        </div>
-        <div id="collapse<%= idx %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <%= render "results_table", challenge: challenge %>
-          </div>
+<div class="row">
+  <% @challenges.each do |date, challenge| %>
+    <%= link_to year_archive_path(year: date.year)  do %>
+      <div class="col-md-6">
+        <div class="well well-lg">
+          <h3 class="center"><%= date.year %></h3>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+

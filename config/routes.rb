@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'kit' => 'static_pages#kit'
   get 'rules' => 'static_pages#rules'
   get 'archive' => 'static_pages#archive'
+  get 'archive/:year' => 'static_pages#year_archive', as: 'year_archive'
   get 'results' => 'static_pages#results', as: 'results'
   get 'time' => 'official_time#index'
   get 'login' => 'sessions#new'

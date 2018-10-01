@@ -15,6 +15,13 @@ class StaticPagesController < ApplicationController
   end
 
   def archive
-    @challenges = Challenge.all
+    @challenges = Challenge.where(published: true).order(date: :desc).group_by(&:date)
   end
+
+  def year_archive
+    date = DateTime.new(params[:year].to_i)
+    @challenges = Challenge.where(published: true,
+                                  date: date.beginning_of_year..date.end_of_year)
+  end
+
 end

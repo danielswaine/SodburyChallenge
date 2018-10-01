@@ -1,0 +1,11 @@
+<div class="jumbotron center">
+  <h1><%= params[:year] %> Results</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% @challenges.each do |challenge| %>
+      <%= render "results_table", challenge: challenge %>
+    <% end %>
+  </div>
+</div>
