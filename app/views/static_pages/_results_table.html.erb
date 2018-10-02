@@ -13,7 +13,7 @@
       <% if scout_guide_teams.size > 0 %>
         <div class="row vspace">
           <div class="col-md-12 col-xs-12">
-            <h3>Scouts &amp; Guides</h3>
+            <h3><%= group_list(scout_guide_teams) %></h3>
           </div>
         </div>
         <div class="row vspace">
@@ -44,7 +44,7 @@
       <% if explorer_ranger_teams.size > 0 %>
         <div class="row vspace">
           <div class="col-md-12 col-xs-12">
-            <h3>Explorers &amp; Rangers</h3>
+            <h3><%= group_list(explorer_ranger_teams) %></h3>
           </div>
         </div>
         <div class="row vspace">
@@ -75,7 +75,7 @@
       <% if network_leader_teams.size > 0 %>
         <div class="row vspace">
           <div class="col-md-12 col-xs-12">
-            <h3>Network &amp; Leaders</h3>
+            <h3><%= group_list(network_leader_teams) %></h3>
           </div>
         </div>
         <div class="row vspace">
