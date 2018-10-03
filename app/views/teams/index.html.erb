@@ -49,11 +49,14 @@
                 </tbody>
               </table>
               <div class="row">
-                <div class="col-md-3 vspace">
+                <div class="col-md-4 vspace">
                   <%= link_to raw("<span class=\"glyphicon glyphicon-plus\"></span> New Team"), new_team_path(challenge: challenge.id), :class=>'btn btn-block btn-success' %>
                 </div>
                 <div class="col-md-4 vspace">
-                  <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download #{challenge.date.year} Start Times as PDF"), teams_path(date: challenge.date, format: :pdf), :class=>'btn btn-block btn-default' %>
+                  <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download #{challenge.date.year} Private Start Times"), teams_path(date: challenge.date, format: :pdf), :class=>'btn btn-block btn-default' %>
+                </div>
+                <div class="col-md-4 vspace">
+                  <%= link_to raw("<span class=\"glyphicon glyphicon-circle-arrow-down\"></span> Download #{challenge.date.year} Noticeboard Start Times"), public_times_path(date: challenge.date, format: :pdf), :class=>'btn btn-block btn-default' %>
                 </div>
               </div>
             </div>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :goals, only: [:new, :create, :edit, :update, :destroy]
 
   resources :teams, only: [:index, :new, :create, :edit, :update, :destroy]
+  get 'teams/public_times' => 'teams#public_times', as: 'public_times'
   resources :members, only: [:new, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
 

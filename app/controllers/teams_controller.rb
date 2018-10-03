@@ -13,6 +13,10 @@ class TeamsController < ApplicationController
     end
   end
 
+  def public_times
+    @challenges = Challenge.all
+  end
+
   # GET /teams/new
   def new
     @team = Team.new
