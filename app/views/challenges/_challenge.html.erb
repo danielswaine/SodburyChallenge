@@ -5,6 +5,7 @@
   <td><%= challenge.goals.size %></td>
   <td><%= points_available(challenge) %></td>
   <td><%= link_to challenge.published ? "View" : "Manage", challenge_path(challenge) %></td>
+  <td><%= link_to "View", map_path(challenge) %></td>
   <% if challenge.published? %>
     <td>
       <%= link_to "View", results_path %>

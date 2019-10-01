@@ -1,6 +1,7 @@
 class ChallengesController < ApplicationController
   before_action :user_logged_in?
   before_action :find_challenge, only: [:show, :results, :update, :publish, :destroy, :statistics, :clipper, :master_list]
+  before_action :locations, only: :map_update
   before_action :all_teams_scored?, only: [:publish]
 
   def index
@@ -71,7 +72,30 @@ class ChallengesController < ApplicationController
   def statistics
   end
 
+  def map_update
+    @challenges = Challenge.where(date: @challenge.date)
+    @goals = @challenges.map {
+      |c| c.goals.includes(:checkpoint).pluck(:number, :grid_reference, :description, :points_value).map {
+        |n, gf, d, p| {
+          number: n, grid_reference: gf, description: d, points_value: p
+        }
+      }
+    }.flatten
+    render json: {goals: @goals, locations: @locations}
+  end
+
+  def map
+  end
+
   private
+
+    def locations
+      find_challenge
+      dt = DateTime.new(@challenge.date.year)
+      boy = dt.beginning_of_year
+      eoy = dt.end_of_year
+      @locations = Message.where(date: boy..eoy).group(:team_number)
+    end
 
     def find_challenge
       @challenge = Challenge.find(params[:id])
