@@ -59,7 +59,7 @@ function addMarker (map, pos, num, color, info) {
     label: {
       color: '#FFF',
       fontSize: '11px',
-      text: `${num}`
+      text: num.toString()
     },
     icon: pinSymbol(color)
   }
@@ -84,10 +84,10 @@ function gridref2latlon (gridref) {
 var map
 function initMap () {
   updateMap()
-  setInterval(updateMap, 10000)
+  setInterval(updateMap, 300000)
   var center = new google.maps.LatLng(51.593418, -2.399274)
   map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 12})
-  google.maps.event.addListener(map, "click", function(event) {
+  google.maps.event.addListener(map, 'click', function(event) {
     markers.forEach(function (e) { e.infowindow.close() })
   })
 }
