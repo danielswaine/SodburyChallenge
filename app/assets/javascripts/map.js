@@ -9,30 +9,28 @@ function updateMap () {
     markers.forEach(function (e) { e.setMap(null) })
     $(table).children('tr').remove()
     $.each(data.locations, function (i, value) {
-      table.append(`
-        <tr>
-          <td>${value.team_number}</td>
-          <td>${value.time}</td>
-          <td>${value.latitude}</td>
-          <td>${value.longitude}</td>
-          <td>${value.speed}</td>
-          <td>${value.battery}</td>
-          <td>${value.signal_strength}</td>
-          <td>${value.mobile_number}</td>
-        </tr>
-      `)
+      table.append('<tr>' +
+                    '<td>' + value.team_number + '</td>' +
+                    '<td>' + value.time + '</td>' +
+                    '<td>' + value.latitude + '</td>' +
+                    '<td>' + value.longitude + '</td>' +
+                    '<td>' + value.speed + '</td>' +
+                    '<td>' + value.battery + '</td>' +
+                    '<td>' + value.signal_strength + '</td>' +
+                    '<td>' + value.mobile_number + '</td>' +
+                  '</tr>')
       var position = {
         latitude: value.latitude,
         longitude: value.longitude
       }
-      var info = `Team ${value.team_number} <br>Time: ${value.time}`
+      var info = 'Team ' + value.team_number + '<br>Time: ' + value.time
       markers[index] = addMarker(map, position, value.team_number, 'green', info)
       markers[index].setMap(map)
       index++
     })
     $.each(data.goals, function (i, value) {
       var position = gridref2latlon(value.grid_reference.toString())
-      var info = `Points: ${value.points_value} <br>Description: ${value.description}`
+      var info = 'Points: ' + value.points_value + '<br>Description: ' + value.description
       markers[index] = addMarker(map, position, value.number, 'red', info)
       markers[index].setMap(map)
       index++
@@ -86,7 +84,7 @@ function gridref2latlon (gridref) {
 var map
 function initMap () {
   updateMap()
-  setInterval(updateMap, 300000)
+  setInterval(updateMap, 10000)
   var center = new google.maps.LatLng(51.593418, -2.399274)
   map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 12})
   google.maps.event.addListener(map, "click", function(event) {
