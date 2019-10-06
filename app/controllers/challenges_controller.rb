@@ -94,7 +94,10 @@ class ChallengesController < ApplicationController
       dt = DateTime.new(@challenge.date.year)
       boy = dt.beginning_of_year
       eoy = dt.end_of_year
-      @locations = Message.where(date: boy..eoy).group(:team_number)
+      latest_ids = Message.where(date: boy..eoy).group(:team_number)
+                                                .maximum(:id)
+                                                .values
+      @locations = Message.where(id: latest_ids).order(:team_number)
     end
 
     def find_challenge
