@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
   get 'challenges/:id/map' => 'challenges#map', as: 'map'
   get 'challenges/:id/map/update' => 'challenges#map_update'
+  post 'receive/sms/:token' => 'messages#sms'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

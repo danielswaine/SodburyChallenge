@@ -84,7 +84,7 @@ function gridref2latlon (gridref) {
 var map
 function initMap () {
   updateMap()
-  setInterval(updateMap, 300000)
+  setInterval(updateMap, 150000)
   var center = new google.maps.LatLng(51.593418, -2.399274)
   map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 12})
   google.maps.event.addListener(map, 'click', function(event) {
