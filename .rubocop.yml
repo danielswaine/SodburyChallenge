@@ -3,8 +3,7 @@ require:
   - rubocop-rspec
 
 inherit_from:
-  - .rubocop_defaults.yml
-  - .rubocop_cc.yml
+  - https://raw.githubusercontent.com/thoughtbot/guides/master/style/ruby/.rubocop.yml
 
 AllCops:
   Include:
