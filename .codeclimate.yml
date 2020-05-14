@@ -1,9 +1,4 @@
 ---
-prepare:
-  fetch:
-  - url: "https://raw.githubusercontent.com/thoughtbot/guides/master/style/ruby/.rubocop.yml"
-    path: ".rubocop.yml"
-
 engines:
   brakeman:
     enabled: true
