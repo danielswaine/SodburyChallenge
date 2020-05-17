@@ -5,7 +5,7 @@ FactoryGirl.define do
     trait(:compulsory) { compulsory true }
     trait(:start_point) { start_point true }
 
-    challenge
-    checkpoint
+    association :challenge
+    association :checkpoint
   end
 end

@@ -6,9 +6,7 @@ FactoryGirl.define do
       format('%<hour>d:%<minute>02d', hour: rand(17..23), minute: 5 * rand(12))
     end
 
-    # FIXME: cannot create/build team on its own without this line. Currently,
-    # a challenge must be created using the with_teams trait.
-    challenge_id 1
+    association :challenge
 
     sequence(:group) { |n| n % 7 }
 
