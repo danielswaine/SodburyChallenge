@@ -9,9 +9,9 @@ RSpec.describe Checkpoint, type: :model do
   end
 
   describe 'associations' do
-    it { should have_many(:goals) }
+    it { is_expected.to have_many(:goals) }
 
-    it { should have_many(:challenges).through(:goals) }
+    it { is_expected.to have_many(:challenges).through(:goals) }
   end
 
   describe 'validations' do
