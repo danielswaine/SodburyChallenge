@@ -5,15 +5,19 @@ class Challenge < ActiveRecord::Base
 
   validates :date, presence: true
 
-  validates :time_allowed, numericality: {
-                                     greater_than: 0,
-                                     only_integer: true,
-                                     message: 'must be an integer number of hours'
-                                   }
+  validates :time_allowed, presence: true
+  validates(
+    :time_allowed,
+    numericality: {
+      greater_than: 0,
+      only_integer: true,
+      message: 'must be an integer number of hours'
+    },
+    if: 'time_allowed.present?'
+  )
 
   validates_each :bonus_one, :bonus_two, :bonus_three,
                  :bonus_four, :bonus_five do |record, attr, value|
-
     unless value.to_s.empty?
       if value =~ /[^{ }a-z:,0-9\[\]]/
         record.errors.add(attr, 'contains invalid characters')
@@ -25,7 +29,6 @@ class Challenge < ActiveRecord::Base
         record.errors.add(attr, 'does not have a valid format')
       end
     end
-
   end
 
   before_save do
@@ -38,9 +41,8 @@ class Challenge < ActiveRecord::Base
 
   private
 
-    def prettify(bonuses_string)
-      bonuses_hash = eval(bonuses_string)
-      "{ visit: #{bonuses_hash[:visit]}, value: #{bonuses_hash[:value]} }"
-    end
-
+  def prettify(bonuses_string)
+    bonuses_hash = eval(bonuses_string)
+    "{ visit: #{bonuses_hash[:visit]}, value: #{bonuses_hash[:value]} }"
+  end
 end
