@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Goal, type: :model do
+  subject { build_stubbed(:goal) }
+
   describe 'associations' do
     it { is_expected.to belong_to(:challenge) }
 
@@ -8,8 +10,6 @@ RSpec.describe Goal, type: :model do
   end
 
   describe 'validations' do
-    subject { build_stubbed :goal }
-
     it { is_expected.to validate_presence_of(:challenge_id) }
 
     it { is_expected.to validate_presence_of(:checkpoint_id) }
