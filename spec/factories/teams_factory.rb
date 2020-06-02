@@ -2,9 +2,7 @@ FactoryGirl.define do
   factory :team do
     sequence(:name) { |n| "Team #{n}" }
 
-    planned_start_time do
-      format('%<hour>d:%<minute>02d', hour: rand(17..23), minute: 5 * rand(12))
-    end
+    planned_start_time '18:00'
 
     association :challenge
 
