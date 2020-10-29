@@ -20,7 +20,11 @@ class ChallengesController < ApplicationController
   end
 
   def master_list
-    @challenges = Challenge.all
+    @goals = Challenge.where(date: params[:date])
+                      .map(&:goals)
+                      .flatten
+                      .group_by(&:checkpoint_id)
+                      .sort
   end
 
   def team_certificates
