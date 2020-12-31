@@ -379,9 +379,14 @@ RSpec.describe TeamsHelper, type: :helper do
     minutes = 10
     result = 10
 
-    12.times do
+    16.times do
       time = format('%<hour>02d:%<minutes>01d', hour: hour, minutes: minutes)
       returned = (Time.parse('01:00') - Time.parse(time)) / 1.minute
+      if returned > 720
+        returned -= 1440
+      elsif returned < -720
+        returned += 1440
+      end
 
       it 'should return number of minutes between 01:00 and ' + time do
         expect(lateness_in_minutes('01:00', time)).to eq(-returned)
