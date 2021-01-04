@@ -7,7 +7,6 @@ RSpec.describe Member, type: :request do
 
   describe 'non-logged in user' do
     after(:each) do
-      it { expect(response).to redirect_to login_path }
       follow_redirect!
       expect(flash[:danger]).to be_present
       expect(response.body).to include('Please log in to manage members.')
@@ -15,22 +14,27 @@ RSpec.describe Member, type: :request do
 
     describe 'get new' do
       before { get new_member_path }
+      it { expect(response).to redirect_to login_path }
     end
 
     describe 'get edit' do
       before { get edit_member_path(member) }
+      it { expect(response).to redirect_to login_path }
     end
 
     describe 'submitting to create action' do
       before { post members_path }
+      it { expect(response).to redirect_to login_path }
     end
 
     describe 'submitting to update action' do
       before { patch member_path(member) }
+      it { expect(response).to redirect_to login_path }
     end
 
     describe 'submitting to destroy action' do
       before { delete member_path(member) }
+      it { expect(response).to redirect_to login_path }
     end
   end
 
