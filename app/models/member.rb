@@ -3,5 +3,4 @@ class Member < ActiveRecord::Base
 
   validates :name, presence: true
   validates :team_id, presence: true
-
 end

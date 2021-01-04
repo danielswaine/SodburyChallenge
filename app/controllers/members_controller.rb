@@ -6,13 +6,12 @@ class MembersController < ApplicationController
     @member = Member.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @member = Member.new(member_params)
     if @member.save
-      flash[:success] = "Member added."
+      flash[:success] = 'Member added.'
       redirect_to edit_team_path(@member.team_id)
     else
       render 'new'
@@ -21,7 +20,7 @@ class MembersController < ApplicationController
 
   def update
     if @member.update(member_params)
-      flash[:success] = "Member updated."
+      flash[:success] = 'Member updated.'
       redirect_to edit_team_path(@member.team_id)
     else
       render 'edit'
@@ -30,29 +29,25 @@ class MembersController < ApplicationController
 
   def destroy
     @member.destroy
-    flash[:success] = "Member removed."
+    flash[:success] = 'Member removed.'
     redirect_to edit_team_path(@member.team_id)
   end
 
   private
 
-    def set_member
-      @member = Member.find(params[:id])
-    end
+  def set_member
+    @member = Member.find(params[:id])
+  end
 
-    def member_params
-      params.require(:member).permit(
-                                      :name,
-                                      :team_id
-                                    )
-    end
+  def member_params
+    params.require(:member).permit(:name, :team_id)
+  end
 
-    def user_logged_in?
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in to manage members."
-        redirect_to login_url
-      end
+  def user_logged_in?
+    unless logged_in?
+      store_location
+      flash[:danger] = 'Please log in to manage members.'
+      redirect_to login_url
     end
-
+  end
 end
