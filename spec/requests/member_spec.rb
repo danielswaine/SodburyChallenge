@@ -73,7 +73,7 @@ RSpec.describe Member, type: :request do
     describe 'update' do
       context 'with invalid information' do
         it 'should not update member' do
-          patch member_path(member.id), { member: { name: '' } }
+          patch member_path(member), { member: { name: '' } }
           expect(Member.count).to eq(1)
           expect(response).to render_template(:edit)
         end
@@ -81,7 +81,7 @@ RSpec.describe Member, type: :request do
 
       context 'with valid information' do
         it 'should update member' do
-          patch member_path(member.id), { member: { name: 'New Name' } }
+          patch member_path(member), { member: { name: 'New Name' } }
           expect(Member.count).to eq(1)
           expect(response).to redirect_to edit_team_path(team)
           follow_redirect!
@@ -94,7 +94,7 @@ RSpec.describe Member, type: :request do
 
     describe 'destroy' do
       it 'should destroy member' do
-        delete member_path(member.id)
+        delete member_path(member)
         expect(Member.count).to eq(0)
         expect(response).to redirect_to edit_team_path(team)
         follow_redirect!
