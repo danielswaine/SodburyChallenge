@@ -30,56 +30,55 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = "Account details updated."
+      flash[:success] = 'Account details updated.'
       redirect_to users_path
     else
       render 'edit'
     end
   end
 
-
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(
+      :name, :email, :password, :password_confirmation
+    )
+  end
 
-    def find_user
-      @user = User.find(params[:id])
-    end
+  def find_user
+    @user = User.find(params[:id])
+  end
 
-    def check_not_admin
-      if @user.admin?
-        flash[:danger] = "You cannot remove this user."
-        redirect_to users_path
-      end
+  def check_not_admin
+    if @user.admin?
+      flash[:danger] = 'You cannot remove this user.'
+      redirect_to users_path
     end
+  end
 
-    def check_not_self
-      if current_user? @user
-        flash[:danger] = "You cannot remove yourself."
-        redirect_to users_path
-      end
+  def check_not_self
+    if current_user? @user
+      flash[:danger] = 'You cannot remove yourself.'
+      redirect_to users_path
     end
+  end
 
-    def user_logged_in?
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in to manage users."
-        redirect_to login_url
-      end
+  def user_logged_in?
+    unless logged_in?
+      store_location
+      flash[:danger] = 'Please log in to manage users.'
+      redirect_to login_url
     end
+  end
 
-    def correct_user?
-      unless current_user? @user
-        flash[:danger] = "You can only edit your own account."
-        redirect_to users_url
-      end
+  def correct_user?
+    unless current_user? @user
+      flash[:danger] = 'You can only edit your own account.'
+      redirect_to users_url
     end
-
+  end
 end
