@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before(:all) { create(:user) }
+  before(:each) { create(:user) }
   subject { build_stubbed(:user) }
 
   context 'when given a new name' do
