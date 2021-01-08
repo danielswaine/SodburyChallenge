@@ -369,8 +369,9 @@ RSpec.describe TeamsHelper, type: :helper do
 
     it 'returns \'in\' if current year' do
       expect(is_current_year(challenge)).to eq(' in')
-      travel 1.year
-      expect(is_current_year(challenge)).to eq(nil)
+      travel 1.year do
+        expect(is_current_year(challenge)).to eq(nil)
+      end
     end
   end
 
