@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :request do
-  subject(:admin) { create(:user, :admin) }
-  subject(:non_admin) { create(:user) }
+  let(:admin) { create(:user, :admin) }
+  let(:non_admin) { create(:user) }
 
   describe 'non-logged in user' do
     after(:each) do
