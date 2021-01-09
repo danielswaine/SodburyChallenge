@@ -76,6 +76,13 @@ RSpec.describe Goal, type: :request do
       end
     end
 
+    describe 'edit' do
+      it do
+        get edit_goal_path(goal)
+        expect(response.body).to include('Edit Goal')
+      end
+    end
+
     describe 'update' do
       context 'with invalid information' do
         it 'should not update goal' do
