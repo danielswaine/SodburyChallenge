@@ -48,6 +48,13 @@ RSpec.describe Member, type: :request do
       end
     end
 
+    describe 'edit' do
+      it do
+        get edit_member_path(member)
+        expect(response.body).to include('Edit Member')
+      end
+    end
+
     describe 'create' do
       context 'with invalid information' do
         it 'should not create a member' do
