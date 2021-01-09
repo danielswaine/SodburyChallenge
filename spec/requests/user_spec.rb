@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :request do
-  let(:admin) { create(:user, :admin) }
-  let(:non_admin) { create(:user) }
+  subject(:admin) { create(:user, :admin) }
+  subject(:non_admin) { create(:user) }
 
   describe 'non-logged in user' do
     after(:each) do
@@ -47,8 +47,9 @@ RSpec.describe User, type: :request do
 
     describe 'index' do
       it 'should assign @users' do
+        get edit_user_path(non_admin) # Force use of non_admin in this test
         get users_path
-        # expect(assigns[:users]).to include([admin, non_admin])
+        expect(assigns(:users).to_a).to eq([admin, non_admin])
       end
     end
 
@@ -63,7 +64,7 @@ RSpec.describe User, type: :request do
       context 'with invalid information' do
         it 'should not create a user' do
           post users_path, { user: { email: '' } }
-          expect(User.count).to eq(1) # logged in user
+          expect(User.count).to eq(1)
           expect(response).to render_template(:new)
         end
       end
@@ -111,9 +112,10 @@ RSpec.describe User, type: :request do
     describe 'update' do
       context 'with invalid information' do
         it 'should not update user' do
+          old_email = admin.email
           patch user_path(admin), { user: { email: '' } }
-          expect(User.count).to eq(1)
           expect(response).to render_template(:edit)
+          expect(admin.email).to eq(old_email)
         end
       end
 
@@ -149,7 +151,7 @@ RSpec.describe User, type: :request do
         it 'should destroy user' do
           old_name = non_admin.name
           delete user_path(non_admin)
-          expect(User.count).to eq(1) # admin remains
+          expect(User.count).to eq(1)
           expect(response).to redirect_to users_path
           follow_redirect!
           expect(flash[:success]).to be_present
