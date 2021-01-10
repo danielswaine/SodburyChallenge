@@ -74,7 +74,20 @@ RSpec.describe Checkpoint, type: :request do
       end
 
       context 'pdf format' do
-        it 'generates pdf'
+        context 'when no checkpoints to display' do
+          it 'should download pdf' do
+            get checkpoints_path, format: :pdf
+            expect(response.content_type).to eq('application/pdf')
+          end
+        end
+
+        context 'when checkpoints to display' do
+          it 'should download pdf' do
+            create(:checkpoint)
+            get checkpoints_path, format: :pdf
+            expect(response.content_type).to eq('application/pdf')
+          end
+        end
       end
     end
 
