@@ -90,7 +90,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @members.each do |member| %>
+              <% @team.members.each do |member| %>
                 <tr>
                   <td><%= member.name %></td>
                   <td><%= link_to "Edit", edit_member_path(member.id) %></td>
