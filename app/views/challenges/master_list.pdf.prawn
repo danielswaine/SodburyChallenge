@@ -2,34 +2,48 @@ prawn_document(page_size: 'A4', page_layout: :landscape) do |pdf|
   challenge_date = params[:date]
   title = "Sodbury Challenge #{Date.parse(challenge_date).year} " \
     '- Master Checkpoint List'
+  table_widths = [40, 110, 80, 570]
 
   pdf.text title, align: :center, style: :bold, size: 24
 
   pdf.table(
     [['No.', 'Section (Points)', 'Grid Ref', 'Description']],
     width: 800,
-    column_widths: [40, 110, 80, 570],
+    column_widths: table_widths,
     position: :center,
     cell_style: {
-      font_style: :bold, border_color: 'DDDDDD', background_color: 'DDDDDD'
+      font_style: :bold,
+      border_color: 'DDDDDD',
+      background_color: 'DDDDDD'
     }
   )
 
-  @goals.each do |group, array|
-    pdf.table(
-      [[
+  def format_checkpoint_section_points(array)
+    sections = array.map do |a|
+      start = a.start_point ? ' Start' : ''
+      compulsory = a.compulsory ? ' Comp' : ''
+      time_allowed = "#{a.challenge.time_allowed}hr"
+      points_value = a.points_value.to_s
+
+      "#{time_allowed}#{start}#{compulsory} (#{points_value})\n"
+    end
+
+    sections.to_sentence(two_words_connector: '')
+  end
+
+  pdf.table(
+    @goals.map do |group, array|
+      [
         group,
-        array.map { |a|
-          a.challenge.time_allowed.to_s + ' (' + a.points_value.to_s + ')'
-        }.to_sentence(two_words_connector: ' & '),
+        format_checkpoint_section_points(array),
         array.first.checkpoint.grid_reference,
         array.first.checkpoint.description
-      ]],
-      width: 800,
-      column_widths: [40, 110, 80, 570],
-      row_colors: ['FFFFFF', 'F9F9F9'],
-      position: :center,
-      cell_style: { border_color: 'DDDDDD' }
-    )
-  end
+      ]
+    end,
+    width: 800,
+    column_widths: table_widths,
+    row_colors: ['FFFFFF', 'F9F9F9'],
+    position: :center,
+    cell_style: { border_color: 'DDDDDD' }
+  )
 end
