@@ -2,7 +2,7 @@ class ChallengesController < ApplicationController
   before_action :user_logged_in?
   before_action :find_challenge, only: %i[
     show results update publish
-    destroy statistics clipper master_list
+    destroy statistics clipper
   ]
   before_action :locations, only: :map_update
   before_action :all_teams_scored?, only: [:publish]

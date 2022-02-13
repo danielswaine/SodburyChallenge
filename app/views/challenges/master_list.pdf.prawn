@@ -31,19 +31,21 @@ prawn_document(page_size: 'A4', page_layout: :landscape) do |pdf|
     sections.to_sentence(two_words_connector: '')
   end
 
-  pdf.table(
-    @goals.map do |group, array|
-      [
-        group,
-        format_checkpoint_section_points(array),
-        array.first.checkpoint.grid_reference,
-        array.first.checkpoint.description
-      ]
-    end,
-    width: 800,
-    column_widths: table_widths,
-    row_colors: ['FFFFFF', 'F9F9F9'],
-    position: :center,
-    cell_style: { border_color: 'DDDDDD' }
-  )
+  unless @goals.empty?
+    pdf.table(
+      @goals.map do |group, array|
+        [
+          group,
+          format_checkpoint_section_points(array),
+          array.first.checkpoint.grid_reference,
+          array.first.checkpoint.description
+        ]
+      end,
+      width: 800,
+      column_widths: table_widths,
+      row_colors: %w[FFFFFF F9F9F9],
+      position: :center,
+      cell_style: { border_color: 'DDDDDD' }
+    )
+  end
 end
