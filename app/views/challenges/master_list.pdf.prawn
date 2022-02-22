@@ -33,9 +33,9 @@ prawn_document(page_size: 'A4', page_layout: :landscape) do |pdf|
 
   unless @goals.empty?
     pdf.table(
-      @goals.map do |group, array|
+      @goals.map do |_group, array|
         [
-          group,
+          array.first.checkpoint.number,
           format_checkpoint_section_points(array),
           array.first.checkpoint.grid_reference,
           array.first.checkpoint.description
