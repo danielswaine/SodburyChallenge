@@ -67,8 +67,8 @@ RSpec.describe Challenge, type: :model do
       '{ visit: [1, 99, 999"], value: 99 }'
     ].freeze
 
-    BONUS_ATTRIBUTES = [:bonus_one, :bonus_two, :bonus_three,
-                        :bonus_four, :bonus_five].freeze
+    BONUS_ATTRIBUTES = %i[bonus_one bonus_two bonus_three
+                          bonus_four bonus_five].freeze
     TEST_BONUS_STRING = '{ visit: [1, 99, 999], value: 99 }'.freeze
 
     context 'when given a new bonus' do
@@ -94,6 +94,24 @@ RSpec.describe Challenge, type: :model do
           expect(challenge[bonus]).to eq(TEST_BONUS_STRING)
         end
       end
+    end
+  end
+
+  describe '.find_goals_from_same_challenge_date' do
+    context 'with goals from one challenge' do
+      it 'should format data'
+    end
+
+    context 'with goals from multiple challenges' do
+      it 'should format data'
+    end
+
+    context 'with start goal' do
+      it 'should format data'
+    end
+
+    context 'with compulsory goal' do
+      it 'should format data'
     end
   end
 end

@@ -78,16 +78,8 @@ class ChallengesController < ApplicationController
   def statistics; end
 
   def map_update
-    @challenges = Challenge.where(date: @challenge.date)
-    @goals = @challenges.map do |c|
-      c.goals.includes(:checkpoint).pluck(:number, :grid_reference, :description,
-                                          :points_value).map do |n, gf, d, p|
-        {
-          number: n, grid_reference: gf, description: d, points_value: p
-        }
-      end
-    end.flatten
-    render json: { goals: @goals, locations: @locations }
+    goals = Challenge.find_goals_from_same_challenge_date(@challenge.date)
+    render json: { goals: goals, locations: @locations }
   end
 
   def map; end

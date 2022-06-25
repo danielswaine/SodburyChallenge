@@ -23,15 +23,24 @@ function updateMap () {
         latitude: value.latitude,
         longitude: value.longitude
       }
-      var info = 'Team ' + value.team_number + '<br>Time: ' + value.time
+      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + value.time
       markers[index] = addMarker(map, position, value.team_number, 'green', info)
       markers[index].setMap(map)
       index++
     })
     $.each(data.goals, function (i, value) {
+      var info = ''
       var position = gridref2latlon(value.grid_reference.toString())
-      var info = 'Points: ' + value.points_value + '<br>Description: ' + value.description
-      markers[index] = addMarker(map, position, value.number, 'red', info)
+      info += '<b>Grid Ref:</b> ' + value.grid_reference + '<br>'
+      info += '<b>Description:</b> ' + value.description + '<br>'
+      value.points_value.map(e => {
+        var start = e.start ? ' (Start)' : ''
+        var compulsory = e.compulsory ? ' (Compulsory)' : ''
+        var type = start + compulsory
+        info += '<b>' + e.time_allowed + ' Hour:</b> ' + e.points_value + ' points' + type + '<br>'
+      })
+      var colour = value.points_value.some(e => (e.start || e.compulsory) === true) ? 'purple' : 'red'
+      markers[index] = addMarker(map, position, value.number, colour, info)
       markers[index].setMap(map)
       index++
     })
@@ -61,7 +70,8 @@ function addMarker (map, pos, num, color, info) {
       fontSize: '11px',
       text: num.toString()
     },
-    icon: pinSymbol(color)
+    icon: pinSymbol(color),
+    optimized: true
   }
   var marker = new google.maps.Marker(markerOptions)
   marker.infowindow = infowindow

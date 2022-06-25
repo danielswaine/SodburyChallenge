@@ -39,6 +39,26 @@ class Challenge < ActiveRecord::Base
     self.bonus_five = prettify(bonus_five) unless bonus_five.to_s.empty?
   end
 
+  def self.find_goals_from_same_challenge_date(date)
+    goals = where(date: date).map(&:goals).flatten
+    goals.group_by(&:checkpoint_id).map do |_group, array|
+      {
+        number: array.first.checkpoint.number,
+        grid_reference: array.first.checkpoint.grid_reference,
+        description: array.first.checkpoint.description,
+        points_value:
+          array.map do |a|
+            {
+              time_allowed: a.challenge.time_allowed,
+              points_value: a.points_value,
+              start: a.start_point,
+              compulsory: a.compulsory
+            }
+          end
+      }
+    end.flatten
+  end
+
   private
 
   def prettify(bonuses_string)
