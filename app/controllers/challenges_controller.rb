@@ -91,9 +91,10 @@ class ChallengesController < ApplicationController
     dt = DateTime.new(@challenge.date.year)
     boy = dt.beginning_of_year
     eoy = dt.end_of_year
-    latest_ids = Message.where(date: boy..eoy).group(:team_number)
-                        .maximum(:id)
-                        .values
+    latest_ids = Message.where(gps_fix_timestamp: boy..eoy)
+                        .order('gps_fix_timestamp desc')
+                        .group_by(&:team_number)
+                        .map { |_group, array| array.first.id }
     @locations = Message.where(id: latest_ids).order(:team_number)
   end
 
