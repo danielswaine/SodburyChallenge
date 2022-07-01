@@ -9,21 +9,25 @@ function updateMap () {
     markers.forEach(function (e) { e.setMap(null) })
     $(table).children('tr').remove()
     $.each(data.locations, function (i, value) {
+      var timestamp = new Date(value.gps_fix_timestamp).toLocaleString()
+
       table.append('<tr>' +
                     '<td>' + value.team_number + '</td>' +
-                    '<td>' + value.time + '</td>' +
+                    '<td>' + timestamp + '</td>' +
                     '<td>' + value.latitude + '</td>' +
                     '<td>' + value.longitude + '</td>' +
                     '<td>' + value.speed + '</td>' +
-                    '<td>' + value.battery + '</td>' +
-                    '<td>' + value.signal_strength + '</td>' +
+                    '<td>' + value.battery_level + '</td>' +
+                    '<td>' + value.battery_voltage + '</td>' +
+                    '<td>' + value.rssi + '</td>' +
                     '<td>' + value.mobile_number + '</td>' +
                   '</tr>')
       var position = {
         latitude: value.latitude,
         longitude: value.longitude
       }
-      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + value.time
+
+      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + timestamp
       markers[index] = addMarker(map, position, value.team_number, 'green', info)
       markers[index].setMap(map)
       index++
