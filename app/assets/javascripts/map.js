@@ -1,6 +1,9 @@
 var markers = []
+
 function updateMap () {
   var table = $('table.locations tbody')
+  var tableRef = document.getElementById('team-locations')
+
   $.ajax({
     type: 'GET',
     url: window.location.pathname + '/update'
@@ -11,17 +14,14 @@ function updateMap () {
     markers.forEach(function (e) { e.setMap(null) })
     $(table).children('tr').remove()
 
-    $.each(data.locations, function (i, value) {
-      var timestamp = new Date(value.gps_fix_timestamp).toLocaleString()
-
+    $.each(data.locations, function (_, value) {
       table.append('<tr>' +
                     '<td>' + value.team_number + '</td>' +
-                    '<td>' + timestamp + '</td>' +
+                    '<td>' + value.timestamp + '</td>' +
                     '<td>' + value.latitude + '</td>' +
                     '<td>' + value.longitude + '</td>' +
                     '<td>' + value.speed + '</td>' +
-                    '<td>' + value.battery_level + '</td>' +
-                    '<td>' + value.battery_voltage + '</td>' +
+                    '<td>' + value.battery + '</td>' +
                     '<td>' + value.rssi + '</td>' +
                     '<td>' + value.mobile_number + '</td>' +
                   '</tr>')
@@ -31,13 +31,23 @@ function updateMap () {
         lng: parseFloat(value.longitude)
       }
 
-      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + timestamp
+      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + value.timestamp
+
+      /* Add event listener to the row just appended (last row in table)    */
+      /* which will pan to that location in the map                         */
+      var currentRow = tableRef.rows[tableRef.rows.length - 1]
+      var teamPosition = new google.maps.LatLng(position.lat, position.lng)
+      currentRow.addEventListener('click', function () {
+        map.panTo(teamPosition)
+        map.setZoom(15)
+      })
+
       markers[index] = addMarker(map, position, value.team_number, 'green', info)
       markers[index].setMap(map)
       index++
     })
 
-    $.each(data.goals, function (i, value) {
+    $.each(data.goals, function (_, value) {
       var info = ''
       var position = gridref2latlon(value.grid_reference.toString())
 

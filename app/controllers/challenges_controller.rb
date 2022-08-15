@@ -3,8 +3,8 @@ class ChallengesController < ApplicationController
   before_action :find_challenge, only: %i[
     show results update publish
     destroy statistics clipper
+    map_update
   ]
-  before_action :locations, only: :map_update
   before_action :all_teams_scored?, only: [:publish]
 
   def index
@@ -79,24 +79,17 @@ class ChallengesController < ApplicationController
 
   def map_update
     goals = Challenge.find_goals_from_same_challenge_date(@challenge.date)
-    render json: { goals: goals, locations: @locations }
+    messages = Message.find_messages_from_challenge_date(@challenge.date)
+
+    render json: {
+      goals: goals,
+      locations: messages
+    }
   end
 
   def map; end
 
   private
-
-  def locations
-    find_challenge
-    dt = DateTime.new(@challenge.date.year)
-    boy = dt.beginning_of_year
-    eoy = dt.end_of_year
-    latest_ids = Message.where(gps_fix_timestamp: boy..eoy)
-                        .order('gps_fix_timestamp desc')
-                        .group_by(&:team_number)
-                        .map { |_group, array| array.first.id }
-    @locations = Message.where(id: latest_ids).order(:team_number)
-  end
 
   def find_challenge
     @challenge = Challenge.find(params[:id])
