@@ -1,24 +1,13 @@
 class MessagesController < ApplicationController
-
   skip_before_action :verify_authenticity_token, if: :valid_token?
 
   def sms
     data = params[:Body].split(' ')
 
+    formatted_params = create_params_from_webhook_data(data)
+
     # TODO: Validate data and only create Message if okay
-    if data.count == 10
-      Message.create(
-        team_number: data[0],
-        date: Date.new(Time.now.year, data[1][2..3].to_i, data[1][0..1].to_i),
-        time: data[2][0..1] + ":" + data[2][2..3],
-        latitude: Message.convert_to_latitude(data[3], data[4]).to_s,
-        longitude: Message.convert_to_longitude(data[5], data[6]).to_s,
-        speed: Message.convert_to_kph(data[7]).to_s,
-        battery: data[8],
-        signal_strength: Message.convert_signal_to_percentage(data[9]),
-        mobile_number: params[:From]
-      )
-    end
+    Message.create(message_params(formatted_params)) if data.count == 11
 
     render nothing: true
   end
@@ -26,7 +15,31 @@ class MessagesController < ApplicationController
   private
 
   def valid_token?
-    params[:token] == ENV["TWILIO_APP_TOKEN"]
+    params[:token] == ENV['TWILIO_APP_TOKEN']
   end
 
+  def create_params_from_webhook_data(data)
+    ActionController::Parameters.new(
+      {
+        message: {
+          team_number: data[0],
+          gps_fix_timestamp: Message.format_date(data[1], data[2]),
+          latitude: Message.convert_to_latitude(data[3], data[4]).to_s,
+          longitude: Message.convert_to_longitude(data[5], data[6]).to_s,
+          speed: Message.convert_to_kph(data[7]).to_s,
+          battery_voltage: data[8],
+          battery_level: data[9],
+          rssi: data[10],
+          mobile_number: params[:From]
+        }
+      }
+    )
+  end
+
+  def message_params(formatted)
+    formatted.require(:message).permit(
+      :team_number, :gps_fix_timestamp, :latitude, :longitude, :speed,
+      :battery_voltage, :battery_level, :rssi, :mobile_number
+    )
+  end
 end

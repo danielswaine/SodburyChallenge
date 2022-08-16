@@ -18,7 +18,7 @@
 
       <%= f.label :checkpoint_id, "Checkpoint" %>
       <% checkpoints_array = Checkpoint.all.map do |c| ["\##{c.number} #{truncate c.description}", c.id] end %>
-      <%= f.select :checkpoint_id, options_for_select(checkpoints_array), { }, { class: 'form-control' } %>
+      <%= f.select :checkpoint_id, options_for_select(checkpoints_array, f.object.checkpoint_id), { }, { class: 'form-control' } %>
 
       <%= f.label :points_value, "Points Value" %>
       <%= f.text_field :points_value, class: 'form-control' %>

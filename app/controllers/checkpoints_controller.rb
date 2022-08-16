@@ -6,9 +6,10 @@ class CheckpointsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @checkpoints = Checkpoint.paginate(page: params[:page], per_page: 20).order(:number)
+        @checkpoints = Checkpoint.paginate(page: params[:page], per_page: 20)
+                                 .order(:number)
       end
-      format.pdf { @checkpoints = Checkpoint.all }
+      format.pdf { @checkpoints = Checkpoint.all.order(:number) }
     end
   end
 
@@ -30,8 +31,7 @@ class CheckpointsController < ApplicationController
   end
 
   # GET /checkpoints/:number/edit
-  def edit
-  end
+  def edit; end
 
   # PATCH|PUT /checkpoints/:number
   def update
@@ -53,20 +53,19 @@ class CheckpointsController < ApplicationController
 
   private
 
-    def find_checkpoint
-      @checkpoint = Checkpoint.find_by(number: params[:number])
-    end
+  def find_checkpoint
+    @checkpoint = Checkpoint.find_by(number: params[:number])
+  end
 
-    def checkpoint_params
-      params.require(:checkpoint).permit(:number, :grid_reference, :description)
-    end
+  def checkpoint_params
+    params.require(:checkpoint).permit(:number, :grid_reference, :description)
+  end
 
-    def user_logged_in?
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in to manage checkpoints."
-        redirect_to login_url
-      end
+  def user_logged_in?
+    unless logged_in?
+      store_location
+      flash[:danger] = 'Please log in to manage checkpoints.'
+      redirect_to login_url
     end
-
+  end
 end

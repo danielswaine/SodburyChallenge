@@ -1,39 +1,51 @@
-prawn_document(page_size: "A4", page_layout: :landscape) do |pdf|
-
+prawn_document(page_size: 'A4', page_layout: :landscape) do |pdf|
   challenge_date = params[:date]
+  title = "Sodbury Challenge #{Date.parse(challenge_date).year} " \
+    '- Master Checkpoint List'
+  table_widths = [40, 110, 80, 570]
 
-  pdf.text "Sodbury Challenge #{Date.parse(challenge_date).year} - Master Checkpoint List", align: :center, style: :bold, size: 24
+  pdf.text title, align: :center, style: :bold, size: 24
 
   pdf.table(
-            [["No.", "Grid Ref", "Description"]],
-            width: 800, column_widths: [50, 100, 650], position: :center, cell_style: { font_style: :bold, border_color: 'DDDDDD', background_color: 'DDDDDD' }
-            )
+    [['No.', 'Section (Points)', 'Grid Ref', 'Description']],
+    width: 800,
+    column_widths: table_widths,
+    position: :center,
+    cell_style: {
+      font_style: :bold,
+      border_color: 'DDDDDD',
+      background_color: 'DDDDDD'
+    }
+  )
 
-  checkpoints = []
-  @challenges.where(date: challenge_date).each do |challenge|
-    challenge.goals.each do |goal|
-      checkpoints.push(
-        [
-          goal.checkpoint.number,
-          goal.checkpoint.grid_reference,
-          goal.checkpoint.description
-          #goal.challenge.time_allowed
-        ]
-      )
+  def format_checkpoint_section_points(array)
+    sections = array.map do |a|
+      start = a.start_point ? ' Start' : ''
+      compulsory = a.compulsory ? ' Comp' : ''
+      time_allowed = "#{a.challenge.time_allowed}hr"
+      points_value = a.points_value.to_s
+
+      "#{time_allowed}#{start}#{compulsory} (#{points_value})\n"
     end
-  end
-  counts = Hash.new 0
-  checkpoints.each do |c|
-    counts[c] += 1
-  end
-  #pdf.text "#{checkpoints}"
 
-  checkpoints = checkpoints.uniq
-  checkpoints.uniq do |goal|
+    sections.to_sentence(two_words_connector: '')
+  end
+
+  unless @goals.empty?
     pdf.table(
-    [[goal[0], goal[1], goal[2]]],
-    :width => 800, column_widths: [50, 100, 650], row_colors: ["FFFFFF", "F9F9F9"], :position => :center, :cell_style => { :border_color => "DDDDDD" }
+      @goals.map do |_group, array|
+        [
+          array.first.checkpoint.number,
+          format_checkpoint_section_points(array),
+          array.first.checkpoint.grid_reference,
+          array.first.checkpoint.description
+        ]
+      end,
+      width: 800,
+      column_widths: table_widths,
+      row_colors: %w[FFFFFF F9F9F9],
+      position: :center,
+      cell_style: { border_color: 'DDDDDD' }
     )
   end
-
 end

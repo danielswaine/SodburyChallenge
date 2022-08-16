@@ -1,37 +1,68 @@
 var markers = []
+
 function updateMap () {
   var table = $('table.locations tbody')
+  var tableRef = document.getElementById('team-locations')
+
   $.ajax({
     type: 'GET',
     url: window.location.pathname + '/update'
   }).done(function evaluate (data) {
     var index = 0
+
+    /* Clear down ready for new data */
     markers.forEach(function (e) { e.setMap(null) })
     $(table).children('tr').remove()
-    $.each(data.locations, function (i, value) {
+
+    $.each(data.locations, function (_, value) {
       table.append('<tr>' +
                     '<td>' + value.team_number + '</td>' +
-                    '<td>' + value.time + '</td>' +
+                    '<td>' + value.timestamp + '</td>' +
                     '<td>' + value.latitude + '</td>' +
                     '<td>' + value.longitude + '</td>' +
                     '<td>' + value.speed + '</td>' +
                     '<td>' + value.battery + '</td>' +
-                    '<td>' + value.signal_strength + '</td>' +
+                    '<td>' + value.rssi + '</td>' +
                     '<td>' + value.mobile_number + '</td>' +
                   '</tr>')
+
       var position = {
-        latitude: value.latitude,
-        longitude: value.longitude
+        lat: parseFloat(value.latitude),
+        lng: parseFloat(value.longitude)
       }
-      var info = 'Team ' + value.team_number + '<br>Time: ' + value.time
+
+      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + value.timestamp
+
+      /* Add event listener to the row just appended (last row in table)    */
+      /* which will pan to that location in the map                         */
+      var currentRow = tableRef.rows[tableRef.rows.length - 1]
+      var teamPosition = new google.maps.LatLng(position.lat, position.lng)
+      currentRow.addEventListener('click', function () {
+        map.panTo(teamPosition)
+        map.setZoom(15)
+      })
+
       markers[index] = addMarker(map, position, value.team_number, 'green', info)
       markers[index].setMap(map)
       index++
     })
-    $.each(data.goals, function (i, value) {
+
+    $.each(data.goals, function (_, value) {
+      var info = ''
       var position = gridref2latlon(value.grid_reference.toString())
-      var info = 'Points: ' + value.points_value + '<br>Description: ' + value.description
-      markers[index] = addMarker(map, position, value.number, 'red', info)
+
+      info += '<b>Grid Ref:</b> ' + value.grid_reference + '<br>'
+      info += '<b>Description:</b> ' + value.description + '<br>'
+
+      value.points_value.map(e => {
+        var start = e.start ? ' (Start)' : ''
+        var compulsory = e.compulsory ? ' (Compulsory)' : ''
+        var type = start + compulsory
+        info += '<b>' + e.time_allowed + ' Hour:</b> ' + e.points_value + ' points' + type + '<br>'
+      })
+
+      var colour = value.points_value.some(e => (e.start || e.compulsory) === true) ? 'purple' : 'red'
+      markers[index] = addMarker(map, position, value.number, colour, info)
       markers[index].setMap(map)
       index++
     })
@@ -55,19 +86,21 @@ function addMarker (map, pos, num, color, info) {
     content: info
   })
   var markerOptions = {
-    position: new google.maps.LatLng(pos.latitude, pos.longitude),
+    position: new google.maps.LatLng(pos.lat, pos.lng),
     label: {
       color: '#FFF',
       fontSize: '11px',
       text: num.toString()
     },
-    icon: pinSymbol(color)
+    icon: pinSymbol(color),
+    optimized: true
   }
   var marker = new google.maps.Marker(markerOptions)
   marker.infowindow = infowindow
   marker.addListener('click', function () {
     return this.infowindow.open(map, this)
   })
+
   return marker
 }
 
@@ -75,18 +108,27 @@ function gridref2latlon (gridref) {
   var split = gridref.split('-')
   var easting = '3' + split[0] + '0'
   var northing = '1' + split[1] + '0'
+
   osgb = new GT_OSGB()
   osgb.setGridCoordinates(easting, northing)
   wgs84 = osgb.getWGS84()
-  return {latitude: wgs84.latitude, longitude: wgs84.longitude}
+
+  return {
+    lat: wgs84.latitude,
+    lng: wgs84.longitude
+  }
 }
 
 var map
+
 function initMap () {
   updateMap()
   setInterval(updateMap, 150000)
+
   var center = new google.maps.LatLng(51.593418, -2.399274)
   map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 12})
+
+  /* Close all info windows when clicking on map */
   google.maps.event.addListener(map, 'click', function(event) {
     markers.forEach(function (e) { e.infowindow.close() })
   })

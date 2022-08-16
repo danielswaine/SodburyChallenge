@@ -1,6 +1,11 @@
+require 'active_support/testing/time_helpers'
+
 # This file is automatically required before every test run.
 # See <http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration>.
 RSpec.configure do |config|
+  # Time Helpers (allow you to 'freeze time' and 'time travel' during tests)
+  config.include ActiveSupport::Testing::TimeHelpers
+
   config.expect_with :rspec do |expectations|
     # Include text for chained helper methods in the `description` and
     # `failure_message` attributes for custom matchers. For example,

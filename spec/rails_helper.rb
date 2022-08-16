@@ -30,4 +30,7 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces. Arbitrary gems may also be
   # filtered via: `config.filter_gems_from_backtrace("gem name")`.
   config.filter_rails_from_backtrace!
+
+  # Include the Capybara matchers on request specs
+  config.include Capybara::RSpecMatchers, type: :request
 end

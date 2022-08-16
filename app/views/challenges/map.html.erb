@@ -7,8 +7,10 @@
 
 <div class="row">
   <div class="col-md-12">
-    <p>The map below shows the checkpoints in red and team locations in green.
+    <p>The map below shows the checkpoints in red, start or compulsory
+       checkpoints in purple and team locations in green.
        Click on a marker for more information.</p>
+    <p>Click on a table row to pan to the position on the map.</p>
   </div>
 </div>
 
@@ -28,16 +30,16 @@
 
 <div class="row vspace">
   <div class="col-md-12 col-xs-12 wide-table">
-    <table class="table table-striped locations">
+    <table id="team-locations" class="table table-striped locations table-hover">
       <thead>
         <tr>
           <th>Team No.</th>
-          <th>Time</th>
+          <th>GPS Fix Timestamp</th>
           <th>Latitude</th>
           <th>Longitude</th>
           <th>Speed (kph)</th>
-          <th>Battery (%)</th>
-          <th>Signal Strength (%)</th>
+          <th>Battery</th>
+          <th>RSSI</th>
           <th>From</th>
         </tr>
       </thead>

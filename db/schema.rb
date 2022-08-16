@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190918184622) do
+ActiveRecord::Schema.define(version: 20220625223404) do
 
   create_table "challenges", force: :cascade do |t|
     t.date     "date"
@@ -57,16 +57,16 @@ ActiveRecord::Schema.define(version: 20190918184622) do
 
   create_table "messages", force: :cascade do |t|
     t.integer  "team_number"
-    t.date     "date"
-    t.text     "time"
+    t.datetime "gps_fix_timestamp"
     t.text     "latitude"
     t.text     "longitude"
     t.text     "speed"
-    t.integer  "battery"
-    t.integer  "signal_strength"
+    t.string   "battery_voltage"
+    t.integer  "rssi"
     t.text     "mobile_number"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "battery_level"
   end
 
   create_table "teams", force: :cascade do |t|
