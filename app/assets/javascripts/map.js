@@ -54,14 +54,16 @@ function updateMap () {
       info += '<b>Grid Ref:</b> ' + value.grid_reference + '<br>'
       info += '<b>Description:</b> ' + value.description + '<br>'
 
-      value.points_value.map(e => {
+      info += value.points_value.map(function (e) {
         var start = e.start ? ' (Start)' : ''
         var compulsory = e.compulsory ? ' (Compulsory)' : ''
         var type = start + compulsory
-        info += '<b>' + e.time_allowed + ' Hour:</b> ' + e.points_value + ' points' + type + '<br>'
-      })
+        return '<b>' + e.time_allowed + ' Hour:</b> ' + e.points_value + ' points' + type + '<br>'
+      }).join('')
 
-      var colour = value.points_value.some(e => (e.start || e.compulsory) === true) ? 'purple' : 'red'
+      var colour = value.points_value.some(function (e) {
+        return (e.start || e.compulsory) === true
+      }) ? 'purple' : 'red'
       markers[index] = addMarker(map, position, value.number, colour, info)
       markers[index].setMap(map)
       index++
