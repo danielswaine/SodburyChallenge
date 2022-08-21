@@ -36,7 +36,8 @@ RSpec.describe TeamsHelper, type: :helper do
 
       it 'should return expected_phone_in_time if phone_in_time empty' do
         team = build_stubbed(:team, challenge: challenge)
-        expect(phone_in_time(team)).to eq('20:30')
+        phone = (Time.parse(team.planned_start_time) + ((challenge.time_allowed / 2.to_f) * 60).minutes).strftime('%H:%M')
+        expect(phone_in_time(team)).to eq(phone)
       end
     end
 
@@ -54,7 +55,8 @@ RSpec.describe TeamsHelper, type: :helper do
 
       it 'should return expected_phone_in_time if phone_in_time empty' do
         team = build_stubbed(:team, challenge: challenge)
-        expect(phone_in_time(team)).to eq('22:00')
+        phone = (Time.parse(team.planned_start_time) + ((challenge.time_allowed / 2.to_f) * 60).minutes).strftime('%H:%M')
+        expect(phone_in_time(team)).to eq(phone)
       end
     end
   end
@@ -74,7 +76,8 @@ RSpec.describe TeamsHelper, type: :helper do
 
       it 'should return expected_finish_time if finish_time empty' do
         team = build_stubbed(:team, challenge: challenge)
-        expect(finish_time(team)).to eq('23:00')
+        finish = (Time.parse(team.planned_start_time) + challenge.time_allowed.hours).strftime('%H:%M')
+        expect(finish_time(team)).to eq(finish)
       end
     end
 
@@ -92,7 +95,8 @@ RSpec.describe TeamsHelper, type: :helper do
 
       it 'should return expected_finish_time if finish_time empty' do
         team = build_stubbed(:team, challenge: challenge)
-        expect(finish_time(team)).to eq('02:00')
+        finish = (Time.parse(team.planned_start_time) + challenge.time_allowed.hours).strftime('%H:%M')
+        expect(finish_time(team)).to eq(finish)
       end
     end
   end
@@ -359,8 +363,10 @@ RSpec.describe TeamsHelper, type: :helper do
     let(:team_8hr) { create(:team, challenge: eight_hour_challenge) }
 
     it 'should return 30 minutes after finish time' do
-      expect(expected_finish_time_with_padding(team_5hr)).to eq('23:30')
-      expect(expected_finish_time_with_padding(team_8hr)).to eq('02:30')
+      finish5 = (Time.parse(team_5hr.planned_start_time) + five_hour_challenge.time_allowed.hours + 30.minutes).strftime('%H:%M')
+      finish8 = (Time.parse(team_8hr.planned_start_time) + eight_hour_challenge.time_allowed.hours + 30.minutes).strftime('%H:%M')
+      expect(expected_finish_time_with_padding(team_5hr)).to eq(finish5)
+      expect(expected_finish_time_with_padding(team_8hr)).to eq(finish8)
     end
   end
 

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Team, type: :model do
   subject { build_stubbed(:team) }
   let(:groups) do
-    [:scouts, :explorers, :non_competitive,
-     :network, :leaders, :guides, :rangers]
+    %i[scouts explorers non_competitive
+       network leaders guides rangers]
   end
 
   describe 'associations' do
@@ -118,7 +118,7 @@ RSpec.describe Team, type: :model do
 
       it { is_expected.to validate_presence_of(:planned_start_time) }
 
-      [:planned_start_time, :actual_start_time, :phone_in_time, :finish_time]
+      %i[planned_start_time actual_start_time phone_in_time finish_time]
         .each do |time|
         it { is_expected.to allow_values(*VALID_TIMES).for(time) }
 
@@ -127,6 +127,29 @@ RSpec.describe Team, type: :model do
             .for(time)
             .with_message('must be a valid 24-hour time')
         end
+      end
+    end
+
+    context 'when given a planned_start_time already used in same challenge' do
+      it 'should not allow time to be used' do
+        challenge = create(:challenge)
+        create(:team, challenge: challenge, planned_start_time: '18:00')
+        team = build_stubbed(:team, challenge: challenge, planned_start_time: '18:00')
+        team.valid?
+        expect(team.errors[:planned_start_time]).to eq(
+          ['has already been taken']
+        )
+      end
+    end
+
+    context 'when given a planned_start_time already used in another challenge' do
+      it 'should allow time to be used' do
+        challenge = create(:challenge)
+        challenge2 = create(:challenge)
+        create(:team, challenge: challenge, planned_start_time: '18:00')
+        team = build_stubbed(:team, challenge: challenge2, planned_start_time: '18:00')
+        team.valid?
+        expect(team.errors[:planned_start_time]).to eq([])
       end
     end
 
@@ -191,8 +214,8 @@ RSpec.describe Team, type: :model do
       end
     end
 
-    BONUSES = [
-      :bonus_one, :bonus_two, :bonus_three, :bonus_four, :bonus_five
+    BONUSES = %i[
+      bonus_one bonus_two bonus_three bonus_four bonus_five
     ].freeze
 
     context 'when team gets bonus based on specific checkpoints' do

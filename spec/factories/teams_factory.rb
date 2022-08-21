@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :team do
     sequence(:name) { |n| "Team #{n}" }
 
-    planned_start_time '18:00'
+    sequence(:planned_start_time) { |n| (Time.now + n.minutes).strftime('%H:%M').to_s }
 
     association :challenge
 

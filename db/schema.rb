@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220625223404) do
+ActiveRecord::Schema.define(version: 20220821182114) do
 
   create_table "challenges", force: :cascade do |t|
     t.date     "date"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(version: 20220625223404) do
     t.boolean  "dropped_out",        default: false
     t.boolean  "forgot_to_phone_in", default: false
   end
+
+  add_index "teams", ["challenge_id", "planned_start_time"], name: "index_teams_on_challenge_id_and_planned_start_time", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

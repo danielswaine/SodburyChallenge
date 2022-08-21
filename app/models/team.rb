@@ -34,7 +34,9 @@ class Team < ActiveRecord::Base
   validates :group, presence: true,
                     inclusion: { in: Team.groups.keys }
 
-  validates :planned_start_time, presence: true
+  validates :planned_start_time, presence: true, uniqueness: {
+    scope: %i[challenge_id planned_start_time]
+  }
 
   validates_each :planned_start_time, :actual_start_time,
                  :phone_in_time, :finish_time do |record, attr, value|
