@@ -12,10 +12,8 @@ prawn_document(page_size: 'A4') do |pdf|
 
   pdf.table(
     [
-      ['Team Number:', 'Team Name:'],
-      ['Start Time:', ''],
-      ['Due Finish Time:', 'Finish Time:'],
-      ['Due Phone In Time:', 'Phone In Time:']
+      ['Team Number:', 'Team Name:', ''],
+      ['Start Time:', 'Due Phone In Time:', 'Due Finish Time:']
     ], width: 525, cell_style: { border_width: 0 }
   )
 
@@ -113,7 +111,7 @@ prawn_document(page_size: 'A4') do |pdf|
       bonus = eval(bonus)
 
       pdf.table(
-        if bonus[:visit].is_a?(Array)  # Bonus based on specific checkpoints.
+        if bonus[:visit].is_a?(Array) # Bonus based on specific checkpoints.
           [[
             "Bonus #{idx} - visiting checkpoints " \
             "#{bonus[:visit].to_sentence(last_word_connector: ' and ')} = " \
