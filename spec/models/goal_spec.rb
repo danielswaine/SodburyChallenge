@@ -33,6 +33,27 @@ RSpec.describe Goal, type: :model do
       end
     end
 
+    context 'when validating if a start point already exists' do
+      it 'should validate that a start point does not already exist' do
+        challenge = create(:challenge)
+        create(:goal, challenge: challenge, start_point: true)
+        new_goal = build_stubbed(:goal, challenge: challenge, start_point: true)
+        new_goal.valid?
+        expect(new_goal.errors[:start_point]).to eq(
+          ['has already been taken']
+        )
+      end
+
+      it 'should allow start point even if one exists on another challenge' do
+        old_challenge = create(:challenge)
+        create(:goal, challenge: old_challenge, start_point: true)
+        new_challenge = create(:challenge)
+        new_goal = build_stubbed(:goal, challenge: new_challenge, start_point: true)
+        new_goal.valid?
+        expect(new_goal.errors[:start_point]).to eq([])
+      end
+    end
+
     context 'when validating if checkpoint used before' do
       it 'should validate that the goal has not been added previously' do
         challenge = create(:challenge)

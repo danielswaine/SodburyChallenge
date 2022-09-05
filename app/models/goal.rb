@@ -24,13 +24,15 @@ class Goal < ActiveRecord::Base
     if: 'points_value.present?'
   )
 
+  validates_uniqueness_of :start_point,
+                          scope: :challenge_id,
+                          conditions: -> { where(start_point: true) }
+
   validate :goal_cannot_be_both_start_and_compulsory
 
   private
 
   def goal_cannot_be_both_start_and_compulsory
-    if start_point && compulsory
-      errors.add(:base, 'A goal cannot be both a start point and compulsory.')
-    end
+    errors.add(:base, 'A goal cannot be both a start point and compulsory.') if start_point && compulsory
   end
 end
