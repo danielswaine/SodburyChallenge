@@ -15,9 +15,11 @@ function updateMap () {
     $(table).children('tr').remove()
 
     $.each(data.locations, function (_, value) {
+      ts = new Date(value.timestamp).toLocaleString('en-GB', { timeZone: 'Europe/London' })
+
       table.append('<tr>' +
                     '<td>' + value.team_number + '</td>' +
-                    '<td>' + value.timestamp + '</td>' +
+                    '<td>' + ts + '</td>' +
                     '<td>' + value.latitude + '</td>' +
                     '<td>' + value.longitude + '</td>' +
                     '<td>' + value.speed + '</td>' +
@@ -31,7 +33,7 @@ function updateMap () {
         lng: parseFloat(value.longitude)
       }
 
-      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + value.timestamp
+      var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + ts
 
       /* Add event listener to the row just appended (last row in table)    */
       /* which will pan to that location in the map                         */

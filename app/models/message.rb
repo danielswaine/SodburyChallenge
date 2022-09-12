@@ -83,7 +83,7 @@ class Message < ActiveRecord::Base
 
     messages.map do |m|
       battery_level = battery_character_to_word(m.battery_level)
-      timestamp = m.gps_fix_timestamp.strftime('%d/%m/%Y %H:%M')
+      timestamp = m.gps_fix_timestamp
       dbm = rssi_to_dbm(m.rssi)
 
       # Remove less/greater than from string
