@@ -1,4 +1,5 @@
 var markers = []
+var routes = []
 
 function updateMap () {
   var table = $('table.locations tbody')
@@ -12,9 +13,12 @@ function updateMap () {
 
     /* Clear down ready for new data */
     markers.forEach(function (e) { e.setMap(null) })
+    routes.forEach(function (e) { e.setMap(null) })
     $(table).children('tr').remove()
 
     $.each(data.locations, function (_, value) {
+      route = value.route
+      value = value.latest
       ts = new Date(value.timestamp).toLocaleString('en-GB', { timeZone: 'Europe/London' })
 
       table.append('<tr>' +
@@ -33,18 +37,37 @@ function updateMap () {
         lng: parseFloat(value.longitude)
       }
 
+      var routeCoordinates = route.map(function(e) {
+        return {
+          lat: parseFloat(e.latitude),
+          lng: parseFloat(e.longitude)
+        }
+      })
+
+      // routeColour = '#' + Math.floor(Math.random()*16777215).toString(16)
+      routes[index] = new google.maps.Polyline({
+        path: routeCoordinates,
+        geodesic: true,
+        strokeColor: 'green',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      })
+
       var info = '<b>Team:</b> ' + value.team_number + '<br><b>Time:</b> ' + ts
 
       /* Add event listener to the row just appended (last row in table)    */
-      /* which will pan to that location in the map                         */
+      /* which will pan to that location in the map and show the route      */
       var currentRow = tableRef.rows[tableRef.rows.length - 1]
       var teamPosition = new google.maps.LatLng(position.lat, position.lng)
       currentRow.addEventListener('click', function () {
+        routes.forEach(function (e) { e.setMap(null) })
+        routes[value.team_number - 1].setMap(map)
         map.panTo(teamPosition)
-        map.setZoom(15)
+        // map.setZoom(15)
       })
 
       markers[index] = addMarker(map, position, value.team_number, 'green', info)
+      // markers[index] = addMarker(map, position, value.team_number, routeColour, info)
       markers[index].setMap(map)
       index++
     })

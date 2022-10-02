@@ -75,31 +75,41 @@ class Message < ActiveRecord::Base
   end
 
   def self.find_messages_from_challenge_date(date)
-    latest_ids = Message.where(gps_fix_timestamp: (date - 1.week)..(date + 1.week))
-                        .order(gps_fix_timestamp: :desc)
-                        .group_by(&:team_number)
-                        .map { |_group, array| array.first.id }
-    messages = Message.where(id: latest_ids).order(:team_number)
+    messages = Message.where(gps_fix_timestamp: (date - 1.week)..(date + 1.week))
+                      .order(:team_number)
+                      .order(gps_fix_timestamp: :desc)
+                      .group_by(&:team_number)
 
-    messages.map do |m|
-      battery_level = battery_character_to_word(m.battery_level)
-      timestamp = m.gps_fix_timestamp
-      dbm = rssi_to_dbm(m.rssi)
-
-      # Remove less/greater than from string
-      dbm_word = dbm_to_word(dbm.gsub(/([<>]= )?/, '').to_i)
+    messages.map do |group, array|
+      arr = array.sort_by(&:gps_fix_timestamp).reverse
+      latest = arr.first
 
       {
-        id: m.id,
-        team_number: m.team_number,
-        timestamp: timestamp,
-        latitude: m.latitude,
-        longitude: m.longitude,
-        battery: "#{battery_level} (#{m.battery_voltage}V)",
-        speed: m.speed,
-        rssi: "#{dbm} (#{dbm_word})",
-        mobile_number: m.mobile_number
+        team_number: group,
+        latest: format_message(latest),
+        route: arr.map { |m| format_message(m) },
       }
     end
+  end
+
+  def self.format_message(message)
+    battery_level = battery_character_to_word(message.battery_level)
+    timestamp = message.gps_fix_timestamp
+    dbm = rssi_to_dbm(message.rssi)
+
+    # Remove less/greater than from string
+    dbm_word = dbm_to_word(dbm.gsub(/([<>]= )?/, '').to_i)
+
+    {
+      id: message.id,
+      team_number: message.team_number,
+      timestamp: timestamp,
+      latitude: message.latitude,
+      longitude: message.longitude,
+      battery: "#{battery_level} (#{message.battery_voltage}V)",
+      speed: message.speed,
+      rssi: "#{dbm} (#{dbm_word})",
+      mobile_number: message.mobile_number
+    }
   end
 end
