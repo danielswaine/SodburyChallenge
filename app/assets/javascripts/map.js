@@ -59,9 +59,11 @@ function updateMap () {
       /* which will pan to that location in the map and show the route      */
       var currentRow = tableRef.rows[tableRef.rows.length - 1]
       var teamPosition = new google.maps.LatLng(position.lat, position.lng)
+      var route = routes[index]
+
       currentRow.addEventListener('click', function () {
         routes.forEach(function (e) { e.setMap(null) })
-        routes[value.team_number - 1].setMap(map)
+        route.setMap(map)
         map.panTo(teamPosition)
         // map.setZoom(15)
       })
