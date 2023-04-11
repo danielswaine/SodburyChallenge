@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220821182114) do
+ActiveRecord::Schema.define(version: 20230324142846) do
 
   create_table "challenges", force: :cascade do |t|
     t.date     "date"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20220821182114) do
     t.boolean  "compulsory",    default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.boolean  "start_point"
+    t.boolean  "start_point",   default: false
   end
 
   create_table "members", force: :cascade do |t|

@@ -98,20 +98,103 @@ RSpec.describe Challenge, type: :model do
   end
 
   describe '.find_goals_from_same_challenge_date' do
-    context 'with goals from one challenge' do
-      it 'should format data'
+    context 'with goal from one challenge' do
+      it 'should format data' do
+        challenge = create(:challenge)
+        goal = create(:goal, challenge: challenge)
+        expect(Challenge.find_goals_from_same_challenge_date(challenge.date)).to eq(
+          [
+            {
+              number: goal.checkpoint.number,
+              grid_reference: goal.checkpoint.grid_reference,
+              description: goal.checkpoint.description,
+              points_value: [{
+                time_allowed: goal.challenge.time_allowed,
+                points_value: goal.points_value,
+                start: goal.start_point,
+                compulsory: goal.compulsory
+              }]
+            }
+          ]
+        )
+      end
     end
 
-    context 'with goals from multiple challenges' do
-      it 'should format data'
+    context 'with same goal in multiple challenges' do
+      it 'should format data' do
+        checkpoint = create(:checkpoint)
+        challenge = create(:challenge, date: Date.today)
+        challenge2 = create(:challenge, :eight_hour, date: Date.today)
+        goal  = create(:goal, checkpoint: checkpoint, challenge: challenge)
+        goal2 = create(:goal, checkpoint: checkpoint, challenge: challenge2, points_value: 20)
+        expect(Challenge.find_goals_from_same_challenge_date(challenge.date)).to eq(
+          [
+            {
+              number: goal.checkpoint.number,
+              grid_reference: goal.checkpoint.grid_reference,
+              description: goal.checkpoint.description,
+              points_value: [
+                {
+                  time_allowed: goal.challenge.time_allowed,
+                  points_value: goal.points_value,
+                  start: goal.start_point,
+                  compulsory: goal.compulsory
+                },
+                {
+                  time_allowed: goal2.challenge.time_allowed,
+                  points_value: goal2.points_value,
+                  start: goal2.start_point,
+                  compulsory: goal2.compulsory
+                }
+              ]
+            }
+          ]
+        )
+      end
     end
 
     context 'with start goal' do
-      it 'should format data'
+      it 'should format data' do
+        challenge = create(:challenge)
+        goal = create(:goal, :start_point, challenge: challenge)
+        expect(Challenge.find_goals_from_same_challenge_date(challenge.date)).to eq(
+          [
+            {
+              number: goal.checkpoint.number,
+              grid_reference: goal.checkpoint.grid_reference,
+              description: goal.checkpoint.description,
+              points_value: [{
+                time_allowed: goal.challenge.time_allowed,
+                points_value: goal.points_value,
+                start: goal.start_point,
+                compulsory: goal.compulsory
+              }]
+            }
+          ]
+        )
+      end
     end
 
     context 'with compulsory goal' do
-      it 'should format data'
+      it 'should format data' do
+        challenge = create(:challenge)
+        goal = create(:goal, :compulsory, challenge: challenge)
+        expect(Challenge.find_goals_from_same_challenge_date(challenge.date)).to eq(
+          [
+            {
+              number: goal.checkpoint.number,
+              grid_reference: goal.checkpoint.grid_reference,
+              description: goal.checkpoint.description,
+              points_value: [{
+                time_allowed: goal.challenge.time_allowed,
+                points_value: goal.points_value,
+                start: goal.start_point,
+                compulsory: goal.compulsory
+              }]
+            }
+          ]
+        )
+      end
     end
   end
 end
