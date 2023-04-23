@@ -26,7 +26,6 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          bundle install -with test
           rake db:create
           rake db:schema:load
-          bundle exec rspec
+          bundle exec rspec spec
