@@ -19,7 +19,7 @@ jobs:
           ruby-version: '2.2.10'
           bundler-cache: true
 
-      - name: Setup Node  
+      - name: Setup Node
         uses: actions/setup-node@v1
 
       - name: Setup Test Database
@@ -28,5 +28,4 @@ jobs:
         run: |
           rake db:create
           rake db:schema:load
-          echo "rspec" >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT
+          rspec
