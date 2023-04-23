@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      
+
 jobs:
   tests:
     name: Tests
@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Setup Ruby and Install Gems
         uses: ruby/setup-ruby@v1
         with:
@@ -21,11 +21,12 @@ jobs:
 
       - name: Setup Node  
         uses: actions/setup-node@v1
-        
+
       - name: Setup Test Database
         env:
           RAILS_ENV: test
         run: |
-          bin/rails db:create db:schema:load
+          rake db:create
+          rake db:schema:load
           echo "rspec" >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
