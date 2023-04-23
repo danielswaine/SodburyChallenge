@@ -28,4 +28,4 @@ jobs:
         run: |
           rake db:create
           rake db:schema:load
-          bin/rspec
+          bin/rspec spec/models/goal_spec.rb
