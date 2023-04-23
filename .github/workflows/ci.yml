@@ -28,4 +28,4 @@ jobs:
         run: |
           rake db:create
           rake db:schema:load
-          bundle exec rspec spec
+          bin/rspec
