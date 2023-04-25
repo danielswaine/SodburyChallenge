@@ -27,5 +27,5 @@ jobs:
           RAILS_ENV: test
         run: |
           rake db:create
-          rake db:schema:load
-          bin/rspec spec/models/goal_spec.rb
+          rake db:migrate
+          bin/rspec
