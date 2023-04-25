@@ -8,7 +8,7 @@ on:
 jobs:
   tests:
     name: Tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Ruby and Install Gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.2.10'
+          ruby-version: '2.3.1'
           bundler-cache: true
 
       - name: Setup Node
@@ -26,7 +26,6 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          bundle update bcrypt
           rake db:create
           rake db:schema:load
           bin/rspec spec/models/goal_spec.rb
