@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   skip_before_action :verify_authenticity_token, if: :valid_token?
 
   def sms
-    data = params[:Body].split(' ')
+    data = params[:Payload].split(' ')
 
     formatted_params = create_params_from_webhook_data(data)
 
@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
           battery_voltage: data[8],
           battery_level: data[9],
           rssi: data[10],
-          mobile_number: params[:From]
+          mobile_number: params[:SimUniqueName]
         }
       }
     )
