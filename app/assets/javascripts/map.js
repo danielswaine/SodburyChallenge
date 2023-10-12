@@ -161,4 +161,32 @@ function initMap () {
   google.maps.event.addListener(map, 'click', function(event) {
     markers.forEach(function (e) { e.infowindow.close() })
   })
+
+  if ('geolocation' in navigator === false) {
+    alert('Geolocation is not supported by your browser.')
+    return
+  }
+
+  const myLocation = new google.maps.Marker({
+    map,
+    position: center,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillColor: 'blue',
+      fillOpacity: 1,
+      strokeWeight: 0,
+      scale: 6
+    }
+  })
+
+  navigator.geolocation.watchPosition(
+    function (pos) {
+      var lat = pos.coords.latitude
+      var long = pos.coords.longitude
+      myLocation.setPosition(new google.maps.LatLng(lat, long))
+    },
+    function (err) {
+      alert('ERROR - ' + err.code + ' - ' + err.message)
+    }
+  )
 }
