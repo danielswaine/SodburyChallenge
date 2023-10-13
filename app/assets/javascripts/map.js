@@ -1,14 +1,14 @@
 var markers = []
 var routes = []
 
-function updateMap () {
+function updateMap() {
   var table = $('table.locations tbody')
   var tableRef = document.getElementById('team-locations')
 
   $.ajax({
     type: 'GET',
     url: window.location.pathname + '/update'
-  }).done(function evaluate (data) {
+  }).done(function evaluate(data) {
     var index = 0
 
     /* Clear down ready for new data */
@@ -98,7 +98,7 @@ function updateMap () {
   })
 }
 
-function pinSymbol (color) {
+function pinSymbol(color) {
   return {
     path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
     fillColor: color,
@@ -110,7 +110,7 @@ function pinSymbol (color) {
   }
 }
 
-function addMarker (map, pos, num, color, info) {
+function addMarker(map, pos, num, color, info) {
   var infowindow = new google.maps.InfoWindow({
     content: info
   })
@@ -133,7 +133,7 @@ function addMarker (map, pos, num, color, info) {
   return marker
 }
 
-function gridref2latlon (gridref) {
+function gridref2latlon(gridref) {
   var split = gridref.split('-')
   var easting = '3' + split[0] + '0'
   var northing = '1' + split[1] + '0'
@@ -150,25 +150,30 @@ function gridref2latlon (gridref) {
 
 var map
 
-function initMap () {
+function initMap() {
   updateMap()
   setInterval(updateMap, 150000)
 
   var center = new google.maps.LatLng(51.593418, -2.399274)
-  map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 12})
-
-  /* Close all info windows when clicking on map */
-  google.maps.event.addListener(map, 'click', function(event) {
-    markers.forEach(function (e) { e.infowindow.close() })
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: center,
+    zoom: 12,
   })
 
+  /* Close all info windows when clicking on map */
+  google.maps.event.addListener(map, 'click', function (event) {
+    markers.forEach(function (e) {
+      e.infowindow.close()
+    })
+  })
+
+  /* Show and track user's location */
   if ('geolocation' in navigator === false) {
     alert('Geolocation is not supported by your browser.')
     return
   }
 
   var myLocation = new google.maps.Marker({
-    position: center,
     icon: {
       path: google.maps.SymbolPath.CIRCLE,
       fillColor: 'blue',
