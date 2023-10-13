@@ -167,8 +167,7 @@ function initMap () {
     return
   }
 
-  const myLocation = new google.maps.Marker({
-    map,
+  var myLocation = new google.maps.Marker({
     position: center,
     icon: {
       path: google.maps.SymbolPath.CIRCLE,
@@ -178,6 +177,8 @@ function initMap () {
       scale: 6
     }
   })
+
+  myLocation.setMap(map)
 
   navigator.geolocation.watchPosition(
     function (pos) {
