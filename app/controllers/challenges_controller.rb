@@ -3,7 +3,7 @@ class ChallengesController < ApplicationController
   before_action :find_challenge, only: %i[
     show results update publish
     destroy statistics clipper
-    map_update
+    map_update map
   ]
   before_action :all_teams_scored?, only: [:publish]
 
