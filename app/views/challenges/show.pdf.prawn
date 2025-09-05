@@ -8,14 +8,14 @@ prawn_document(page_size: 'A4') do |pdf|
   pdf.text "Sodbury Challenge #{year} - #{time_allowed} Hour",
            align: :center, style: :bold, size: 24
 
-  pdf.move_down 20
+  #pdf.move_down 10
 
-  pdf.table(
-    [
-      ['Team Number:', 'Team Name:', ''],
-      ['Start Time:', 'Due Phone In Time:', 'Due Finish Time:']
-    ], width: 525, cell_style: { border_width: 0 }
-  )
+  #pdf.table(
+  #  [
+  #    ['Team Number:', 'Team Name:', ''],
+  #    ['Start Time:', 'Due Phone In Time:', 'Due Finish Time:']
+  #  ], width: 525, cell_style: { border_width: 0 }
+  #)
 
   pdf.move_down 20
 
