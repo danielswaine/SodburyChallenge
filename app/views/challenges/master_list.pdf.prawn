@@ -25,10 +25,10 @@ prawn_document(page_size: 'A4', page_layout: :landscape) do |pdf|
       time_allowed = "#{a.challenge.time_allowed}hr"
       points_value = a.points_value.to_s
 
-      "#{time_allowed}#{start}#{compulsory} (#{points_value})\n"
+      "#{time_allowed}#{start}#{compulsory} (#{points_value})"
     end
 
-    sections.to_sentence(two_words_connector: '')
+    sections.to_sentence(two_words_connector: ', ')
   end
 
   unless @goals.empty?
