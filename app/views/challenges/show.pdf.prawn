@@ -72,7 +72,11 @@ prawn_document(page_size: 'A4') do |pdf|
   pdf.text 'Phone in Number: 01234 567890',
            align: :center, style: :bold, size: 14
 
-  pdf.move_down 20
+  if time_allowed == 8
+    pdf.start_new_page
+  else
+    pdf.move_down 20
+  end
 
   pdf.table(
     [['Points Calculation', '']],
