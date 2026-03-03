@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'about' => 'static_pages#about'
   get 'kit' => 'static_pages#kit'
   get 'rules' => 'static_pages#rules'
+  get 'faq' => 'static_pages#faq'
   get 'archive' => 'static_pages#archive'
   get 'archive/:year' => 'static_pages#year_archive', as: 'year_archive'
   get 'results' => 'static_pages#results', as: 'results'

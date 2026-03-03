@@ -9,6 +9,8 @@ class StaticPagesController < ApplicationController
 
   def about; end
 
+  def faq; end
+
   def archive
     @challenges = Challenge.where(published: true)
                            .order(date: :desc)

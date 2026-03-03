@@ -133,6 +133,13 @@ RSpec.describe StaticPagesController, type: :request do
     end
   end
 
+  describe 'faq' do
+    it 'should have frequently asked questions' do
+      get faq_path
+      expect(response.body).to include('Frequently Asked Questions')
+    end
+  end
+
   describe 'archive' do
     it 'assigns @challenges' do
       past = create(:challenge, :published, date: 1.year.ago)
